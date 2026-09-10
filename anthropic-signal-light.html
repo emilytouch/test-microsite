@@ -1,0 +1,839 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <!-- Google Tag Manager -->
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','GTM-MV5W5N6');</script>
+<!-- End Google Tag Manager -->
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="color-scheme" content="light only">
+<meta name="theme-color" content="#FFFFFF">
+<title>ANTU & ANTY: 2x Leveraged & Inverse Anthropic ETFs | ProShares</title>
+<meta name="description" content="ANTU is a 2x leveraged Anthropic ETF. ANTY is an inverse Anthropic ETF targeting -2x daily returns. See how to get 2x leveraged or short exposure to Anthropic (ANTH) stock in a single ticker.">
+
+<!-- ================================================================
+     ANALYTICS / MARKETING TAGS — everything your team needs to add
+     lives in this one block. Nothing else in the page needs to
+     change to wire any of these up; see the "engagement tracking"
+     comment further down in the <script> for what events already
+     fire and are ready for these tags to listen for.
+
+     BEFORE ADDING ANYTHING HERE: check whether GA4, HubSpot tracking,
+     and ad pixels are already injected site-wide on proshares.com via
+     Optimizely. If this page ends up served at a path on proshares.com
+     (e.g. via reverse proxy) rather than through Optimizely's own
+     template, it will NOT automatically inherit those site-wide tags
+     or the site's cookie-consent banner — they need to be added here
+     explicitly, exactly once, to avoid double-counting if Optimizely
+     ALSO happens to inject them at the routing layer.
+
+     1) GOOGLE ANALYTICS (GA4)
+        Paste your existing ProShares.com GA4 snippet here so this
+        page rolls into the same property/reports as the rest of the
+        site. Example:
+
+        <script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"></script>
+        <script>
+          window.dataLayer = window.dataLayer || [];
+          function gtag(){dataLayer.push(arguments);}
+          gtag('js', new Date());
+          gtag('config', 'G-XXXXXXXXXX');
+        </script>
+
+        Once gtag() exists on the page, the trackEvent() calls already
+        wired into the toggle, dropdown, mobile menu, FAQ, and signup
+        below will automatically start sending GA4 events — no other
+        code changes needed.
+
+     2) HUBSPOT
+        Two ways to use HubSpot here — pick based on how much control
+        you want over the form's look vs. how much you want HubSpot's
+        team to manage fields without touching code:
+
+        Option A — HubSpot's own embedded form (simplest to maintain,
+        but you lose some control over exact styling, since HubSpot
+        renders its own form markup):
+          <script src="https://js.hsforms.net/forms/embed/YOUR_PORTAL_ID.js" defer></script>
+          then replace the <form id="signupForm"> below with HubSpot's
+          embed <div data-hs-forms-root ...> snippet from your portal.
+
+        Option B — keep this page's custom-styled form exactly as
+        designed, and submit its data into HubSpot behind the scenes
+        (recommended, since the orange banner's form was built to
+        match the page). This is already wired up below in the
+        doSignup() function — you just need to:
+          a) Paste your HubSpot tracking code loader here so the
+             "hutk" cookie exists (needed for HubSpot to attribute
+             the submission to a visitor/session):
+             <script type="text/javascript" id="hs-script-loader" async defer src="https://js.hs-scripts.com/YOUR_PORTAL_ID.js"></script>
+          b) Fill in HUBSPOT_PORTAL_ID and HUBSPOT_FORM_GUID in the
+             doSignup() function in the <script> below.
+          c) In HubSpot, create a form with two fields matching what's
+             already sent: "email" and "investor_type" (values sent
+             are "self" or "pro") — or rename the fields in doSignup()
+             to match whatever internal names you create instead.
+
+     3) AD PIXELS (Meta, LinkedIn, Google Ads, etc.)
+        Paste each platform's base pixel snippet here, exactly as they
+        give it to you. Examples:
+
+        Meta Pixel:
+          <script>
+            !function(f,b,e,v,n,t,s){...} // Meta's standard base code
+            fbq('init', 'YOUR_PIXEL_ID');
+            fbq('track', 'PageView');
+          </script>
+
+        LinkedIn Insight Tag:
+          <script type="text/javascript">
+            _linkedin_partner_id = "YOUR_PARTNER_ID";
+            window._linkedin_data_partner_ids = window._linkedin_data_partner_ids || [];
+            window._linkedin_data_partner_ids.push(_linkedin_partner_id);
+          </script>
+
+        Once these are loaded, the same trackEvent() calls below will
+        also fire fbq('track', ...) / lintrk('track', ...) events
+        automatically wherever applicable — the helper checks whether
+        each pixel exists before calling it, so it's safe to add these
+        one at a time without breaking anything in the meantime.
+================================================================= -->
+
+
+<!-- ================================================================
+  DESIGN NOTES (delete before shipping):
+  This is the LIGHT variant of the "Signal" design (same layout, type,
+  and interactions as the dark version), with the base tokens flipped
+  and the accent hues deepened for legibility on white:
+    Color   — page #FFFFFF, surface #F3F4F8, text #12161F, dim #5B6273,
+              long (bull/ANTU) #CC785C, short (bear/ANTY) #3C5A1A
+    Type    — display/data: JetBrains Mono, body: Manrope (unchanged)
+    Layout  — identical structure/signature to the dark version
+  All fund data is placeholder (pre-launch); all Anthropic company stats
+  are sourced from Anthropic's own funding/press disclosures as of mid-2026.
+  Registration-statement (red herring) language sits in the top bar and
+  footer per SEC pre-effectiveness requirements.
+  SEO/AEO NOTE: title, meta description, and FAQPage JSON-LD below are
+  built around the target phrases: "2x anthropic", "2x anthropic etf",
+  "leveraged anthropic etf", "inverse anthropic etf", "how to short
+  anthropic", "2x exposure to anthropic", "best anthropic etf", "best
+  leveraged anthropic etf". Keep the JSON-LD questions text-identical
+  to the visible FAQ accordion below — mismatched schema vs. visible
+  copy can get FAQ rich-result eligibility revoked.
+================================================================= -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="css/anthropic-signal.css">
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
+<script type="application/ld+json" id="faqJsonLd">
+{
+  "@context": "https://schema.org",
+  "@graph": [{
+    "@type": "FAQPage",
+    "mainEntity": [
+      {"@type":"Question","name":"What is the best Anthropic ETF?","acceptedAnswer":{"@type":"Answer","text":"The right Anthropic ETF depends on your view. ANTU targets 2x the daily returns of Anthropic (ANTH) common stock for a bullish view, and ANTY targets -2x for a bearish view. Neither fund has launched yet; ProShares is not a financial advisor and cannot tell you which is best for you."}},
+      {"@type":"Question","name":"What is ANTU, the 2x Anthropic ETF?","acceptedAnswer":{"@type":"Answer","text":"ANTU is a leveraged single-stock ETF that targets 2x the daily returns of Anthropic (ANTH) common stock, offering 2x leveraged exposure through a single ticker in a standard brokerage account."}},
+      {"@type":"Question","name":"Is there an inverse or short Anthropic ETF?","acceptedAnswer":{"@type":"Answer","text":"Yes. ANTY is an inverse Anthropic ETF that targets -2x the daily returns of Anthropic (ANTH) common stock, built for investors who want to short Anthropic or hedge existing exposure without a margin account."}},
+      {"@type":"Question","name":"How can I get 2x leveraged exposure to Anthropic?","acceptedAnswer":{"@type":"Answer","text":"ANTU is designed to give 2x daily leveraged exposure to Anthropic (ANTH) stock through a single ETF ticker, without borrowing on margin or using options or futures directly."}},
+      {"@type":"Question","name":"How does ANTU target 2x daily?","acceptedAnswer":{"@type":"Answer","text":"ANTU seeks to deliver 2x the daily performance of Anthropic primarily through swap agreements and direct holdings of Anthropic (ANTH) shares, rebalanced daily to maintain its target."}},
+      {"@type":"Question","name":"What is the difference between ANTH and ANTU?","acceptedAnswer":{"@type":"Answer","text":"ANTH is the ticker for Anthropic's common stock itself. ANTU is a separate ETF that targets 2x ANTH's daily return, so ANTU is expected to move roughly twice as much as ANTH on any given trading day, before fees."}},
+      {"@type":"Question","name":"What does 2x daily target mean for a leveraged ETF?","acceptedAnswer":{"@type":"Answer","text":"A 2x daily target means the fund aims to deliver twice the performance of Anthropic stock for a single trading day, before fees and expenses. It is not a target for any period longer than one day."}},
+      {"@type":"Question","name":"How does volatility affect the performance of geared funds over periods other than one day?","acceptedAnswer":{"@type":"Answer","text":"All else equal, geared funds tend to underperform their daily target in volatile markets, while outperforming their daily target in calmer, less volatile conditions."}},
+      {"@type":"Question","name":"Why might investors use ANTU or ANTY instead of margin borrowing or short selling Anthropic stock?","acceptedAnswer":{"@type":"Answer","text":"ANTU and ANTY are designed to target 2x and -2x daily exposure to Anthropic through a single ticker in a standard brokerage account, without opening a margin account, borrowing shares to short, or meeting margin calls. Maximum loss is generally limited to the amount invested in the fund."}},
+      {"@type":"Question","name":"Can I trade options on ANTU or ANTY?","acceptedAnswer":{"@type":"Answer","text":"Options availability for ANTU and ANTY will depend on exchange listing standards once each fund launches and is not yet confirmed. Check back once trading begins."}},
+      {"@type":"Question","name":"What does Anthropic do?","acceptedAnswer":{"@type":"Answer","text":"Anthropic develops large language models and advanced AI systems designed to be reliable, interpretable, and steerable. Anthropic's technology spans a wide range of applications such as coding assistance, enterprise productivity, research, customer service and content generation."}},
+      {"@type":"Question","name":"How does Anthropic make money?","acceptedAnswer":{"@type":"Answer","text":"Anthropic generates revenue mainly by selling access to its Claude AI models. Businesses and developers pay for API access to build Claude into their own products, including tools like Claude Code, while individuals pay for subscription access to the Claude app. Enterprise and developer use reportedly accounts for roughly 80% of Anthropic's revenue, with consumer subscriptions making up the rest."}},
+      {"@type":"Question","name":"Who does Anthropic compete with?","acceptedAnswer":{"@type":"Answer","text":"Anthropic's primary competitors are other companies building frontier AI models, most notably OpenAI (maker of ChatGPT), Google DeepMind, and Meta. It's a capital-intensive, fast-moving race where competitive positioning can shift quickly as new models are released."}},
+      {"@type":"Question","name":"What is Claude?","acceptedAnswer":{"@type":"Answer","text":"Claude is the name of Anthropic's family of AI models. It's available to individuals through a subscription app, and to businesses and developers through API access and tools like Claude Code, spanning uses such as coding assistance, enterprise productivity, research, customer service, and content generation."}},
+      {"@type":"Question","name":"What is an LLM?","acceptedAnswer":{"@type":"Answer","text":"LLM stands for large language model — a type of AI system trained on large amounts of text to understand and generate human-like language. Claude, ChatGPT, and Gemini are all examples of large language models, each built and trained by a different company."}},
+      {"@type":"Question","name":"What should investors understand before investing in a leveraged single-stock ETF?","acceptedAnswer":{"@type":"Answer","text":"Leveraged and inverse single-stock ETFs pursue a daily objective and can be significantly more volatile than diversified funds. Because they track one company, they carry company-specific risk with no diversification cushion. Investment results over periods other than one day will differ from the daily target over the time the fund is held. These differences may be significant. Investors should review the prospectus carefully before investing."}},
+      {"@type":"Question","name":"Can I invest in ANTU or ANTY today?","acceptedAnswer":{"@type":"Answer","text":"Not yet. Each fund's registration statement filed with the SEC has not been declared effective, and shares cannot be sold until it is. Sign up on this page to be notified the moment trading begins."}}
+    ]
+  }]
+}
+</script>
+
+</head>
+<body data-mode="long">
+  <!-- Google Tag Manager (noscript) -->
+  <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-MV5W5N6"
+  height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+  <!-- End Google Tag Manager (noscript) -->
+<header>
+  <div class="wrap">
+    <button class="menu-toggle" id="menuToggle" onclick="toggleMobileNav()" aria-label="Menu" aria-expanded="false">
+      <span></span><span></span><span></span>
+    </button>
+    <div class="logo-tag">
+      <a href="https://www.proshares.com/" class="return-pill" aria-label="This is a microsite. Return to ProShares.com">
+        <span class="return-arrow">&larr;</span>
+        <span class="return-text">return to</span>
+        <img src="assets/images/Logo_ProShares_Full_Wordmark_White.png" alt="ProShares" style="height:20px; width:auto; display:block;">
+      </a>
+      <span class="logo-divider"></span>
+      <div class="nav-dropdown" id="etfsDropdown">
+        <button class="dropdown-trigger" onclick="toggleEtfsDropdown()" aria-expanded="false">
+          Leveraged &amp; Inverse ETFs
+          <svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M2.5 4.5L6 8l3.5-3.5"/></svg>
+        </button>
+        <!-- Add more ETF category links any time — just drop another
+             <a href="...">Label</a> in here, no other changes needed. -->
+        <div class="dropdown-menu" id="etfsDropdownMenu">
+          <a href="#">Single-Stock ETFs</a>
+          <a href="#">Commodities ETFs</a>
+          <a href="https://www.proshares.com/strategies/nasdaq-100-etfs">Nasdaq-100 ETFs</a>
+          <a href="https://www.proshares.com/strategies/cryptocurrency-etf-investing-strategies">Crypto-Linked ETFs</a>
+          <a href="https://www.proshares.com/our-etfs/find-leveraged-and-inverse-etfs">All ETFs</a>
+        </div>
+      </div>
+      <span class="logo-divider link-divider"></span>
+      <a href="https://www.proshares.com/resources/geared-faqs" class="header-link">How They Work</a>
+    </div>
+    <div class="header-right">
+      <nav>
+        <a href="#fundDetails">Fund Details</a>
+        <a href="#why">Anthropic at a Glance</a>
+        <a href="#faq">FAQ</a>
+      </nav>
+      <div class="social-links">
+        <a href="https://x.com/ProShares" aria-label="X"><img src="assets/images/X-logo-white.svg"/></a>
+        <a href="https://www.instagram.com/proshares/" aria-label="Instagram"><img src="assets/images/Instagram_Glyph_White.svg" /></a>
+        <a href="#" aria-label="YouTube"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="white" class="bi bi-youtube" viewBox="0 0 16 16">
+          <path d="M8.051 1.999h.089c.822.003 4.987.033 6.11.335a2.01 2.01 0 0 1 1.415 1.42c.101.38.172.883.22 1.402l.01.104.022.26.008.104c.065.914.073 1.77.074 1.957v.075c-.001.194-.01 1.108-.082 2.06l-.008.105-.009.104c-.05.572-.124 1.14-.235 1.558a2.01 2.01 0 0 1-1.415 1.42c-1.16.312-5.569.334-6.18.335h-.142c-.309 0-1.587-.006-2.927-.052l-.17-.006-.087-.004-.171-.007-.171-.007c-1.11-.049-2.167-.128-2.654-.26a2.01 2.01 0 0 1-1.415-1.419c-.111-.417-.185-.986-.235-1.558L.09 9.82l-.008-.104A31 31 0 0 1 0 7.68v-.123c.002-.215.01-.958.064-1.778l.007-.103.003-.052.008-.104.022-.26.01-.104c.048-.519.119-1.023.22-1.402a2.01 2.01 0 0 1 1.415-1.42c.487-.13 1.544-.21 2.654-.26l.17-.007.172-.006.086-.003.171-.007A100 100 0 0 1 7.858 2zM6.4 5.209v4.818l4.157-2.408z"/>
+        </svg></a>
+        <a href="https://www.linkedin.com/company/proshare-advisors-llc/" aria-label="LinkedIn"><img src="assets/images/LinkedIn-white.png" /></a>
+      </div>
+    </div>
+  </div>
+  <div class="mobile-nav" id="mobileNav">
+    <a href="#fundDetails" onclick="closeMobileNav()">Fund Details</a>
+    <a href="#why" onclick="closeMobileNav()">Anthropic at a Glance</a>
+    <a href="#faq" onclick="closeMobileNav()">FAQ</a>
+    <a href="#" onclick="closeMobileNav()">Leveraged &amp; Inverse ETFs</a>
+    <a href="#" onclick="closeMobileNav()">Single-Stock ETFs</a>
+    <a href="#" onclick="closeMobileNav()">Commodities ETFs</a>
+    <a href="https://www.proshares.com/strategies/nasdaq-100-etfs" onclick="closeMobileNav()">Nasdaq-100 ETFs</a>
+    <a href="https://www.proshares.com/strategies/cryptocurrency-etf-investing-strategies" onclick="closeMobileNav()">Crypto-Linked ETFs</a>
+    <a href="https://www.proshares.com/our-etfs/find-leveraged-and-inverse-etfs" onclick="closeMobileNav()">All ETFs</a>
+    <a href="https://www.proshares.com/resources/geared-faqs" onclick="closeMobileNav()">How They Work</a>
+  </div>
+</header>
+
+<!-- ============================================================
+     THIN SIGNUP BANNER — always visible, regardless of SIGNUP_STYLE
+     below. This is intentionally slim (no form fields) since the
+     actual form lives in the popup; clicking "Notify Me" here opens
+     that same popup immediately, rather than waiting for its timer.
+============================================================= -->
+<div class="signup-band-thin" id="notify">
+  <div class="signup-inner-thin">
+    <div class="signup-text-thin" id="signupThinHeading">Be first to trade <span class="signup-tick-thin">ANTU</span> and <span class="signup-tick-thin">ANTY</span>.</div>
+    <div id="signupThinAction">
+      <button class="signup-thin-btn" id="signupThinBtn" onclick="openSignupPopupNow()">Notify Me</button>
+    </div>
+  </div>
+</div>
+
+<!-- ============================================================
+     SIGNUP CONFIRMATION POPUP — this is the tracked conversion
+     moment (see trackEvent('signup_conversion', ...) in the script
+     below). Point ad-platform conversion tags at that same event
+     name if a platform needs a specific trigger to bind to, rather
+     than the form's submit action itself.
+============================================================= -->
+<div class="confirm-overlay" id="confirmOverlay">
+  <div class="confirm-card">
+    <button class="confirm-close" onclick="closeConfirmPopup()" aria-label="Close">&times;</button>
+    <div class="confirm-icon">&check;</div>
+    <h3>You're all set.</h3>
+    <p id="confirmMessage">ProShares will notify you when ANTU and ANTY are available to trade.</p>
+  </div>
+</div>
+
+<!-- ============================================================
+     SIGNUP POPUP — an alternative to the inline orange banner above.
+     Only shows if SIGNUP_STYLE below is set to 'popup' instead of
+     'banner'; appears once, after a delay, and is easy to dismiss
+     (X button, click outside, or Escape). Reuses the exact same
+     .signup-text / .signup-form / .seg / .signup-tick styling as the
+     banner (that's why the card itself is orange) so both versions
+     stay visually consistent with zero duplicated CSS.
+============================================================= -->
+<div class="signup-popup-overlay" id="signupPopupOverlay">
+  <div class="signup-popup-card">
+    <button class="signup-popup-close" onclick="closeSignupPopup()" aria-label="Close">&times;</button>
+    <div class="signup-text">
+      <div class="big" id="signupPopupHeading">Be first to trade <span class="signup-tick">ANTU</span> and <span style="white-space:nowrap;"><span class="signup-tick">ANTY</span>.</span></div>
+      <div class="small" id="signupPopupSubtitle">Get an email alert as soon as the funds list.</div>
+    </div>
+    <form class="signup-form" id="signupFormPopup" onsubmit="return doSignup(event)">
+      <div class="seg">
+        <label><input type="radio" name="investor_type" value="self" checked><span>Individual</span></label>
+        <label><input type="radio" name="investor_type" value="pro"><span>Financial Professional</span></label>
+      </div>
+      <input type="email" name="email" placeholder="you@email.com" required>
+      <button type="submit" id="signupPopupBtn">Notify Me</button>
+    </form>
+  </div>
+</div>
+
+<section class="hero">
+  <img id="heroDecoration" class="hero-blob" src="assets/images/claude-logo.png">
+  <div class="wrap">
+    <!-- ============================================================
+         STATUS BADGE — fully optional. Delete this whole <div id=
+         "statusBadge">...</div> block to remove it entirely; nothing
+         else on the page depends on it.
+         To edit what it says (e.g. once the funds actually list),
+         change the FUND_STATUS_LIVE flag and the two text constants
+         right near the top of the <script> at the bottom of this
+         file — the badge text and its pulsing animation both update
+         automatically from those three lines. No other edits needed.
+    ============================================================= -->
+    <div class="status-badge" id="statusBadge">
+      <span class="status-dot pulse" id="statusDot"></span>
+      <span id="statusText">Pending Anthropic IPO Listing</span>
+    </div>
+    <h1 class="headline">ANTHROP<span>\</span>C<br /><span class="tick mode-long" id="heroTicker">MAGNIFIED</span></h1>
+
+    <div class="choose-label">Choose your conviction</div>
+    <!-- ============================================================
+         TICKER TOGGLE BUTTONS — every text line below is plain text,
+         edit any of it directly:
+           .seg-ticker = the fund's ticker symbol (big, bold)
+           .seg-tag    = the one-line description under the ticker
+           .seg-name   = the fund's full legal/marketing name (small)
+         Delete or blank out any single <span> to remove that line
+         entirely — nothing else needs to change to do that.
+    ============================================================= -->
+    <div class="ticker-toggle" role="group" aria-label="Choose ANTU (long) or ANTY (short)" id="tickerToggle">
+      <div class="ticker-seg-wrap long active">
+        <button class="ticker-seg" onclick="setMode('long')">
+          <span class="seg-ticker">ANTU</span>
+          <span class="seg-tag" id="segTagLong">Long &middot; 2x daily</span>
+          <span class="seg-name">ProShares Ultra Anthropic</span>
+        </button>
+        <a class="seg-link" href="https://www.proshares.com/our-etfs/leveraged-and-inverse/antu" onclick="event.stopPropagation()">View Fund Details &rarr;</a>
+      </div>
+      <div class="ticker-seg-wrap short">
+        <button class="ticker-seg" onclick="setMode('short')">
+          <span class="seg-ticker">ANTY</span>
+          <span class="seg-tag" id="segTagShort">Short &middot; &minus;2x daily</span>
+          <span class="seg-name">ProShares UltraShort Anthropic</span>
+        </button>
+        <a class="seg-link" href="https://www.proshares.com/our-etfs/leveraged-and-inverse/anty" onclick="event.stopPropagation()">View Fund Details &rarr;</a>
+      </div>
+    </div>
+    <p class="reg-caption" id="regCaption"><strong>Registration Statement Notice</strong>The registration statements for ANTU and ANTY have been filed with the SEC but are not yet effective and may be changed. Shares may not be sold, nor may offers to buy be accepted, until each registration statement is effective.</p>
+  </div>
+
+  <div class="ticker-tape">
+    <div class="ticker-track" id="tickerTrack"></div>
+  </div>
+</section>
+
+<!-- ============================================================
+     FUND DETAILS SECTION — investment objective, benefits, the
+     underlying stock description, and the fund snapshot table.
+
+     REMOVING THIS SECTION: this whole block is meant to go live once
+     ANTU/ANTY are actually effective and have real snapshot data. To
+     hide it before then (or bring it back later), flip the
+     FUND_DETAILS_LIVE flag near the top of the <script> at the
+     bottom of the page — set it to false and the section disappears
+     entirely; true brings it back. You can also just delete this
+     whole <section id="fundDetails">...</section> block permanently
+     if you'd rather not keep the code around at all.
+
+     HOW THE TOGGLE WORKS: everything fund-specific below lives in
+     two parallel blocks, class="fd-long" and class="fd-short". Only
+     one shows at a time, automatically matching whichever side is
+     selected in the hero above — no JS wiring needed, it's driven by
+     the same body[data-mode] attribute the rest of the page already
+     uses. The small "Showing: ANTU (Long)" / "Showing: ANTY (Short)"
+     tag at the top of each block exists specifically so it's obvious
+     to a visitor that the content just changed with the toggle.
+
+     EDITING CONTENT: every field below is plain text or a simple
+     label/value row — edit anything directly. To add or remove a
+     snapshot field (Ticker, CUSIP, etc.), copy or delete one
+     <div class="fd-snap-row"> block; the grid reflows on its own.
+============================================================= -->
+<section id="fundDetails" class="reveal">
+  <div class="wrap">
+    <div class="fd-block">
+      <span class="sec-sub">About Anthropic</span>
+      <p>Anthropic is an AI safety and research company that builds reliable, interpretable, and steerable AI systems. The company develops the Claude family of AI models. Anthropic's technology spans a wide range of applications such as coding assistance, enterprise productivity, research, customer service and content generation.</p>
+    </div>
+    <div class="sec-eyebrow">Fund Details</div>
+    <div class="fd-columns">
+
+      <!-- ============ ANTU (long) content ============ -->
+      <div class="fd-column long" onclick="setMode('long')">
+        <div class="fd-selected-tag">ANTU</div>
+        <h3 class="fd-heading">Intended Benefit of ANTU</h3>
+
+        <div class="fd-block">
+          <span class="fd-label">Investment Objective</span>
+          <p>ANTU seeks daily investment results, before fees and expenses, that correspond to two times (2x) the daily performance of the common stock of Anthropic (NASDAQ: ANTH).</p>
+        </div>
+
+        <div class="fd-pillars">
+          <div class="fd-pillar">
+            <h4>Targets Magnified Returns</h4>
+            <p>ANTU targets 2x the daily returns of Anthropic (ANTH), a frontier AI lab behind the Claude family of models, widely adopted by enterprise and consumer customers.</p>
+          </div>
+          <div class="fd-pillar">
+            <h4>Efficiency</h4>
+            <p>ANTU offers 2x exposure to Anthropic (ANTH) with less cash &mdash; and without fear of margin calls.</p>
+          </div>
+          <div class="fd-pillar">
+            <h4>Convenience</h4>
+            <p>Buy and sell leveraged exposure via a single ticker in a brokerage account.</p>
+          </div>
+        </div>
+
+        <!-- ============================================================
+             SNAPSHOT — every row below is freely editable. CUSIP,
+             Inception Date, Net Assets, and both expense ratios are all
+             "TBD" right now since those values don't exist yet — swap
+             each in for the real value the moment you have it. To add
+             or remove a row entirely, copy or delete this pattern:
+               <div class="fd-snap-row"><span class="k">Label</span><span class="v">Value</span></div>
+        ============================================================= -->
+        <div class="fd-snapshot" id="fdSnapshotAntu">
+          <div class="fd-snapshot-title">ANTU Snapshot</div>
+          <div class="fd-snap-grid">
+            <div class="fd-snap-row"><span class="k">Ticker</span><span class="v">ANTU</span></div>
+            <div class="fd-snap-row"><span class="k">Intraday Ticker</span><span class="v">ANTU.IV</span></div>
+            <div class="fd-snap-row"><span class="k">CUSIP</span><span class="v">TBD</span></div>
+            <div class="fd-snap-row"><span class="k">Inception Date</span><span class="v">TBD</span></div>
+            <div class="fd-snap-row"><span class="k">Net Assets</span><span class="v">TBD</span></div>
+            <div class="fd-snap-row"><span class="k">Gross Expense Ratio</span><span class="v">TBD</span></div>
+            <div class="fd-snap-row"><span class="k">Net Expense Ratio</span><span class="v">TBD</span></div>
+            <div class="fd-snap-row"><span class="k">NAV Calc. Time</span><span class="v">4:00pm ET</span></div>
+            <div class="fd-snap-row"><span class="k">Distributions</span><span class="v">Quarterly</span></div>
+          </div>
+        </div>
+
+        <!-- Underlying stock description — moved below the snapshot, same hierarchy level as Investment Objective -->
+      </div>
+
+      <!-- ============ ANTY (short) content ============ -->
+      <div class="fd-column short" onclick="setMode('short')">
+        <div class="fd-selected-tag">ANTY</div>
+        <h3 class="fd-heading">Intended Benefit of ANTY</h3>
+
+        <div class="fd-block">
+          <span class="fd-label">Investment Objective</span>
+          <p>ANTY seeks daily investment results, before fees and expenses, that correspond to two times the inverse (-2x) of the daily performance of the common stock of Anthropic (NASDAQ: ANTH).</p>
+        </div>
+
+        <div class="fd-pillars">
+          <div class="fd-pillar">
+            <h4>Seeks to Profit from Downturns</h4>
+            <p>ANTY is designed to profit when the daily performance of Anthropic stock declines.</p>
+          </div>
+          <div class="fd-pillar">
+            <h4>Portfolio Hedging</h4>
+            <p>ANTY provides the opportunity to offset an expected decline in Anthropic stock.</p>
+          </div>
+          <div class="fd-pillar">
+            <h4>Convenience</h4>
+            <p>Buy and sell inverse exposure via a single ticker in a brokerage account.</p>
+          </div>
+        </div>
+
+        <div class="fd-snapshot" id="fdSnapshotAnty">
+          <div class="fd-snapshot-title">ANTY Snapshot</div>
+          <div class="fd-snap-grid">
+            <div class="fd-snap-row"><span class="k">Ticker</span><span class="v">ANTY</span></div>
+            <div class="fd-snap-row"><span class="k">Intraday Ticker</span><span class="v">ANTY.IV</span></div>
+            <div class="fd-snap-row"><span class="k">CUSIP</span><span class="v">TBD</span></div>
+            <div class="fd-snap-row"><span class="k">Inception Date</span><span class="v">TBD</span></div>
+            <div class="fd-snap-row"><span class="k">Net Assets</span><span class="v">TBD</span></div>
+            <div class="fd-snap-row"><span class="k">Gross Expense Ratio</span><span class="v">TBD</span></div>
+            <div class="fd-snap-row"><span class="k">Net Expense Ratio</span><span class="v">TBD</span></div>
+            <div class="fd-snap-row"><span class="k">NAV Calc. Time</span><span class="v">4:00pm ET</span></div>
+            <div class="fd-snap-row"><span class="k">Distributions</span><span class="v">Quarterly</span></div>
+          </div>
+        </div>
+
+        <div class="fd-block" style="margin-top:16px; margin-bottom:0;">
+
+        </div>
+      </div>
+
+    </div>
+
+    <!-- This disclosure applies to both ANTU and ANTY, so it sits once
+         below both columns rather than being duplicated per fund. It's
+         tied to the same FUND_DETAILS_LIVE section as the columns above
+         it, so it shows/hides together with them automatically. -->
+    <p class="fd-disclosure">These ProShares ETFs seek daily investment results that correspond, before fees and expenses, to two times (2x) the daily performance of a single stock for ANTU, or negative two times (-2x) for ANTY (each, the &ldquo;Daily Target&rdquo;). While each Fund has a daily investment objective, you may hold Fund shares for longer than one day if you believe it is consistent with your goals and risk tolerance. For any holding period other than a day, your return may be higher or lower than the Daily Target. These differences may be significant. Smaller index gains/losses and higher index volatility contribute to returns worse than the Daily Target. Larger index gains/losses and lower index volatility contribute to returns better than the Daily Target. The more extreme these factors are, the more they occur together, and the longer your holding period while these factors apply, the more your return will tend to deviate. Investors should consider periodically monitoring their geared fund investments in light of their goals and risk tolerance.</p>
+
+    <!-- FLAG FOR LEGAL/OPS: the sentence below has a placeholder date —
+         "[DATE]" — for how long the contractual fee waiver runs. This
+         needs a real date before launch; it's a compliance requirement
+         to state, not optional copy. -->
+    <p class="fd-disclosure">Gross expense ratio reflects expenses before any fee waiver. Net expense ratio reflects expenses with contractual waiver through <strong>[DATE]</strong>, where applicable.</p>
+
+  </div>
+</section>
+
+<section id="why" class="reveal" style="background:var(--surface); border-top:1px solid var(--line); border-bottom:1px solid var(--line);">
+  <div class="wrap">
+
+   <!-- ============================================================
+         CONTENT GRID — supports ANY number of featured pieces (1, 2,
+         3, 10, whatever you have). Each piece is one
+         <a class="insight-card"> block below. The layout adapts on
+         its own with zero code changes:
+           - 1 card    -> a single featured card (image + text side
+                          by side) — the only count with special
+                          treatment
+           - 2+ cards  -> however many compact cards fit per row at
+                          the current width, wrapping as needed
+         To publish a real piece: copy a whole <a class="insight-card">
+         block, change the href, swap the placeholder <svg> in
+         .insight-media for a real <img>, and update the tag/title/
+         description text. To remove one, delete its whole block.
+         This sits deliberately small and un-headlined right above
+         "Anthropic at a Glance" so it reads as a quiet lead-in rather than
+         competing with the investment case below it.
+    =============================================================  -->
+
+    <div class="sec-head" style="margin-top:36px;">
+      <div class="sec-eyebrow">Anthropic at a Glance</div>
+      <div class="insights-grid insights-grid-compact" id="insightsGrid">
+        <a class="insight-card" href="#">
+          <div class="insight-media">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 8h18M8 5v3"/></svg>
+          </div>
+          <div class="insight-body">
+            <span class="insight-tag">Article</span>
+            <div class="insight-title">[Placeholder headline for your first insight piece]</div>
+            <p class="insight-desc">[One or two sentences summarizing what this piece covers and why it's worth a reader's time.]</p>
+            <span class="insight-cta">Read more &rarr;</span>
+          </div>
+        </a>
+      </div>
+      <h2 class="sec-title">A Rapid Rise in Valuation</h2>
+      <div class="sec-rule"></div>
+      <p class="sec-sub">Here's the record so far.</p>
+    </div>
+
+    <!-- ============================================================
+         VALUATION TIMELINE — each funding/valuation event is one
+         .vpoint block. To add a new one once it happens:
+           1. Copy an existing plain .vpoint block (not the last two)
+           2. Change its date and dollar amount
+           3. Paste it in chronologically, right before the
+              class="vpoint dashed-next" block below
+         The row already scrolls horizontally on its own if it gets
+         wider than the page, so any number of points works — no
+         layout limit. The last two blocks are special and should
+         stay last:
+           - "dashed-next" marks whichever point is your most recent
+             confirmed number (its connecting line renders dashed,
+             signaling "and then...")
+           - "vpoint-future" is the "WHAT'S NEXT?" placeholder. Leave
+             it, or delete the whole block if you'd rather the
+             timeline just end cleanly on real data.
+    ============================================================= -->
+    <div class="chart-toggle" role="group" aria-label="Choose Valuation or Run-Rate Revenue">
+      <button class="chart-toggle-btn active" onclick="setChartView('valuation', this)">Valuation</button>
+      <button class="chart-toggle-btn" onclick="setChartView('revenue', this)">Run-Rate Revenue</button>
+    </div>
+
+    <div id="chartValuation">
+      <div class="vtimeline-label">Anthropic's Valuation Over Time</div>
+      <div class="vtimeline">
+        <div class="vpoint"><div class="vline"></div><div class="vdot"></div><div class="vdate">MAR 2025</div><div class="vamt">$61.5B</div></div>
+        <div class="vpoint"><div class="vline"></div><div class="vdot"></div><div class="vdate">SEP 2025</div><div class="vamt">$183B</div></div>
+        <div class="vpoint"><div class="vline"></div><div class="vdot"></div><div class="vdate">FEB 2026</div><div class="vamt">$380B</div></div>
+        <div class="vpoint dashed-next"><div class="vline"></div><div class="vdot"></div><div class="vdate">MAY 2026</div><div class="vamt">$965B</div></div>
+        <div class="vpoint vpoint-future"><div class="vline"></div><div class="vdot"></div><div class="vdate">WHAT'S NEXT?</div><div class="vamt">?</div></div>
+      </div>
+      <p class="src-note">Source: Anthropic Funding Series Announcements.</p>
+    </div>
+
+    <div id="chartRevenue" style="display:none;">
+      <div class="vtimeline-label">Significant Run-Rate Revenue Growth</div>
+      <div class="vtimeline">
+        <div class="vpoint"><div class="vline"></div><div class="vdot"></div><div class="vdate">FEB 2026</div><div class="vamt">$14B</div></div>
+        <div class="vpoint"><div class="vline"></div><div class="vdot"></div><div class="vdate">MAY 2026</div><div class="vamt">$47B</div></div>
+        <div class="vpoint dashed-next"><div class="vline"></div><div class="vdot"></div><div class="vdate">JUL 2026</div><div class="vamt">$65B</div></div>
+        <div class="vpoint vpoint-future"><div class="vline"></div><div class="vdot"></div><div class="vdate">WHAT'S NEXT?</div><div class="vamt">?</div></div>
+      </div>
+      <p class="src-note">Source: Anthropic Funding Series Announcements.</p>
+    </div>
+
+    <!-- ============================================================
+         STAT GRID — add, remove, or edit any .stat-cell block below.
+         This is a plain CSS grid, not JS-driven, so any number of
+         cards works with zero code changes: it always lays out 4 per
+         row on desktop, 2 per row on tablet, and 1 per row on phones
+         (see the .stat-grid media queries above), automatically
+         wrapping into as many rows as needed. 6 cards, 9 cards, 30
+         cards — all just work. The "warn" class on a card (used
+         below on two of them) is optional — it's purely a visual
+         style hook and doesn't affect layout.
+    ============================================================= -->
+    <div class="stat-grid" style="margin-top: 3rem;">
+      <div class="stat-cell">
+        <div class="lbl">Run-rate revenue</div>
+        <div class="big">$65B+</div>
+        <p>Climbed from $14B in February 2026 to $47B by May, then to $65B at the end of July &mdash; shared with investors ahead of a planned fall IPO.</p>
+      </div>
+      <div class="stat-cell">
+        <div class="lbl">Valuation Growth (18 months)</div>
+        <div class="big">15x growth</div>
+        <p>From $61.5B post-money in March 2025 to $965B post-money in May 2026, across four funding rounds.</p>
+      </div>
+      <div class="stat-cell">
+        <div class="lbl">2028 revenue forecast</div>
+        <div class="big">$190&ndash;200B</div>
+        <p>Long-term projection reportedly shared with prospective IPO investors, underpinning the valuation banks are testing ahead of listing.</p>
+      </div>
+      <div class="stat-cell">
+        <div class="lbl">Revenue mix</div>
+        <div class="big">~80% enterprise</div>
+        <p>Reported share of revenue from business customers.</p>
+      </div>
+      <div class="stat-cell">
+        <div class="lbl">Backed by</div>
+        <div class="big">Amazon · Google · Salesforce &middot;</div>
+        <p>Plus Fidelity, Goldman Sachs, Sequoia, GIC, and Coatue.</p>
+      </div>
+      <div class="stat-cell">
+        <div class="lbl">Reported IPO valuation target</div>
+        <div class="big">$2T</div>
+        <p>Would rank among just six companies worldwide worth that much, and 6th-largest in the S&P 500 by market cap.</p>
+      </div>
+      <div class="stat-cell">
+        <div class="lbl">IPO timeline</div>
+        <div class="big">Confidential S-1 filed 6/1/26</div>
+        <p>Targeting a fall 2026 listing; OpenAI filed a week later but may wait until 2027.</p>
+      </div>
+      <div class="stat-cell">
+        <div class="lbl">Real competition</div>
+        <div class="big">OpenAI · DeepMind · Meta &middot;</div>
+        <p>A capital-intensive, fast-moving race that can swing sentiment sharply once ANTH trades.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="faq" class="reveal">
+  <div class="wrap">
+    <div class="sec-head">
+      <div class="sec-eyebrow">FAQ</div>
+      <h2 class="sec-title">About ProShares Anthropic ETFs</h2>
+      <div class="sec-rule"></div>
+      <p class="sec-sub">Answers to common questions about ANTU, ANTY, and how to get 2x leveraged or short exposure to Anthropic (ANTH) stock.</p>
+    </div>
+    <!-- ============================================================
+         FAQ LIST — add, remove, or edit any .acc-item block below,
+         any number of them. The accordion JS just grabs whatever
+         .acc-item elements exist on the page, so there's no count
+         limit and no other code to touch.
+
+         IMPORTANT: this page also has a hidden FAQPage schema block
+         up in the <head> (search for "application/ld+json") that
+         search engines and AI assistants read directly to answer
+         questions about ANTU/ANTY. It currently repeats these same
+         13 questions word-for-word. If you add, remove, or reword a
+         question here, make the same edit there too — a mismatch
+         between the two can get the page's FAQ rich-result treatment
+         disabled by search engines.
+    ============================================================= -->
+    <div class="accordion accordion-flush" id="faq-Accordion">
+      <div class="accordion-item">
+        <h2 class="accordion-header">
+          <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseOne" aria-expanded="false" aria-controls="flush-collapseOne">
+            What is the best Anthropic ETF?
+          </button>
+        </h2>
+        <div id="flush-collapseOne" class="accordion-collapse collapse"><!-- data-bs-parent="#faq-Accordion" -->
+          <div class="accordion-body">The right Anthropic ETF depends on your view. ANTU targets 2x the daily returns of Anthropic (ANTH) common stock for a bullish view, and ANTY targets -2x for a bearish view. Neither fund has launched yet; ProShares is not a financial advisor and cannot tell you which is best for you.</div>
+        </div>
+      </div>
+      <div class="accordion-item">
+        <h2 class="accordion-header">
+          <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseTwo" aria-expanded="false" aria-controls="flush-collapseTwo">
+            What is ANTU, the 2x Anthropic ETF?
+          </button>
+        </h2>
+        <div id="flush-collapseTwo" class="accordion-collapse collapse"><!-- data-bs-parent="#faq-Accordion" -->
+          <div class="accordion-body">ANTU is a leveraged single-stock ETF that targets 2x the daily returns of Anthropic (ANTH) common stock, offering 2x leveraged exposure through a single ticker in a standard brokerage account.</div>
+        </div>
+      </div>
+      <div class="accordion-item">
+        <h2 class="accordion-header">
+          <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseThree" aria-expanded="false" aria-controls="flush-collapseThree">
+            Is there an inverse or short Anthropic ETF?
+          </button>
+        </h2>
+        <div id="flush-collapseThree" class="accordion-collapse collapse"><!-- data-bs-parent="#faq-Accordion" -->
+          <div class="accordion-body">Yes. ANTY is an inverse Anthropic ETF that targets -2x the daily returns of Anthropic (ANTH) common stock, built for investors who want to short Anthropic or hedge existing exposure without a margin account.</div>
+        </div>
+      </div>
+      <div class="accordion-item">
+        <h2 class="accordion-header">
+          <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapse4" aria-expanded="false" aria-controls="flush-collapse4">
+            How can I get 2x leveraged exposure to Anthropic?
+          </button>
+        </h2>
+        <div id="flush-collapse4" class="accordion-collapse collapse"><!-- data-bs-parent="#faq-Accordion" -->
+          <div class="accordion-body">ANTU is designed to give 2x daily leveraged exposure to Anthropic (ANTH) stock through a single ETF ticker, without borrowing on margin or using options or futures directly.</div>
+        </div>
+      </div>
+      <div class="accordion-item">
+        <h2 class="accordion-header">
+          <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapse5" aria-expanded="false" aria-controls="flush-collapse5">
+            How does ANTU provide 2x daily exposure to Anthropic stock?
+          </button>
+        </h2>
+        <div id="flush-collapse5" class="accordion-collapse collapse"><!-- data-bs-parent="#faq-Accordion" -->
+          <div class="accordion-body">ANTU seeks to deliver 2x the daily performance of Anthropic primarily through swap agreements and direct holdings of Anthropic (ANTH) shares, rebalanced daily to maintain its target.</div>
+        </div>
+      </div>
+      <div class="accordion-item">
+        <h2 class="accordion-header">
+          <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapse6" aria-expanded="false" aria-controls="flush-collapse6">
+            What is the difference between ANTH and ANTU?
+          </button>
+        </h2>
+        <div id="flush-collapse6" class="accordion-collapse collapse"><!-- data-bs-parent="#faq-Accordion" -->
+          <div class="accordion-body">ANTH is the ticker for Anthropic's common stock itself. ANTU is a separate ETF that targets 2x ANTH's daily return, so ANTU is expected to move roughly twice as much as ANTH on any given trading day, before fees.</div>
+        </div>
+      </div>
+      <div class="accordion-item">
+        <h2 class="accordion-header">
+          <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapse7" aria-expanded="false" aria-controls="flush-collapse7">
+            What does "2x daily target" mean for a leveraged ETF?
+          </button>
+        </h2>
+        <div id="flush-collapse7" class="accordion-collapse collapse"><!-- data-bs-parent="#faq-Accordion" -->
+          <div class="accordion-body">A 2x daily target means the fund aims to deliver twice the performance of Anthropic stock for a single trading day, before fees and expenses. It is not a target for any period longer than one day.</div>
+        </div>
+      </div>
+      <div class="accordion-item">
+        <h2 class="accordion-header">
+          <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapse8" aria-expanded="false" aria-controls="flush-collapse8">
+            Why can longer-term returns differ from 2x or -2x?
+          </button>
+        </h2>
+        <div id="flush-collapse8" class="accordion-collapse collapse"><!-- data-bs-parent="#faq-Accordion" -->
+          <div class="accordion-body">
+            Because the daily target resets every day, gains and losses compound day over day. In choppy or volatile markets this compounding tends to erode returns relative to a simple multiple of Anthropic's return; in strong trending markets it can help. The longer the holding period, the more this effect can matter.</div>
+        </div>
+      </div>
+      <div class="accordion-item">
+        <h2 class="accordion-header">
+          <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapse9" aria-expanded="false" aria-controls="flush-collapse9">
+            Why might investors use ANTU or ANTY instead of margin borrowing or short selling?
+          </button>
+        </h2>
+        <div id="flush-collapse9" class="accordion-collapse collapse"><!-- data-bs-parent="#faq-Accordion" -->
+          <div class="accordion-body">ANTU and ANTY are designed to deliver 2x and -2x daily exposure to Anthropic through a single ticker in a standard brokerage account, without opening a margin account, borrowing shares to short, or meeting margin calls. Maximum loss is generally limited to the amount invested in the fund.</div>
+        </div>
+      </div>
+      <div class="accordion-item">
+        <h2 class="accordion-header">
+          <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapse10" aria-expanded="false" aria-controls="flush-collapse10">
+            Can I trade options on ANTU or ANTY?
+          </button>
+        </h2>
+        <div id="flush-collapse10" class="accordion-collapse collapse"><!-- data-bs-parent="#faq-Accordion" -->
+          <div class="accordion-body">Options availability for ANTU and ANTY will depend on exchange listing standards once each fund launches and is not yet confirmed. Check back once trading begins.</div>
+        </div>
+      </div>
+      <div class="accordion-item">
+        <h2 class="accordion-header">
+          <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapse11" aria-expanded="false" aria-controls="flush-collapse11">
+            What does Anthropic do?
+          </button>
+        </h2>
+        <div id="flush-collapse11" class="accordion-collapse collapse"><!-- data-bs-parent="#faq-Accordion" -->
+          <div class="accordion-body">Anthropic researches and builds frontier AI systems, including the Claude family of models, for consumers, developers, and enterprises. Roughly 80% of its reported revenue comes from business customers, spanning products like Claude Code and API access used to build AI-powered software.</div>
+        </div>
+      </div>
+      <div class="accordion-item">
+        <h2 class="accordion-header">
+          <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapse12" aria-expanded="false" aria-controls="flush-collapse12">
+            What should investors understand before investing in a leveraged single-stock ETF?
+          </button>
+        </h2>
+        <div id="flush-collapse12" class="accordion-collapse collapse"><!-- data-bs-parent="#faq-Accordion" -->
+          <div class="accordion-body">
+            Leveraged and inverse single-stock ETFs pursue a daily objective and can be significantly more volatile than diversified funds. Because they track one company, they carry company-specific risk with no diversification cushion, and daily compounding can cause longer-period returns to diverge meaningfully from the stated multiple. Investors should review the prospectus carefully before investing.</div>
+        </div>
+      </div>
+      <div class="accordion-item">
+        <h2 class="accordion-header">
+          <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapse13" aria-expanded="false" aria-controls="flush-collapse13">
+            Can I invest in ANTU or ANTY today?
+          </button>
+        </h2>
+        <div id="flush-collapse13" class="accordion-collapse collapse"><!-- data-bs-parent="#faq-Accordion" -->
+          <div class="accordion-body">Not yet. Each fund's registration statement filed with the SEC has not been declared effective, and shares cannot be sold until it is. Sign up on this page to be notified the moment trading begins.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <div class="footer-top">
+      <a href="https://www.proshares.com/" style="display:inline-flex; align-items:center;"><img src="assets/images/Logo_ProShares_Full_Wordmark_Color_Digital_RGB.png" alt="ProShares" style="height:26px; width:auto; display:block;"></a>
+      <div class="footer-links">
+        <a href="#">Prospectus</a>
+        <a href="#">FAQs</a>
+        <a href="#">Privacy</a>
+        <a href="#">Terms</a>
+      </div>
+    </div>
+    <!-- ============================================================
+         FOOTER DISCLOSURES -
+           1. Registration statement notice (the "red herring")
+           2. Daily-target / compounding-risk explanation
+           3. Single-stock, non-diversified risk
+           4. Sourcing / not-affiliated-with-Anthropic disclaimer
+           5. General investing-risk + "read the prospectus" language
+           6. Copyright + trademark line
+    ============================================================= -->
+    <div class="legal">
+      <p id="footerRegNotice"><strong>Registration statement notice:</strong> The registration statements for ANTU and ANTY have been filed with the SEC but are not yet effective. Shares may not be sold, nor may offers to buy be accepted, until effective. This page is not an offer to sell or a solicitation of an offer to buy these securities in any state or jurisdiction where such offer would be unlawful.</p>
+      <p>These ProShares ETFs seek daily investment results that correspond, before fees and expenses, to two times (2x) the daily performance of a single stock for ANTU, or negative two times (-2x) for ANTY (each, the &ldquo;Daily Target&rdquo;). While each Fund has a daily investment objective, you may hold Fund shares for longer than one day if you believe it is consistent with your goals and risk tolerance. <strong>For any holding period other than a day, your return may be higher or lower than the Daily Target. These differences may be significant.</strong> Smaller index gains/losses and higher index volatility contribute to returns worse than the Daily Target. Larger index gains/losses and lower index volatility contribute to returns better than the Daily Target. The more extreme these factors are, the more they occur together, and the longer your holding period while these factors apply, the more your return will tend to deviate. Investors should consider periodically monitoring their geared fund investments in light of their goals and risk tolerance.</p>
+      <p><strong>These leveraged and inverse single-stock ETFs&rsquo; performance depends almost entirely on the performance of their underlying single stock, which involves significant risk and eliminates the benefits of diversification.</strong> Following its IPO, the underlying stock may experience very high volatility. Before investing, you should carefully consider that high volatility may have a significant negative impact on the Funds&rsquo; performance. It may also experience abnormal returns, which should not be expected to persist. The ETFs&rsquo; performance should be measured from one NAV calculation time to the next and does not represent the returns you would receive if you traded shares at other times. IPO investments generally carry higher risks, including limited trading history, market risk, and liquidity concerns. The underlying stock may experience periods of low liquidity, making it difficult to buy or sell at desired prices. Large ETF positions may increase this risk and impact the underlying stock&rsquo;s market price. During such times, the ETFs may face losses, wider bid-ask spreads, and challenges in managing their exposure. Anthropic faces risks related to intense competition among frontier AI developers, substantial and ongoing compute and infrastructure costs, reliance on third-party cloud and hardware providers, evolving AI safety and regulatory obligations, cybersecurity threats, litigation, and reputational events that may affect its business and operations. You should refer to the <a href="#">prospectuses</a> for a more complete description of issuer risks.</p>
+      <p>ProShares has derived all disclosures herein regarding the issuer from publicly available sources it deems to be reliable and makes no representation as to their accuracy or completeness. ProShares cannot give any assurance that all relevant events that would affect the trading price of the issuer have been publicly disclosed. Any future developments, whether disclosed or not, could affect the value of the issuer and, in turn, the value of the ETFs. The ETFs and ProShare Advisors LLC are not affiliated with the underlying stock issuer.</p>
+      <p><strong>Investing involves risk, including the possible loss of principal.</strong> Leveraged and inverse ProShares ETFs are non-diversified and entail certain risks, including risk associated with the use of derivatives (swap agreements, futures contracts and similar instruments), imperfect benchmark correlation, leverage and market price variance, all of which can increase volatility and decrease performance. The ETFs&rsquo; investment exposure is concentrated in the single stock on which each Fund is based. Narrowly focused investments typically exhibit higher volatility. Investors could potentially lose the full value of their investment within a single day. Please see the summary and full <a href="#">prospectuses</a> at ProShares.com for a more complete description of risks. <strong>There is no guarantee any ProShares ETF will achieve its investment objective.</strong></p>
+
+      <p>Shares of any ETF are generally bought and sold at market price (not NAV) and are not individually redeemed from the fund. Your brokerage commissions will reduce returns.</p>
+
+      <p><strong>Carefully consider the investment objectives, risks, charges and expenses of ProShares before investing.</strong> This and other information can be found in their summary and full <a href="#">prospectuses</a>. Read them carefully before investing.</p>
+
+      <p>Registered Investment Companies are required by the IRS to distribute substantially all of their income and capital gains to shareholders at least annually. For specific tax advice, we recommend you speak with a qualified tax professional.</p>
+
+      <p><strong>Index information does not reflect any management fees, transaction costs or expenses. Indexes are unmanaged, and one cannot invest directly in an index.</strong></p>
+
+      <p>Quote data provided by <a href="#">Interactive Data - Real Time Services, Inc.</a> and subject to <a href="#">terms of use</a>.</p>
+
+      <p>ProShares are distributed by SEI Investments Distribution Co., which is not affiliated with the funds&rsquo; advisor or sponsor.</p>
+
+      <p>Your use of this site signifies that you accept our <a href="#">Terms and Conditions of Use</a>.</p>
+
+      <p>&copy; 2026 ProShares. All rights reserved. Anthropic is a trademark of Anthropic, PBC; used here for identification only and does not imply endorsement.</p>
+    </div>
+  </div>
+</footer>
+<script src="js/anthropic-signal.js"></script>
+</body>
+</html>
