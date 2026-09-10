@@ -1,2 +1,3 @@
 # test-microsite
-This ReadMe will feature instructions on how to switch between Pre-Effective, Effective but not listed, and Listed versions of the site.
+To view the microsite in browser, use the following link: 
+[https://emilytouch.github.io/test-microsite/anthropic-signal-light.html]
