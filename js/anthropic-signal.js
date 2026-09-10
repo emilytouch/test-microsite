@@ -78,11 +78,7 @@ const FUND_LISTED = false;
 const STATUS_BADGE_VISIBLE = true;
 const STATUS_BADGE_TEXT = FUND_LISTED ? 'Now Trading' : 'Pending Anthropic IPO Listing';
 
-// ---- Signup: the "notify me when it's available to trade" framing
-// and the popup ASK both stop making sense once the fund is actually
-// listed — there's nothing left to notify, and interrupting people
-// with a popup for a lower-stakes "join our newsletter" ask feels
-// naggy rather than useful. So once FUND_LISTED is true:
+// ---- Signup: Once FUND_LISTED is true:
 //   - the thin banner's button is replaced with a small inline
 //     email field + Subscribe button, right in the banner — no
 //     popup ask at all
@@ -113,7 +109,26 @@ if(FUND_LISTED){
 const statusBadgeEl = document.getElementById('statusBadge');
 if(statusBadgeEl) statusBadgeEl.style.display = STATUS_BADGE_VISIBLE ? '' : 'none';
 document.getElementById('statusText').textContent = STATUS_BADGE_TEXT;
-document.getElementById('statusDot').classList.toggle('pulse', !FUND_LISTED);
+document.getElementById('statusDot').classList.toggle(!FUND_LISTED);
+document.getElementById('statusDot').style.backgroundColor = FUND_LISTED ? '#1A3302' : '#E6B800';
+document.getElementById('statusBadge').style.cssText = FUND_LISTED ? `
+  display:flex;
+  align-items:center;
+  gap:8px;
+  justify-content:center;
+  width:fit-content;
+  margin:0 auto 20px;
+  font-family:var(--font-body);
+  font-size:11.5px;
+  font-weight:700;
+  letter-spacing:.6px;
+  color: #1A3302;
+  text-transform:uppercase;
+  background: #c6d9b4;
+  border:1.5px solid #1A3302;
+  padding:7px 16px;
+  border-radius:20px;
+` : ``;
 
 // ---- Toggle button subtitle ("Long · 2x daily" / "Short · -2x daily"):
 // this states the fund's daily multiple/objective, which can't be said
