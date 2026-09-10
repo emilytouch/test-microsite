@@ -456,7 +456,6 @@
   .reg-caption{
     max-width:520px;
     margin:20px auto 0;
-    text-align:center;
     background:#FFF4D6;
     border:1.5px solid #E8C877;
     color:#7A5300;
@@ -728,24 +727,24 @@
     .insights-grid > .insight-card:only-child .insight-media{aspect-ratio:16/10;}
   }
 
-.accordion-flush {
-  background:none !important;
-}  
-.accordion-item {
-  background:none !important;
-}
-  .accordion-button:not(.collapsed) {
-    background: var(--long) !important;
-    color: var(--ink) !important;
-
+  .accordion-button {
+    background-color: rgba(0,0,0,0) !important;
   }
-  .accordion-button:not(.collapsed)::after {
-    background-image: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='%23FFFFFF'><path fill-rule='evenodd' d='M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z'/></svg>") !important;
-
+  .accordion-item {
+    background:none !important;
   }
-  .accordion-button::after {
-    background-image: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='%23000000'><path fill-rule='evenodd' d='M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z'/></svg>") !important;
-}
+    .accordion-button:not(.collapsed) {
+      background: var(--long) !important;
+      color: var(--ink) !important;
+  
+    }
+    .accordion-button:not(.collapsed)::after {
+      background-image: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='%23FFFFFF'><path fill-rule='evenodd' d='M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z'/></svg>") !important;
+  
+    }
+    .accordion-button::after {
+      background-image: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='%23000000'><path fill-rule='evenodd' d='M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z'/></svg>") !important;
+  }
   .acc-item{border-bottom:1px solid var(--line);}
   .acc-q{
     width:100%;
@@ -772,8 +771,8 @@
   .signup-band-thin{background:#CC785C;}
   .signup-inner-thin{display:flex; align-items:center; justify-content:center; gap:18px; flex-wrap:wrap; padding: 1rem 0;}
   .signup-text-thin{font-size:13.5px; font-weight:700; color:#fff; white-space:nowrap;}
-  .signup-tick-thin{display:inline-block; background:#fff; color:#CC785C; padding:0 7px; border-radius:6px; font-family:var(--font-body); font-size:12.5px;}
-  .signup-thin-btn{background:#fff; color:#CC785C; border:none; padding:6px 16px; border-radius:5px;font-weight:800; font-size:12px; letter-spacing:.2px; cursor:pointer; transition:transform .15s, box-shadow .15s; box-shadow:0 2px 8px rgba(0,0,0,.15);}
+  .signup-tick-thin{display:inline-block; background:#fff; color:#1A3302; padding:0 7px; border-radius:6px; font-family:var(--font-body); font-size:12.5px;}
+  .signup-thin-btn{background:#fff; color:#1A3302; border:none; padding:6px 16px; border-radius:5px;font-weight:800; font-size:12px; letter-spacing:.2px; cursor:pointer; transition:transform .15s, box-shadow .15s; box-shadow:0 2px 8px rgba(0,0,0,.15);}
   .signup-thin-inline-form{display:flex; align-items:center; gap:8px;}
   .signup-thin-inline-form input[type="email"]{background:rgba(255,255,255,.18); border:1.5px solid rgba(255,255,255,.5); color:#fff; padding:6px 12px; border-radius:14px; font-size:12px; width:170px; font-family:var(--font-body);}
   .signup-thin-inline-form input[type="email"]::placeholder{color:rgba(255,255,255,.75);}
@@ -789,7 +788,7 @@
   .signup-text{flex-shrink:0;}
   .signup-text .big{font-size:20px; font-weight:800; color:#fff; white-space:nowrap;}
   .signup-text .small{font-size:13.5px; color:rgba(255,255,255,.85); margin-top:6px;}
-  .signup-tick{display:inline-block; background:#fff; color:#CC785C; padding:1px 10px; border-radius:6px;font-family:var(--font-body);}
+  .signup-tick{display:inline-block; background:#fff; color:#1A3302; padding:1px 10px; border-radius:6px;font-family:var(--font-body);}
   .signup-form{display:flex; gap:10px; flex-wrap:wrap; align-items:center; justify-content:center;}
   .seg{display:flex; gap:16px; align-items:center; flex-wrap:wrap; justify-content:center;}
   .seg label{display:flex; align-items:center; gap:7px; font-size:13px; font-weight:600; color:#fff; cursor:pointer; font-family:var(--font-body);}
@@ -798,10 +797,10 @@
     border:2px solid rgba(255,255,255,.7); background:transparent; flex-shrink:0; margin:0; position:relative; cursor:pointer;
   }
   .seg input:checked{border-color:#fff;}
-  .seg input:checked::after{content:''; position:absolute; top:50%; left:50%; width:8px; height:8px; border-radius:50%; background:#fff; transform:translate(-50%,-50%);}
-  .signup-form input[type="email"]{background:rgba(255,255,255,.16); border:1.5px solid rgba(255,255,255,.5); color:#fff; padding:12px 16px; border-radius:20px;font-size:13.5px; min-width:220px; font-family:var(--font-body);}
+  .seg input:checked::after{content:''; position:absolute; top:50%; left:50%; width:8px; height:8px; border-radius:50%; background:#c6d9b4; transform:translate(-50%,-50%);}
+  .signup-form input[type="email"]{background:rgba(255,255,255,.16); border:1.5px solid #c6d9b4; color:#fff; padding:12px 16px; border-radius:20px;font-size:13.5px; min-width:220px; font-family:var(--font-body);}
   .signup-form input[type="email"]::placeholder{color:rgba(255,255,255,.75);}
-  .signup-form button{background:#fff; color:#CC785C; border:none; padding:13px 30px; border-radius:20px;font-weight:800; font-size:14.5px; letter-spacing:.2px; cursor:pointer; transition:transform .15s, box-shadow .15s; box-shadow:0 4px 14px rgba(0,0,0,.2);}
+  .signup-form button{background:#fff; color:#1A3302; border:none; padding:13px 30px; border-radius:20px;font-weight:800; font-size:14.5px; letter-spacing:.2px; cursor:pointer; transition:transform .15s, box-shadow .15s; box-shadow:0 4px 14px rgba(0,0,0,.2);}
   .signup-form button:hover{transform:translateY(-1px); box-shadow:0 6px 18px rgba(0,0,0,.2);}
 
   /* ---- signup confirmation popup — this is the conversion moment ---- */
@@ -835,7 +834,7 @@
   }
   .signup-popup-overlay.open{display:flex;}
   .signup-popup-card{
-    background:#1A3302; border-radius:18px; padding:40px 36px; max-width:440px; width:100%;
+    background:var(--long); border-radius:18px; padding:40px 36px; max-width:440px; width:100%;
     position:relative; box-shadow:0 30px 70px rgba(0,0,0,.35);
     animation:confirm-in .25s ease;
   }

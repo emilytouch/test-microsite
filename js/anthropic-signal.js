@@ -91,7 +91,7 @@ const STATUS_BADGE_TEXT = FUND_LISTED ? 'Now Trading' : 'Pending Anthropic IPO L
 //     a direct response to their own action, not an interruption)
 // Edit any of these strings freely — plain text, not limited to
 // these two presets. ----
-const SIGNUP_HEADING_PRE_LISTING = 'Be first to trade <span class="signup-tick-thin">ANTU</span> and <span class="signup-tick-thin">ANTY</span>.';
+const SIGNUP_HEADING_PRE_LISTING = 'Be first to trade <span class="signup-tick-thin">ANTU</span> and <span class="signup-tick-thin">ANTY</span>';
 const SIGNUP_HEADING_LISTED = 'Stay updated on market insights and ProShares products.';
 const SIGNUP_POPUP_SUBTITLE_PRE_LISTING = 'Get an email alert as soon as the funds list.';
 const CONFIRM_MESSAGE_PRE_LISTING = 'ProShares will notify you when ANTU and ANTY are available to trade.';
