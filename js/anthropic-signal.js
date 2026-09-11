@@ -294,8 +294,8 @@ function trackEvent(eventName, params){
 // ---- signup: styled form here, data goes to HubSpot behind the scenes ----
 // Fill these in once you've created the form in HubSpot (see the
 // ANALYTICS block in <head> for the full setup steps).
-const HUBSPOT_PORTAL_ID = 'YOUR_PORTAL_ID';
-const HUBSPOT_FORM_GUID = 'YOUR_FORM_GUID';
+const HUBSPOT_PORTAL_ID = '47065601';
+const HUBSPOT_FORM_GUID = '12d648a0-6a72-427a-991c-e3afaa092224';
 
 function getHubspotCookie(name){
   const match = document.cookie.match(new RegExp('(^| )' + name + '=([^;]+)'));
@@ -312,7 +312,7 @@ function doSignup(e){
   // Submit to HubSpot's Forms API. Silently no-ops (still shows the
   // thank-you state) if the portal/form IDs above haven't been filled
   // in yet, so this is safe to ship before HubSpot is fully wired up.
-  if(HUBSPOT_PORTAL_ID !== 'YOUR_PORTAL_ID' && HUBSPOT_FORM_GUID !== 'YOUR_FORM_GUID'){
+  if(HUBSPOT_PORTAL_ID !== '47065601' && HUBSPOT_FORM_GUID !== '12d648a0-6a72-427a-991c-e3afaa092224'){
     fetch(`https://api.hsforms.com/submissions/v3/integration/submit/${HUBSPOT_PORTAL_ID}/${HUBSPOT_FORM_GUID}`, {
       method: 'POST',
       headers: {'Content-Type': 'application/json'},

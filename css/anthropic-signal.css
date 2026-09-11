@@ -786,6 +786,7 @@
 
   /* ---- signup: bold orange banner, the #1 thing we want visitors to do ---- */
   /* ---- thin signup banner: always visible, opens the popup on click ---- */
+
   .signup-band-thin{background:#CC785C;}
   .signup-inner-thin{display:flex; align-items:center; justify-content:center; gap:18px; flex-wrap:wrap; padding: 1rem 0;}
   .signup-text-thin{font-size:14pt; font-weight:700; color:#fff; white-space:nowrap;}
@@ -818,9 +819,31 @@
   .seg input:checked::after{content:''; position:absolute; top:50%; left:50%; width:8px; height:8px; border-radius:50%; background:#c6d9b4; transform:translate(-50%,-50%);}
   .signup-form input[type="email"]{background:rgba(255,255,255,.16); border:1.5px solid #c6d9b4; color:#fff; padding:12px 16px; border-radius:20px;font-size:14pt; min-width:220px; font-family:var(--font-body);}
   .signup-form input[type="email"]::placeholder{color:rgba(255,255,255,.75);}
-  .signup-form button{background:#fff; color:#1A3302; border:none; padding:13px 30px; border-radius:20px;font-weight:800; font-size:14pt; letter-spacing:.2px; cursor:pointer; transition:transform .15s, box-shadow .15s; box-shadow:0 4px 14px rgba(0,0,0,.2);}
-  .signup-form button:hover{transform:translateY(-1px); box-shadow:0 6px 18px rgba(0,0,0,.2);}
-
+  .signup-form input[type="text"]{background:rgba(255,255,255,.16); border:1.5px solid #c6d9b4; color:#fff; padding:12px 16px; border-radius:20px;font-size:14pt; min-width:220px; font-family:var(--font-body);}
+  .signup-form button[type="submit"]{background:#fff; color:#1A3302; border:none; padding:13px 30px; border-radius:20px;font-weight:800; font-size:14pt; letter-spacing:.2px; cursor:pointer; transition:transform .15s, box-shadow .15s; box-shadow:0 4px 14px rgba(0,0,0,.2);}
+  .signup-form button:hover{ background:#1A3302 !important; transform:translateY(-1px); box-shadow:0 6px 18px rgba(0,0,0,.2);}
+  .hsfc-Row {
+    font-family:var(--font-body) !important; font-size:14pt !important; color: var(--text) !important;
+  }
+  .hsfc-ErrorAlert, .hsfc-FieldLabel__RequiredIndicator{
+    font-family:var(--font-body) !important; font-size:13pt !important; color: #c6d9b4 !important;
+  }
+  .hsfc-Step__Content{
+    padding:0 !important;
+  }
+  .hsfc-DropdownOptions{
+    background:var(--surface) !important; border:1px solid var(--line) !important; border-radius:14px !important;
+  }
+  .hsfc-DropdownOptions ul{
+    font-family:var(--font-body) !important; font-size:14pt !important; color:var(--text) !important;
+  }
+  .hsfc-RichText, .hsfc-FieldLabel  {
+    color:var(--ink) !important;
+    font-family:var(--font-body) !important;
+  }
+.hsfc-DropdownInput__Caret span {
+  border-top: 6px solid var(--ink, var(--ink)) !important;
+}
   /* ---- signup confirmation popup — this is the conversion moment ---- */
   .confirm-overlay{
     display:none; position:fixed; inset:0; z-index:200; background:rgba(20,21,26,.55);
