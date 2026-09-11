@@ -292,7 +292,7 @@
   .hero-blob{
     position:absolute;
     top:5%;
-    right: 10%;
+    right: 5%;
     width: 500px;
     opacity:.5;
     pointer-events:none;
@@ -360,7 +360,7 @@
     color:var(--text);
   }
   h1.headline .tick{
-    font-family:var(--font-heading);
+    font-family:'MazzardH-Bold', 'Century Gothic', sans-serif;
     display:inline-block;
     transition:background .3s, color .3s, border-color .3s;
   }
@@ -469,7 +469,7 @@
     background:#FFF4D6;
     border:1.5px solid #E8C877;
     color:#7A5300;
-    font-size:13px;
+    font-size:11pt;
     font-weight:600;
     line-height:1.55;
     padding:14px 18px;
@@ -480,7 +480,7 @@
     display:block;
     margin-bottom:3px;
     text-transform:uppercase;
-    font-size:11px;
+    font-size:11pt;
     letter-spacing:.4px;
     }
 
@@ -578,10 +578,10 @@
   @media (max-width:640px){ .sim-results{grid-template-columns:1fr;} }
 
   /* ---- valuation timeline ---- */
-  .vtimeline-label{font-family:var(--font-body); font-size:12px; letter-spacing:.6px; text-transform:uppercase; color:var(--dim); font-weight:700; margin-top:8px;}
-  .chart-toggle-label{font-family:var(--font-body); font-size:11.5px; letter-spacing:1.2px; text-transform:uppercase; color:var(--dim); margin-bottom:10px;}
+  .vtimeline-label{font-family:var(--font-body); font-size:14pt; letter-spacing:.6px; text-transform:uppercase; color:var(--dim); font-weight:700; margin-top:1.5rem;}
+  .chart-toggle-label{font-family:var(--font-body); font-size:14pt; letter-spacing:1.2px; text-transform:uppercase; color:var(--dim); margin-bottom:10px;}
   .chart-toggle{display:inline-flex; gap:4px; background:var(--surface); border:1px solid var(--line); border-radius:12px; padding:4px; margin-bottom:4px; box-shadow:0 1px 3px rgba(10,14,22,.06);}
-  .chart-toggle-btn{font-family:var(--font-body); font-size:12.5px; font-weight:700; letter-spacing:.2px; color:var(--dim); background:none; border:none; padding:10px 20px; border-radius:9px; cursor:pointer; transition:background .15s, color .15s, box-shadow .15s;}
+  .chart-toggle-btn{font-family:var(--font-body); font-size:14pt; font-weight:700; letter-spacing:.2px; color:var(--dim); background:none; border:none; padding:10px 20px; border-radius:9px; cursor:pointer; transition:background .15s, color .15s, box-shadow .15s;}
   .chart-toggle-btn:hover{color:var(--text); background:rgba(10,14,22,.04);}
   .chart-toggle-btn.active{background:#CC785C; color:#fff; box-shadow:0 2px 6px rgba(204,120,92,.4);}
   .chart-toggle-btn.active:hover{background:#CC785C; color:#fff;}
@@ -591,26 +591,26 @@
   .vpoint:last-child .vline{display:none;}
   .vpoint.dashed-next .vline{background:none; border-top:2px dashed var(--dim-2); height:0;}
   .vdot{position:absolute; top:5px; left:0; width:10px; height:10px; border-radius:50%; background:#CC785C; z-index:1;}
-  .vdate{font-family:var(--font-body); font-size:11px; color:var(--dim-2); margin-bottom:4px;}
+  .vdate{font-family:var(--font-body); font-size:11pt; color:var(--dim-2); margin-bottom:4px;}
   .vpoint-future .vdate{color:var(--dim-2);}
-  .vamt{font-family:var(--font-body); font-size:22px; font-weight:800; color:var(--text);}
+  .vamt{font-family:var(--font-body); font-size:18pt; font-weight:800; color:var(--text);}
   .vpoint-future .vamt{color:var(--dim-2);}
 
   /* ---- stat grid ---- */
   .stat-grid{display:grid; grid-template-columns:repeat(var(--stat-cols, 4), 1fr); gap:1px; background:var(--line); border:1px solid var(--line); border-radius:16px; overflow:hidden; margin-top:16px;}
   .stat-cell{background:var(--surface); padding:28px;}
-  .stat-cell .lbl{font-family:var(--font-body); font-size:11px; letter-spacing:.4px; text-transform:uppercase; color:var(--dim-2); margin-bottom:10px;}
-  .stat-cell .big{font-family:var(--font-body); font-size:28px; font-weight:800; color:#CC785C; margin-bottom:8px;}
-  .stat-cell p{font-size:13.5px; color:var(--dim); line-height:1.55;}
+  .stat-cell .lbl{font-family:var(--font-body); font-size:11pt; letter-spacing:.4px; text-transform:uppercase; color:var(--dim-2); margin-bottom:10px;}
+  .stat-cell .big{font-family:var(--font-body); font-size:16pt; font-weight:800; color:#CC785C; margin-bottom:8px;}
+  .stat-cell p{font-size:11pt; color:var(--dim); line-height:1.55;}
   @media (max-width:900px){ .stat-grid{grid-template-columns:repeat(2,1fr);} }
   @media (max-width:560px){ .stat-grid{grid-template-columns:1fr;} }
-  .src-note{font-size:11.5px; color:var(--dim-2); margin-top:18px;}
+  .src-note{font-size:11pt; color:var(--dim-2); margin-top:18px;}
   .src-note + .src-note{margin-top:4px;}
 
   /* ---- mechanics accordion ---- */
   /* ---- insights / content grid: adapts to 1, 2, or 3 items ---- */
-  .insights-grid{display:grid; grid-template-columns:repeat(auto-fit, minmax(280px, 1fr)); gap:28px; margin-bottom: 2rem;}
-  .insights-grid-compact .insight-media{aspect-ratio:16/7;}
+  .insights-grid{display:grid; grid-template-columns:repeat(auto-fit, minmax(280px, 1fr)); gap:28px; margin: 2rem auto;}
+  .insights-grid-compact .insight-media{aspect-ratio: 5/3;}
   .insights-grid-compact .insight-media svg{width:24px; height:24px;}
   .insights-grid-compact .insight-body{padding:14px 16px 16px; gap:5px;}
   .insights-grid-compact .insight-title{font-size:14pt;}
@@ -725,29 +725,31 @@
   .insight-media{aspect-ratio:16/10; background:linear-gradient(135deg, var(--surface) 0%, var(--surface-2) 100%); display:flex; align-items:center; justify-content:center; position:relative;}
   .insight-media svg{width:34px; height:34px; opacity:.35;}
   .insight-body{padding:20px 22px 24px; display:flex; flex-direction:column; gap:8px; flex:1;}
-  .insight-tag{font-family:var(--font-body); font-size:10.5px; font-weight:700; letter-spacing:.5px; text-transform:uppercase; color:#CC785C;}
-  .insight-title{font-size:17px; font-weight:800; line-height:1.3; color:var(--text);}
-  .insight-desc{font-size:13.5px; color:var(--dim); line-height:1.55; flex:1;}
-  .insight-cta{font-family:var(--font-body); font-size:12px; font-weight:700; color:#CC785C; margin-top:4px;}
+  .insight-tag{font-family:var(--font-body); font-size:8pt; font-weight:700; letter-spacing:.5px; text-transform:uppercase; color:#CC785C;}
+  .insight-title{font-size:18pt; font-weight:800; line-height:1.3; color:var(--text);}
+  .insight-desc{font-size:14pt; color:var(--dim); line-height:1.55; flex:1;}
+  .insight-cta{font-family:var(--font-body); font-size:11pt; font-weight:700; color:#CC785C; margin-top:4px;}
 
   /* when there's exactly one piece of content, feature it large */
   .insights-grid > .insight-card:only-child{
     flex-direction:row; grid-column:1/-1;
   }
-  .insights-grid > .insight-card:only-child .insight-media{flex:1 1 52%; aspect-ratio:auto;}
+  .insights-grid > .insight-card:only-child .insight-media{flex:1 1 52%; aspect-ratio:5/3;}
   .insights-grid > .insight-card:only-child .insight-body{flex:1 1 48%; padding:32px 36px; justify-content:center;}
   .insights-grid > .insight-card:only-child .insight-title{font-size:26px;}
   .insights-grid > .insight-card:only-child .insight-desc{font-size:14.5px;}
   @media (max-width:700px){
     .insights-grid > .insight-card:only-child{flex-direction:column;}
-    .insights-grid > .insight-card:only-child .insight-media{aspect-ratio:16/10;}
+    .insights-grid > .insight-card:only-child .insight-media{aspect-ratio:5/3;}
   }
 
   .accordion-button {
     background-color: rgba(0,0,0,0) !important;
+    font-size: 14pt !important;
   }
   .accordion-item {
     background:none !important;
+    font-size: 14pt !important;
   }
     .accordion-button:not(.collapsed) {
       background: var(--long) !important;
@@ -786,37 +788,37 @@
   /* ---- thin signup banner: always visible, opens the popup on click ---- */
   .signup-band-thin{background:#CC785C;}
   .signup-inner-thin{display:flex; align-items:center; justify-content:center; gap:18px; flex-wrap:wrap; padding: 1rem 0;}
-  .signup-text-thin{font-size:13.5px; font-weight:700; color:#fff; white-space:nowrap;}
-  .signup-tick-thin{display:inline-block; background:#fff; color:#1A3302; padding:0 7px; border-radius:6px; font-family:var(--font-body); font-size:12.5px;}
-  .signup-thin-btn{background:#fff; color:#1A3302; border:none; padding:6px 16px; border-radius:5px;font-weight:800; font-size:12px; letter-spacing:.2px; cursor:pointer; transition:transform .15s, box-shadow .15s; box-shadow:0 2px 8px rgba(0,0,0,.15);}
+  .signup-text-thin{font-size:14pt; font-weight:700; color:#fff; white-space:nowrap;}
+  .signup-tick-thin{display:inline-block; background:#fff; color:#1A3302; padding:0 7px; border-radius:6px; font-family:var(--font-body); font-size:14pt;}
+  .signup-thin-btn{background:#fff; color:#1A3302; border:none; padding:6px 16px; border-radius:5px;font-weight:800; font-size:14pt; letter-spacing:.2px; cursor:pointer; transition:transform .15s, box-shadow .15s; box-shadow:0 2px 8px rgba(0,0,0,.15);}
   .signup-thin-inline-form{display:flex; align-items:center; gap:8px;}
-  .signup-thin-inline-form input[type="email"]{background:rgba(255,255,255,.18); border:1.5px solid rgba(255,255,255,.5); color:#fff; padding:6px 12px; border-radius:14px; font-size:12px; width:170px; font-family:var(--font-body);}
+  .signup-thin-inline-form input[type="email"]{background:rgba(255,255,255,.18); border:1.5px solid rgba(255,255,255,.5); color:#fff; padding:6px 12px; border-radius:14px; font-size:14pt; width:170px; font-family:var(--font-body);}
   .signup-thin-inline-form input[type="email"]::placeholder{color:rgba(255,255,255,.75);}
-  .signup-thin-inline-confirmed{color:#fff; font-size:12.5px; font-weight:700;}
+  .signup-thin-inline-confirmed{color:#fff; font-size:14pt; font-weight:700;}
   @media (max-width:500px){ .signup-thin-inline-form input[type="email"]{width:130px;} }
   .signup-thin-btn:hover{transform:translateY(-1px); box-shadow:0 4px 12px rgba(0,0,0,.2);}
   @media (max-width:500px){
     .signup-inner-thin{gap:10px; padding:9px 0;}
-    .signup-text-thin{font-size:12px; white-space:normal; text-align:center;}
+    .signup-text-thin{font-size:14pt; white-space:normal; text-align:center;}
   }
 
   /* ---- shared form pieces (used inside the signup popup) ---- */
   .signup-text{flex-shrink:0;}
   .signup-text .big{font-size:20px; font-weight:800; color:#fff; white-space:nowrap;}
-  .signup-text .small{font-size:13.5px; color:rgba(255,255,255,.85); margin-top:6px;}
+  .signup-text .small{font-size:14pt; color:rgba(255,255,255,.85); margin-top:6px;}
   .signup-tick{display:inline-block; background:#fff; color:#1A3302; padding:1px 10px; border-radius:6px;font-family:var(--font-body);}
   .signup-form{display:flex; gap:10px; flex-wrap:wrap; align-items:center; justify-content:center;}
   .seg{display:flex; gap:16px; align-items:center; flex-wrap:wrap; justify-content:center;}
-  .seg label{display:flex; align-items:center; gap:7px; font-size:13px; font-weight:600; color:#fff; cursor:pointer; font-family:var(--font-body);}
+  .seg label{display:flex; align-items:center; gap:7px; font-size:14pt; font-weight:600; color:#fff; cursor:pointer; font-family:var(--font-body);}
   .seg input{
     appearance:none; -webkit-appearance:none; width:16px; height:16px; border-radius:50%;
     border:2px solid rgba(255,255,255,.7); background:transparent; flex-shrink:0; margin:0; position:relative; cursor:pointer;
   }
   .seg input:checked{border-color:#fff;}
   .seg input:checked::after{content:''; position:absolute; top:50%; left:50%; width:8px; height:8px; border-radius:50%; background:#c6d9b4; transform:translate(-50%,-50%);}
-  .signup-form input[type="email"]{background:rgba(255,255,255,.16); border:1.5px solid #c6d9b4; color:#fff; padding:12px 16px; border-radius:20px;font-size:13.5px; min-width:220px; font-family:var(--font-body);}
+  .signup-form input[type="email"]{background:rgba(255,255,255,.16); border:1.5px solid #c6d9b4; color:#fff; padding:12px 16px; border-radius:20px;font-size:14pt; min-width:220px; font-family:var(--font-body);}
   .signup-form input[type="email"]::placeholder{color:rgba(255,255,255,.75);}
-  .signup-form button{background:#fff; color:#1A3302; border:none; padding:13px 30px; border-radius:20px;font-weight:800; font-size:14.5px; letter-spacing:.2px; cursor:pointer; transition:transform .15s, box-shadow .15s; box-shadow:0 4px 14px rgba(0,0,0,.2);}
+  .signup-form button{background:#fff; color:#1A3302; border:none; padding:13px 30px; border-radius:20px;font-weight:800; font-size:14pt; letter-spacing:.2px; cursor:pointer; transition:transform .15s, box-shadow .15s; box-shadow:0 4px 14px rgba(0,0,0,.2);}
   .signup-form button:hover{transform:translateY(-1px); box-shadow:0 6px 18px rgba(0,0,0,.2);}
 
   /* ---- signup confirmation popup — this is the conversion moment ---- */
