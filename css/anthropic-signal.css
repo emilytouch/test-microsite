@@ -84,7 +84,7 @@
   /* ---------- Ticker tape scroll speed ----------
      Change --ticker-speed below to speed up/slow down the tape.
      Higher number = slower scroll. Lower number = faster scroll. */
-  :root{ --ticker-speed: 70s; }
+  :root{ --ticker-speed: 45s; }
 
   /* ---- header ---- */
   header{
@@ -288,14 +288,14 @@
   }
   .hero-blob{
     position:absolute;
-    top:50px;
-    right:0;
+    top:5%;
+    right: 10%;
     width: 500px;
-    height: 500px;
     opacity:.5;
     pointer-events:none;
+    z-index: 0;
   }
-  .hero-blob polygon{fill:#E2661C;}
+
   .hero .wrap{
     position:relative;
     z-index:1;
@@ -359,22 +359,21 @@
   h1.headline .tick{
     font-family:var(--font-heading);
     display:inline-block;
-    padding:2px 18px;
-    border-radius:8px;
     transition:background .3s, color .3s, border-color .3s;
   }
   h1.headline .tick.mode-long{
     color:#CC785C;
+    text-shadow:0 0 8px #fff, 0 0 8px #fff, 0 0 12px #fff;
   }
   h1.headline .tick.mode-short{
     color:#fff;
-    background:#CC785C;
+    text-shadow:0 0 8px #CC785C, 0 0 8px #CC785C, 0 0 12px #CC785C;
   }
 
   .choose-label{
     text-align:left;
     font-family:var(--font-body);
-    font-size:11.5px;
+    font-size:14pt;
     letter-spacing:1.4px;
     text-transform:uppercase;
     color:var(--dim);
@@ -384,19 +383,19 @@
   /* ---- ticker toggle: segmented control, ticker symbol is the dominant text ---- */
   .ticker-toggle{
     display:flex;
-    max-width:440px;
+    max-width:500px;
     margin:0;
-    gap:4px;
-    background:var(--surface-2);
-    padding:5px;
+    gap:1rem;
+    /*background:var(--surface-2);*/
     border-radius:18px;
-    box-shadow:inset 0 1px 3px rgba(10,14,22,.08);
+    /*box-shadow:inset 0 1px 3px rgba(10,14,22,.08);*/
   }
   .ticker-seg-wrap{
     flex:1;
     overflow:hidden;
     border-radius:13px;
     transition:box-shadow .2s, background .2s;
+    background: var(--surface);
   }
   .ticker-seg-wrap.active{box-shadow:0 6px 16px rgba(10,14,22,.14);}
   .ticker-seg-wrap.long.active{background:#CC785C;}
@@ -409,7 +408,7 @@
     cursor:pointer;
     text-align:center;
     font-family:var(--font-body);
-    padding:16px 12px 14px;
+    padding:0.5rem 0;
     transition:transform .12s;
   }
   .ticker-seg-wrap:hover .ticker-seg{transform:translateY(-1px);}
@@ -433,7 +432,7 @@
   }
   .ticker-seg .seg-name{
     display:block;
-    font-size:9.5px;
+    font-size:10pt;
     font-weight:500;
     letter-spacing:.2px;
     text-transform:none;
@@ -490,6 +489,8 @@
     overflow:hidden;
     white-space:nowrap;
     padding:14px 0;
+    z-index:10;
+    position: relative;
   }
   .ticker-track{
     display:inline-block;
@@ -683,7 +684,12 @@
   .fd-snap-row .v{display:block; font-size:12px; font-weight:700; color:var(--text); font-family:var(--font-body);}
   @media (max-width:460px){ .fd-snap-grid{grid-template-columns:1fr;} }
 
-  .fd-disclosure{font-size:10.5px; color:var(--dim-2); line-height:1.5; margin-top:16px;}
+  .disclosure{
+    font-size: 11pt; 
+    color:var(--dim-2); 
+    line-height:1.5; 
+    margin-top:16px;
+  }
 
   /* ---- Active / inactive split-screen treatment ----
      Purely CSS, keyed off the same body[data-mode] the rest of the page
@@ -866,7 +872,7 @@
   .footer-links{display:flex; gap:22px; font-size:13px; color:var(--dim); flex-wrap:wrap;}
   .footer-links a{color:var(--dim); text-decoration:none; transition:color .15s;}
   .footer-links a:hover{color:var(--long);}
-  .legal{font-size:11px; color:var(--dim-2); line-height:1.75;}
+  .legal{font-size:11pt; color:var(--dim-2); line-height:1.75;}
   .legal p{margin-bottom:12px;}
   .legal strong{color:var(--dim);}
   .legal a{color:#CC785C; text-decoration:underline;}

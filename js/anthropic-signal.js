@@ -139,7 +139,7 @@ document.getElementById('statusBadge').style.cssText = FUND_LISTED ? `
 //     force it independent of FUND_EFFECTIVE for any reason.
 //   SEG_TAG_TEXT_LONG / SEG_TAG_TEXT_SHORT: edit these strings to say
 //     anything you want, or leave blank ('') to show an empty line. ----
-const SEG_TAG_VISIBLE = FUND_EFFECTIVE;
+const SEG_TAG_VISIBLE = true;
 const SEG_TAG_TEXT_LONG = 'Long \u00b7 2x daily';
 const SEG_TAG_TEXT_SHORT = 'Short \u00b7 \u22122x daily';
 
