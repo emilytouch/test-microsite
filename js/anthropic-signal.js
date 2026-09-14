@@ -346,7 +346,7 @@ function doSignup(e){
 //   'banner' — never auto-opens; only opens when someone clicks the
 //              thin banner's button
 const SIGNUP_STYLE = 'popup'; // 'banner' or 'popup'
-const SIGNUP_POPUP_DELAY_MS = 15000;
+const SIGNUP_POPUP_DELAY_MS = 5000;
 
 function closeSignupPopup(){
   document.getElementById('signupPopupOverlay').classList.remove('open');
