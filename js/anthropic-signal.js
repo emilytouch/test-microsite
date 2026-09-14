@@ -103,7 +103,7 @@ if(FUND_LISTED){
       <button type="submit" class="signup-thin-btn">Subscribe</button>
     </form>`;
 } else {
-  document.getElementById('signupPopupSubtitle').textContent = SIGNUP_POPUP_SUBTITLE_PRE_LISTING;
+  //document.getElementById('signupPopupSubtitle').textContent = SIGNUP_POPUP_SUBTITLE_PRE_LISTING;
 }
 
 const statusBadgeEl = document.getElementById('statusBadge');

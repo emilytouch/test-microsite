@@ -290,12 +290,14 @@
     width:900px; height:500px; border-radius:50%; background:#CC785C; opacity:.08; filter:blur(120px); transition:background .3s; pointer-events:none;
   }
   .hero-blob{
-    position:absolute;
-    top:5%;
+    position: absolute;
+    top: 5%;
     right: 5%;
-    width: 500px;
-    opacity:.5;
-    pointer-events:none;
+    max-width: 500px;
+    max-height: 500px;
+    aspect-ratio: 1/1;
+    opacity: .5;
+    pointer-events: none;
     z-index: 0;
   }
 
@@ -464,27 +466,18 @@
   .seg-link:hover{text-decoration:underline;}
 
   .reg-caption{
-    max-width:520px;
     margin:20px 0 0;
     background:var(--surface);
     color: var(--dim-2);
     border:1.5px solid #E0E0E0;
-    font-size:11pt;
-    font-weight:600;
-    line-height:1.55;
+    font-size: 11pt;
     padding:14px 18px;
     border-radius:10px;
   }
-  .reg-caption strong{
-    font-weight:800;
-    display:block;
-    margin-bottom:3px;
-    text-transform:uppercase;
-    font-size:11pt;
-    letter-spacing:.4px;
-    color: var(--long);
-    }
 
+  #heroDisclosure, #regCaption {
+    font-size: 11pt;
+  }
   /* ---- ticker tape ---- */
   .ticker-tape{
     border-top:1px solid var(--line);
@@ -533,7 +526,6 @@
   .sec-sub{
     color:var(--dim);
     font-size:14pt;
-    max-width:60ch;
     margin-top:12px;
   }
 
@@ -797,7 +789,7 @@
   .signup-thin-inline-form input[type="email"]::placeholder{color:rgba(255,255,255,.75);}
   .signup-thin-inline-confirmed{color:#fff; font-size:14pt; font-weight:700;}
   @media (max-width:500px){ .signup-thin-inline-form input[type="email"]{width:130px;} }
-  .signup-thin-btn:hover{transform:translateY(-1px); box-shadow:0 4px 12px rgba(0,0,0,.2);}
+  .signup-thin-btn:hover{transform:translateY(-1px); box-shadow:0 4px 12px rgba(0,0,0,.2);color:#fff; background:#1A3302;}
   @media (max-width:500px){
     .signup-inner-thin{gap:10px; padding:9px 0;}
     .signup-text-thin{font-size:14pt; white-space:normal; text-align:center;}
@@ -805,8 +797,8 @@
 
   /* ---- shared form pieces (used inside the signup popup) ---- */
   .signup-text{flex-shrink:0;}
-  .signup-text .big{font-size:24pt; color:#fff; white-space:nowrap;}
-  .signup-text .small{font-size:14pt; color:#E5CBC1; margin-top:6px;}
+  .signup-text .big{font-size:18pt; color:#fff; white-space:nowrap;}
+  .signup-text .small{font-size:12pt; color:#E5CBC1; margin-top:6px;}
   .signup-tick{display:inline-block; font-family:var(--font-body);}
   .signup-form{display:flex; gap:10px; flex-wrap:wrap; align-items:center; justify-content:center;}
   .seg{display:flex; gap:16px; align-items:center; flex-wrap:wrap; justify-content:center;}
@@ -834,7 +826,10 @@
     box-shadow:0 4px 14px rgba(0,0,0,.2);}
   .signup-form button:hover{ background:#1A3302 !important; transform:translateY(-1px); box-shadow:0 6px 18px rgba(0,0,0,.2);}
   .hsfc-Row {
-    font-family:var(--font-body) !important; font-size:14pt !important; color: var(--text) !important;
+    font-family:var(--font-body) !important; font-size:14pt !important;
+  }
+  .hsfc-Row p{
+    color: var(--ink) !important;
   }
   .hsfc-ErrorAlert{
     font-family:var(--font-body) !important;
@@ -906,7 +901,7 @@
     background:var(--long);
     border-radius:18px;
     padding:40px 36px;
-    max-width:600px;
+    max-width:500px;
     width:100%;
     position:relative;
     box-shadow:0 30px 70px rgba(0,0,0,.35);
@@ -929,11 +924,11 @@
   /* ---- footer ---- */
   footer{padding:56px 0 40px; background: linear-gradient(0deg, #F0EDE5 0%, #EFE5E0 100%);;}
   .footer-top{display:flex; justify-content:space-between; flex-wrap:wrap; gap:20px; margin-bottom:36px;}
-  .footer-links{display:flex; gap:22px; font-size:13px; color:var(--dim); flex-wrap:wrap;}
+  .footer-links{display:flex; gap:22px; font-size:11pt; color:var(--dim); flex-wrap:wrap;}
   .footer-links a{color:var(--dim); text-decoration:none; transition:color .15s;}
   .footer-links a:hover{color:var(--long);}
-  .legal{font-size:11pt; color:var(--dim-2); line-height:1.75;}
-  .legal p{margin-bottom:12px;}
+  .legal{color:var(--dim-2); line-height:1.75;}
+  .legal p{font-size:11pt; margin-bottom:12px;}
   .legal strong{color:var(--dim);}
   .legal a{color:#CC785C; text-decoration:underline;}
   .legal a:hover{color:var(--text);}

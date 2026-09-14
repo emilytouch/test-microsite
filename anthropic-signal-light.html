@@ -156,7 +156,6 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     <div class="logo-tag">
       <a href="https://www.proshares.com/" class="return-pill" aria-label="This is a microsite. Return to ProShares.com" target="_blank" rel="noopener">
         <span class="return-arrow">&larr;</span>
-        <span class="return-text">go to</span>
         <img src="assets/images/Logo_ProShares_Full_Wordmark_White.png" alt="ProShares" style="height:20px; width:auto; display:block;">
       </a>
         <a class="header-link" href="https://www.proshares.com/strategies/leveraged-and-inverse" target="_blank" rel="noopener">
@@ -169,15 +168,8 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
           <a href="https://www.proshares.com/strategies/cryptocurrency-etf-investing-strategies" target="_blank" rel="noopener">Crypto-Linked</a>
           <a href="https://www.proshares.com/our-etfs/find-leveraged-and-inverse-etfs" target="_blank" rel="noopener">All ETFs</a>
         </div> -->
-      <span class="logo-divider link-divider"></span>
-      <a href="https://www.proshares.com/resources/geared-faqs" class="header-link" target="_blank" rel="noopener">How They Work</a>
     </div>
     <div class="header-right">
-      <nav>
-        <a href="#fundDetails">Fund Details</a>
-        <a href="#why">Anthropic at a Glance</a>
-        <a href="#faq">FAQ</a>
-      </nav>
       <div class="social-links">
         <a href="https://x.com/ProShares" aria-label="X" target="_blank" rel="noopener"><img src="assets/images/X-logo-white.svg"/></a>
         <a href="https://www.instagram.com/proshares/" aria-label="Instagram" target="_blank" rel="noopener"><img src="assets/images/Instagram_Glyph_White.svg" /></a>
@@ -245,10 +237,10 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 <div class="signup-popup-overlay" id="signupPopupOverlay">
   <div class="signup-popup-card">
     <button class="signup-popup-close" onclick="closeSignupPopup()" aria-label="Close">&times;</button>
-    <div class="signup-text">
+    <!--<div class="signup-text">
       <div class="big" id="signupPopupHeading">Be first to trade <strong>ANTU</strong> and <strong>ANTY</strong></div>
       <div class="small" id="signupPopupSubtitle">Get an email alert as soon as the funds list.</div>
-    </div>
+    </div>-->
     <form class="signup-form" id="signupFormPopup" onsubmit="return doSignup(event)">
       <script src="https://js.hsforms.net/forms/embed/developer/47065601.js" defer></script>
       <div class="hs-form-html" data-region="na1" data-form-id="12d648a0-6a72-427a-991c-e3afaa092224" data-portal-id="47065601"></div>
@@ -309,7 +301,10 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
         <a class="seg-link" href="https://www.proshares.com/our-etfs/leveraged-and-inverse/anty" onclick="event.stopPropagation()" >View Fund Details &rarr;</a>
       </div>
     </div>
-    <p class="reg-caption" id="regCaption"><strong>Registration Statement Notice</strong>The registration statements for ANTU and ANTY have been filed with the SEC but are not yet effective and may be changed. Shares may not be sold, nor may offers to buy be accepted, until each registration statement is effective.</p>
+    <div class="reg-caption">
+      <p id="regCaption"><strong>The registration statements for ANTU and ANTY have been filed with the SEC but are not yet effective and may be changed. Shares may not be sold, nor may offers to buy be accepted, until each registration statement is effective.</strong></p>
+      <p id="heroDisclosure">These ProShares ETFs seek daily investment results that correspond, before fees and expenses, to two times (2x) the daily performance of a single stock for ANTU, or negative two times (-2x) for ANTY (each, the “Daily Target”). While each Fund has a daily investment objective, you may hold Fund shares for longer than one day if you believe it is consistent with your goals and risk tolerance. <strong>For any holding period other than a day, your return may be higher or lower than the Daily Target. These differences may be significant.</strong> Smaller index gains/losses and higher index volatility contribute to returns worse than the Daily Target. Larger index gains/losses and lower index volatility contribute to returns better than the Daily Target. The more extreme these factors are, the more they occur together, and the longer your holding period while these factors apply, the more your return will tend to deviate. Investors should consider periodically monitoring their geared fund investments in light of their goals and risk tolerance.</p>
+    </div>
   </div>
 
   <div class="ticker-tape">
@@ -488,7 +483,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
       <div class="sec-eyebrow">Anthropic at a Glance</div>
       <div>
         <span class="sec-title">About Anthropic</span>
-        <p>Anthropic is a leading artificial intelligence (AI) company and the creator of Claude, a family of advanced large language models that power conversational AI, coding, writing, and analysis for millions of users and businesses. It develops cutting-edge AI products and an enterprise-ready API used by developers and organizations worldwide.</p>
+        <p class="sec-sub">Anthropic is a leading artificial intelligence (AI) company and the creator of Claude, a family of advanced large language models that power conversational AI, coding, writing, and analysis for millions of users and businesses. It develops cutting-edge AI products and an enterprise-ready API used by developers and organizations worldwide.</p>
       </div>
       <div class="insights-grid insights-grid-compact" id="insightsGrid">
         <a class="insight-card" href="https://www.proshares.com/browse-all-insights/insights/anthropic-ipo-investor-questions" target="_blank" rel="noopener">
@@ -773,7 +768,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 <footer>
   <div class="wrap">
     <div class="footer-top">
-      <a href="https://www.proshares.com/" style="display:inline-flex; align-items:center;"><img src="assets/images/Logo_ProShares_Full_Wordmark_Color_Digital_RGB.png" alt="ProShares" style="height:26px; width:auto; display:block;" target="_blank" rel="noopener"></a>
+      <a href="https://www.proshares.com/" style="display:inline-flex; align-items:center;" target="_blank" rel="noopener"><img src="assets/images/Logo_ProShares_Full_Wordmark_Color_Digital_RGB.png" alt="ProShares" style="height:26px; width:auto; display:block;" target="_blank" rel="noopener"></a>
       <div class="footer-links">
         <a href="https://www.proshares.com/fund-documents" target="_blank" rel="noopener">Prospectus</a>
         <a href="https://www.proshares.com/faqs" target="_blank" rel="noopener">FAQs</a>
@@ -793,18 +788,18 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     <div class="legal">
       <p id="footerRegNotice"><strong>Registration statement notice:</strong> The registration statements for ANTU and ANTY have been filed with the SEC but are not yet effective. Shares may not be sold, nor may offers to buy be accepted, until effective. This page is not an offer to sell or a solicitation of an offer to buy these securities in any state or jurisdiction where such offer would be unlawful.</p>
       
-      <p>These ProShares ETFs seek daily investment results that correspond, before fees and expenses, to two times (2x) the daily performance of a single stock for ANTU, or negative two times (-2x) for ANTY (each, the “Daily Target”). While each Fund has a daily investment objective, you may hold Fund shares for longer than one day if you believe it is consistent with your goals and risk tolerance. <strong>For any holding period other than a day, your return may be higher or lower than the Daily Target. These differences may be significant.</strong> Smaller index gains/losses and higher index volatility contribute to returns worse than the Daily Target. Larger index gains/losses and lower index volatility contribute to returns better than the Daily Target. The more extreme these factors are, the more they occur together, and the longer your holding period while these factors apply, the more your return will tend to deviate. Investors should consider periodically monitoring their geared fund investments in light of their goals and risk tolerance.</p>
+      <!--<p>These ProShares ETFs seek daily investment results that correspond, before fees and expenses, to two times (2x) the daily performance of a single stock for ANTU, or negative two times (-2x) for ANTY (each, the “Daily Target”). While each Fund has a daily investment objective, you may hold Fund shares for longer than one day if you believe it is consistent with your goals and risk tolerance. <strong>For any holding period other than a day, your return may be higher or lower than the Daily Target. These differences may be significant.</strong> Smaller index gains/losses and higher index volatility contribute to returns worse than the Daily Target. Larger index gains/losses and lower index volatility contribute to returns better than the Daily Target. The more extreme these factors are, the more they occur together, and the longer your holding period while these factors apply, the more your return will tend to deviate. Investors should consider periodically monitoring their geared fund investments in light of their goals and risk tolerance.</p>-->
       <p><strong>These leveraged and inverse single-stock ETFs’ performance depends almost entirely on the performance of their underlying single stock, which involves significant risk and eliminates the benefits of diversification. The underlying stock may experience significant price volatility at any time. Before investing, you should carefully consider that high volatility may have a significant negative impact on the Fund’s performance.</strong> It may also experience abnormal returns, which should not be expected to persist. The ETF’s performance should be measured from one NAV calculation time to the next and does not represent the returns you would receive if you traded shares at other times. Market volatility or disruptions in the trading of the underlying stock may impair the ETF’s ability to obtain or maintain its desired exposure and could result in losses or wider bid-ask spreads. IPO investments generally carry higher risks, including limited trading history, market risk, and liquidity concerns. The underlying stock may experience periods of low liquidity, making it difficult to buy or sell at desired prices. Large ETF positions may increase this risk and impact the underlying stock’s market price. During such times, the ETF may face losses, wider bid-ask spreads, and challenges in managing its exposure. Anthropic faces risks related to intense competition among frontier AI developers, substantial and ongoing compute and infrastructure costs, reliance on third-party cloud and hardware providers, evolving AI safety and regulatory obligations, cybersecurity threats, litigation, and reputational events that may affect its business and operations. You should refer to the <a href="https://www.sec.gov/Archives/edgar/data/1174610/000117461026000324/f45518d1.htm" target="_blank" rel="noopener">prospectuses</a> for a more complete description of issuer risks.</p>
       <p>ProShares has derived all disclosures herein regarding the issuer from publicly available sources it deems to be reliable and makes no representation as to their accuracy or completeness. ProShares cannot give any assurance that all relevant events that would affect the trading price of the issuer have been publicly disclosed. Any future developments, whether disclosed or not, could affect the value of the issuer and, in turn, the value of the ETF. The ETF and ProShare Advisors LLC are not affiliated with the underlying stock issuer.</p>
       <p><strong>Investing involves risk, including the possible loss of principal.</strong> Leveraged and inverse ProShares ETFs are non-diversified and entail certain risks, including risk associated with the use of derivatives (swap agreements, futures contracts and similar instruments), imperfect benchmark correlation, leverage and market price variance, all of which can increase volatility and decrease performance. The ETF's investment exposure is concentrated in the industry in which the underlying stock operates. Narrowly focused investments typically exhibit higher volatility. Investors could potentially lose the full value of their investment within a single day. Please see the summary and full <a href="https://www.proshares.com/fund-documents" target="_blank" rel="noopener">prospectuses</a> at ProShares.com for a more complete description of risks. <strong>There is no guarantee any ProShares ETF will achieve its investment objective.</strong></p>
 
       <p>Shares of any ETF are generally bought and sold at market price (not NAV) and are not individually redeemed from the fund. Your brokerage commissions will reduce returns.</p>
 
-      <p><strong>Carefully consider the investment objectives, risks, charges and expenses of ProShares before investing.</strong> This and other information can be found in their summary and full <a href="https://www.proshares.com/fund-documents" target="_blank" rel="noopener">prospectuses</a>. Read them carefully before investing.</p>
+      <p><strong>Carefully consider the investment objectives, risks, charges and expenses of ProShares before investing. This and other information can be found in their summary and full <a href="https://www.proshares.com/fund-documents" target="_blank" rel="noopener">prospectuses</a>. Read them carefully before investing.</strong></p>
 
-      <p>Registered Investment Companies are required by the IRS to distribute substantially all of their income and capital gains to shareholders at least annually. For specific tax advice, we recommend you speak with a qualified tax professional.</p>
+      <!--<p>Registered Investment Companies are required by the IRS to distribute substantially all of their income and capital gains to shareholders at least annually. For specific tax advice, we recommend you speak with a qualified tax professional.</p>
 
-      <p><strong>Index information does not reflect any management fees, transaction costs or expenses. Indexes are unmanaged, and one cannot invest directly in an index.</strong></p>
+      <p><strong>Index information does not reflect any management fees, transaction costs or expenses. Indexes are unmanaged, and one cannot invest directly in an index.</strong></p>-->
 
       <p>Quote data provided by <a href="http://www.interactivedata.com/" target="_blank" rel="noopener">Interactive Data - Real Time Services, Inc.</a> and subject to <a href="http://www.interactivedata.com/terms-and-conditions/" target="_blank" rel="noopener">terms of use</a>.</p>
 
