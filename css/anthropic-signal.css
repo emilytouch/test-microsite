@@ -139,7 +139,7 @@
     text-decoration:none;
     transition:color .15s;
   }
-  .header-link:hover{color:#fff;}
+  .header-link:hover{color:var(--long);}
   .nav-dropdown{position:relative;}
   .dropdown-trigger{
     display:flex;
@@ -755,6 +755,26 @@
     .accordion-button::after {
       background-image: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='%23000000'><path fill-rule='evenodd' d='M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z'/></svg>") !important;
   }
+  .faq-collapse-all{
+    margin-top: 1rem;
+    padding:8px 14px;
+    border:1px solid var(--short);
+    border-radius:4px;
+    background:transparent;
+    color:var(--short);
+    font-family:var(--font-body);
+    font-size:12px;
+    font-weight:700;
+    letter-spacing:.4px;
+    text-transform:uppercase;
+    cursor:pointer;
+    transition:background .15s, color .15s;
+  }
+  .faq-collapse-all:hover,
+  .faq-collapse-all:focus-visible{
+    background:var(--short);
+    color:#fff;
+  }
   .acc-item{border-bottom:1px solid var(--line);}
   .acc-q{
     width:100%;
@@ -919,7 +939,24 @@
   }
   .signup-popup-close:hover{color:#fff;}
   @media (max-width:600px){ .signup-popup-card{padding:28px 22px;} }
-
+  
+  .external-link-overlay {
+    display:none;
+    position:fixed;
+    inset:0;
+    z-index:200;
+    background:rgba(20,21,26,.55);
+    align-items:center;
+    justify-content:center;
+    padding:20px;
+  }
+  .external-link-overlay.open{display:flex;}
+  .external-link-popup {
+    max-width: 500px;
+    width:100%;
+    position: relative;
+    background: var(--surface);
+  }
 
   /* ---- footer ---- */
   footer{padding:56px 0 40px; background: linear-gradient(0deg, #F0EDE5 0%, #EFE5E0 100%);;}

@@ -8,9 +8,6 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
 })(window,document,'script','dataLayer','GTM-MV5W5N6');</script>
 <!-- End Google Tag Manager -->
-<!-- Start of HubSpot Embed Code -->
-<script type="text/javascript" id="hs-script-loader" async defer src="//js.hs-scripts.com/47065601.js"></script>
-<!-- End of HubSpot Embed Code -->
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="color-scheme" content="light only">
@@ -24,43 +21,6 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
      change to wire any of these up; see the "engagement tracking"
      comment further down in the <script> for what events already
      fire and are ready for these tags to listen for.
-
-     BEFORE ADDING ANYTHING HERE: check whether GA4, HubSpot tracking,
-     and ad pixels are already injected site-wide on proshares.com via
-     Optimizely. If this page ends up served at a path on proshares.com
-     (e.g. via reverse proxy) rather than through Optimizely's own
-     template, it will NOT automatically inherit those site-wide tags
-     or the site's cookie-consent banner — they need to be added here
-     explicitly, exactly once, to avoid double-counting if Optimizely
-     ALSO happens to inject them at the routing layer.
-
-     1) HUBSPOT
-        Two ways to use HubSpot here — pick based on how much control
-        you want over the form's look vs. how much you want HubSpot's
-        team to manage fields without touching code:
-
-        Option A — HubSpot's own embedded form (simplest to maintain,
-        but you lose some control over exact styling, since HubSpot
-        renders its own form markup):
-          <script src="https://js.hsforms.net/forms/embed/YOUR_PORTAL_ID.js" defer></script>
-          then replace the <form id="signupForm"> below with HubSpot's
-          embed <div data-hs-forms-root ...> snippet from your portal.
-
-        Option B — keep this page's custom-styled form exactly as
-        designed, and submit its data into HubSpot behind the scenes
-        (recommended, since the orange banner's form was built to
-        match the page). This is already wired up below in the
-        doSignup() function — you just need to:
-          a) Paste your HubSpot tracking code loader here so the
-             "hutk" cookie exists (needed for HubSpot to attribute
-             the submission to a visitor/session):
-             <script type="text/javascript" id="hs-script-loader" async defer src="https://js.hs-scripts.com/47065601.js"></script>
-          b) Fill in HUBSPOT_PORTAL_ID and HUBSPOT_FORM_GUID in the
-             doSignup() function in the <script> below.
-          c) In HubSpot, create a form with two fields matching what's
-             already sent: "email" and "investor_type" (values sent
-             are "self" or "pro") — or rename the fields in doSignup()
-             to match whatever internal names you create instead.
 
      3) AD PIXELS (Meta, LinkedIn, Google Ads, etc.)
         Paste each platform's base pixel snippet here, exactly as they
@@ -80,23 +40,10 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
             window._linkedin_data_partner_ids.push(_linkedin_partner_id);
           </script>
 
-        Once these are loaded, the same trackEvent() calls below will
-        also fire fbq('track', ...) / lintrk('track', ...) events
-        automatically wherever applicable — the helper checks whether
-        each pixel exists before calling it, so it's safe to add these
-        one at a time without breaking anything in the meantime.
 ================================================================= -->
 
-
 <!-- ================================================================
-  DESIGN NOTES (delete before shipping):
-  This is the LIGHT variant of the "Signal" design (same layout, type,
-  and interactions as the dark version), with the base tokens flipped
-  and the accent hues deepened for legibility on white:
-    Color   — page #FFFFFF, surface #F3F4F8, text #12161F, dim #5B6273,
-              long (bull/ANTU) #CC785C, short (bear/ANTY) #3C5A1A
-    Type    — display/data: JetBrains Mono, body: Manrope (unchanged)
-    Layout  — identical structure/signature to the dark version
+
   All fund data is placeholder (pre-launch); all Anthropic company stats
   are sourced from Anthropic's own funding/press disclosures as of mid-2026.
   Registration-statement (red herring) language sits in the top bar and
@@ -127,14 +74,9 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
       {"@type":"Question","name":"How does ANTU target 2x daily?","acceptedAnswer":{"@type":"Answer","text":"ANTU seeks to deliver 2x the daily performance of Anthropic primarily through swap agreements and direct holdings of Anthropic (ANTH) shares, rebalanced daily to maintain its target."}},
       {"@type":"Question","name":"What is the difference between ANTH and ANTU?","acceptedAnswer":{"@type":"Answer","text":"ANTH is the ticker for Anthropic's common stock itself. ANTU is a separate ETF that targets 2x ANTH's daily return, so ANTU is expected to move roughly twice as much as ANTH on any given trading day, before fees."}},
       {"@type":"Question","name":"What does 2x daily target mean for a leveraged ETF?","acceptedAnswer":{"@type":"Answer","text":"A 2x daily target means the fund aims to deliver twice the performance of Anthropic stock for a single trading day, before fees and expenses. It is not a target for any period longer than one day."}},
-      {"@type":"Question","name":"How does volatility affect the performance of geared funds over periods other than one day?","acceptedAnswer":{"@type":"Answer","text":"All else equal, geared funds tend to underperform their daily target in volatile markets, while outperforming their daily target in calmer, less volatile conditions."}},
-      {"@type":"Question","name":"Why might investors use ANTU or ANTY instead of margin borrowing or short selling Anthropic stock?","acceptedAnswer":{"@type":"Answer","text":"ANTU and ANTY are designed to target 2x and -2x daily exposure to Anthropic through a single ticker in a standard brokerage account, without opening a margin account, borrowing shares to short, or meeting margin calls. Maximum loss is generally limited to the amount invested in the fund."}},
+      {"@type":"Question","name":"Why might investors use ANTU or ANTY instead of margin borrowing or short selling?","acceptedAnswer":{"@type":"Answer","text":"ANTU and ANTY are designed to target 2x and -2x daily exposure to Anthropic through a single ticker in a standard brokerage account, without opening a margin account, borrowing shares to short, or meeting margin calls. Maximum loss is generally limited to the amount invested in the fund."}},
       {"@type":"Question","name":"Can I trade options on ANTU or ANTY?","acceptedAnswer":{"@type":"Answer","text":"Options availability for ANTU and ANTY will depend on exchange listing standards once each fund launches and is not yet confirmed. Check back once trading begins."}},
       {"@type":"Question","name":"What does Anthropic do?","acceptedAnswer":{"@type":"Answer","text":"Anthropic develops large language models and advanced AI systems designed to be reliable, interpretable, and steerable. Anthropic's technology spans a wide range of applications such as coding assistance, enterprise productivity, research, customer service and content generation."}},
-      {"@type":"Question","name":"How does Anthropic make money?","acceptedAnswer":{"@type":"Answer","text":"Anthropic generates revenue mainly by selling access to its Claude AI models. Businesses and developers pay for API access to build Claude into their own products, including tools like Claude Code, while individuals pay for subscription access to the Claude app. Enterprise and developer use reportedly accounts for roughly 80% of Anthropic's revenue, with consumer subscriptions making up the rest."}},
-      {"@type":"Question","name":"Who does Anthropic compete with?","acceptedAnswer":{"@type":"Answer","text":"Anthropic's primary competitors are other companies building frontier AI models, most notably OpenAI (maker of ChatGPT), Google DeepMind, and Meta. It's a capital-intensive, fast-moving race where competitive positioning can shift quickly as new models are released."}},
-      {"@type":"Question","name":"What is Claude?","acceptedAnswer":{"@type":"Answer","text":"Claude is the name of Anthropic's family of AI models. It's available to individuals through a subscription app, and to businesses and developers through API access and tools like Claude Code, spanning uses such as coding assistance, enterprise productivity, research, customer service, and content generation."}},
-      {"@type":"Question","name":"What is an LLM?","acceptedAnswer":{"@type":"Answer","text":"LLM stands for large language model — a type of AI system trained on large amounts of text to understand and generate human-like language. Claude, ChatGPT, and Gemini are all examples of large language models, each built and trained by a different company."}},
       {"@type":"Question","name":"What should investors understand before investing in a leveraged single-stock ETF?","acceptedAnswer":{"@type":"Answer","text":"Leveraged and inverse single-stock ETFs pursue a daily objective and can be significantly more volatile than diversified funds. Because they track one company, they carry company-specific risk with no diversification cushion. Investment results over periods other than one day will differ from the daily target over the time the fund is held. These differences may be significant. Investors should review the prospectus carefully before investing."}},
       {"@type":"Question","name":"Can I invest in ANTU or ANTY today?","acceptedAnswer":{"@type":"Answer","text":"Not yet. Each fund's registration statement filed with the SEC has not been declared effective, and shares cannot be sold until it is. Sign up on this page to be notified the moment trading begins."}}
     ]
@@ -154,13 +96,15 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
       <span></span><span></span><span></span>
     </button>
     <div class="logo-tag">
-      <a href="https://www.proshares.com/" class="return-pill" aria-label="This is a microsite. Return to ProShares.com" target="_blank" rel="noopener">
+      <a href="https://www.proshares.com/" class="return-pill external" target="_blank" rel="noopener">
         <span class="return-arrow">&larr;</span>
-        <img src="assets/images/Logo_ProShares_Full_Wordmark_White.png" alt="ProShares" style="height:20px; width:auto; display:block;">
+        <img src="assets/images/Logo_ProShares_Full_Wordmark_White.png" alt="ProShares Logo" style="height:20px; width:auto; display:block;">
       </a>
         <a class="header-link" href="https://www.proshares.com/strategies/leveraged-and-inverse" target="_blank" rel="noopener">
           Leveraged &amp; Inverse ETFs
         </a>
+        <span class="logo-divider"></span>
+        <a class="header-link" href="https://www.proshares.com/resources/geared-faqs" target="_blank" rel="noopener">How They Work</a>
         <!--<div class="dropdown-menu" id="etfsDropdownMenu">
           <a href="https://www.proshares.com/our-etfs/find-leveraged-and-inverse-etfs?etftype=&strategy=Single%20Stock&benchmark=&product=Product%20Overview%20&search=" target="_blank" rel="noopener">Single-Stock</a>
           <a href="https://www.proshares.com/our-etfs/find-leveraged-and-inverse-etfs?etftype=&strategy=Commodity&benchmark=&product=Product%20Overview%20&search=" target="_blank" rel="noopener">Commodities</a>
@@ -181,24 +125,13 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     </div>
   </div>
   <div class="mobile-nav" id="mobileNav">
-    <a href="#fundDetails" onclick="closeMobileNav()">Fund Details</a>
-    <a href="#why" onclick="closeMobileNav()">Anthropic at a Glance</a>
-    <a href="#faq" onclick="closeMobileNav()">FAQ</a>
-    <a href="#" onclick="closeMobileNav()">Leveraged &amp; Inverse ETFs</a>
-    <a href="#" onclick="closeMobileNav()">Single-Stock</a>
-    <a href="#" onclick="closeMobileNav()">Commodities</a>
-    <a href="https://www.proshares.com/strategies/nasdaq-100-etfs" onclick="closeMobileNav()" target="_blank" rel="noopener">Nasdaq-100</a>
-    <a href="https://www.proshares.com/strategies/cryptocurrency-etf-investing-strategies" onclick="closeMobileNav()" target="_blank" rel="noopener">Crypto-Linked</a>
-    <a href="https://www.proshares.com/our-etfs/find-leveraged-and-inverse-etfs" onclick="closeMobileNav()" target="_blank" rel="noopener">All ETFs</a>
+    <a href="https://www.proshares.com/strategies/leveraged-and-inverse" onclick="closeMobileNav()">Leveraged &amp; Inverse ETFs</a>
     <a href="https://www.proshares.com/resources/geared-faqs" onclick="closeMobileNav()" target="_blank" rel="noopener">How They Work</a>
   </div>
 </header>
 
 <!-- ============================================================
-     THIN SIGNUP BANNER — always visible, regardless of SIGNUP_STYLE
-     below. This is intentionally slim (no form fields) since the
-     actual form lives in the popup; clicking "Notify Me" here opens
-     that same popup immediately, rather than waiting for its timer.
+     THIN SIGNUP BANNER -clicking "Notify Me" opens popup immediately
 ============================================================= -->
 <div class="signup-band-thin" id="notify">
   <div class="signup-inner-thin">
@@ -210,29 +143,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 </div>
 
 <!-- ============================================================
-     SIGNUP CONFIRMATION POPUP — this is the tracked conversion
-     moment (see trackEvent('signup_conversion', ...) in the script
-     below). Point ad-platform conversion tags at that same event
-     name if a platform needs a specific trigger to bind to, rather
-     than the form's submit action itself.
-============================================================= -->
-<div class="confirm-overlay" id="confirmOverlay">
-  <div class="confirm-card">
-    <button class="confirm-close" onclick="closeConfirmPopup()" aria-label="Close">&times;</button>
-    <div class="confirm-icon">&check;</div>
-    <h3>You're all set.</h3>
-    <p id="confirmMessage">ProShares will notify you when ANTU and ANTY are available to trade.</p>
-  </div>
-</div>
-
-<!-- ============================================================
-     SIGNUP POPUP — an alternative to the inline orange banner above.
-     Only shows if SIGNUP_STYLE below is set to 'popup' instead of
-     'banner'; appears once, after a delay, and is easy to dismiss
-     (X button, click outside, or Escape). Reuses the exact same
-     .signup-text / .signup-form / .seg / .signup-tick styling as the
-     banner (that's why the card itself is orange) so both versions
-     stay visually consistent with zero duplicated CSS.
+     SIGNUP POPUP — Only shows if SIGNUP_STYLE below is set to 'popup' instead of 'banner';
 ============================================================= -->
 <div class="signup-popup-overlay" id="signupPopupOverlay">
   <div class="signup-popup-card">
@@ -253,14 +164,24 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     </form>
   </div>
 </div>
-
+<div class="external-link-overlay" id="externalLinkOverlay">
+  <div class="external-link-popup">
+    <button class="external-link-close" onclick="closeExternalLinkPopup()" aria-label="Close">&times;</button>
+    <div class="external-link-text">
+      <div class="big">Going to ProShares main site...</div>
+      <div class="small">you are about to be redirected to the ProShares website.</div>
+    </div>
+    <div class="external-link-actions">
+      <a href="#" id="externalLinkContinue" target="_blank" rel="noopener" class="external-link-continue">Continue</a>
+      <button type="button" onclick="closeExternalLinkPopup()" class="external-link-cancel">Cancel</button>
+    </div>
+  </div>
+</div>
 <section class="hero">
   <img id="heroDecoration" class="hero-blob" src="assets/images/claude-logo.png">
   <div class="wrap">
     <!-- ============================================================
-         STATUS BADGE — fully optional. Delete this whole <div id=
-         "statusBadge">...</div> block to remove it entirely; nothing
-         else on the page depends on it.
+         STATUS BADGE — 
          To edit what it says (e.g. once the funds actually list),
          change the FUND_STATUS_LIVE flag and the two text constants
          right near the top of the <script> at the bottom of this
@@ -290,7 +211,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
           <span class="seg-tag" id="segTagLong">Long &middot; 2x daily</span>
           <span class="seg-name">ProShares Ultra Anthropic</span>
         </button>
-        <a class="seg-link" href="https://www.proshares.com/our-etfs/leveraged-and-inverse/antu" onclick="event.stopPropagation()" target="_blank" rel="noopener">View Fund Details &rarr;</a>
+        <a class="seg-link" href="https://www.proshares.com/our-etfs/leveraged-and-inverse/antu" onclick="event.stopPropagation()" target="_blank" rel="noopener">View Product Page &rarr;</a>
       </div>
       <div class="ticker-seg-wrap short">
         <button class="ticker-seg" onclick="setMode('short')">
@@ -298,7 +219,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
           <span class="seg-tag" id="segTagShort">Short &middot; &minus;2x daily</span>
           <span class="seg-name">ProShares UltraShort Anthropic</span>
         </button>
-        <a class="seg-link" href="https://www.proshares.com/our-etfs/leveraged-and-inverse/anty" onclick="event.stopPropagation()" >View Fund Details &rarr;</a>
+        <a class="seg-link" href="https://www.proshares.com/our-etfs/leveraged-and-inverse/anty" onclick="event.stopPropagation()" target="_blank" rel="noopener">View Product Page &rarr;</a>
       </div>
     </div>
     <div class="reg-caption">
@@ -369,14 +290,6 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
           </div>
         </div>
 
-        <!-- ============================================================
-             SNAPSHOT — every row below is freely editable. CUSIP,
-             Inception Date, Net Assets, and both expense ratios are all
-             "TBD" right now since those values don't exist yet — swap
-             each in for the real value the moment you have it. To add
-             or remove a row entirely, copy or delete this pattern:
-               <div class="fd-snap-row"><span class="k">Label</span><span class="v">Value</span></div>
-        ============================================================= -->
         <div class="fd-snapshot" id="fdSnapshotAntu">
           <div class="fd-snapshot-title">ANTU Snapshot</div>
           <div class="fd-snap-grid">
@@ -404,7 +317,6 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
           <span class="fd-label">Investment Objective</span>
           <p>ANTY seeks daily investment results, before fees and expenses, that correspond to two times the inverse (-2x) of the daily performance of the common stock of Anthropic (NASDAQ: ANTH).</p>
         </div>
-
         <div class="fd-pillars">
           <div class="fd-pillar">
             <h4>Seeks to Profit from Downturns</h4>
@@ -419,7 +331,6 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
             <p>Buy and sell inverse exposure via a single ticker in a brokerage account.</p>
           </div>
         </div>
-
         <div class="fd-snapshot" id="fdSnapshotAnty">
           <div class="fd-snapshot-title">ANTY Snapshot</div>
           <div class="fd-snap-grid">
@@ -434,24 +345,11 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
             <div class="fd-snap-row"><span class="k">Distributions</span><span class="v">Quarterly</span></div>
           </div>
         </div>
-
         <div class="fd-block" style="margin-top:16px; margin-bottom:0;">
-
         </div>
       </div>
-
     </div>
-
-    <!-- This disclosure applies to both ANTU and ANTY, so it sits once
-         below both columns rather than being duplicated per fund. It's
-         tied to the same FUND_DETAILS_LIVE section as the columns above
-         it, so it shows/hides together with them automatically. -->
     <p class="disclosure">These ProShares ETFs seek daily investment results that correspond, before fees and expenses, to two times (2x) the daily performance of a single stock for ANTU, or negative two times (-2x) for ANTY (each, the &ldquo;Daily Target&rdquo;). While each Fund has a daily investment objective, you may hold Fund shares for longer than one day if you believe it is consistent with your goals and risk tolerance. <strong>For any holding period other than a day, your return may be higher or lower than the Daily Target. These differences may be significant.</strong> Smaller index gains/losses and higher index volatility contribute to returns worse than the Daily Target. Larger index gains/losses and lower index volatility contribute to returns better than the Daily Target. The more extreme these factors are, the more they occur together, and the longer your holding period while these factors apply, the more your return will tend to deviate. Investors should consider periodically monitoring their geared fund investments in light of their goals and risk tolerance.</p>
-
-    <!-- FLAG FOR LEGAL/OPS: the sentence below has a placeholder date —
-         "[DATE]" — for how long the contractual fee waiver runs. This
-         needs a real date before launch; it's a compliance requirement
-         to state, not optional copy. -->
     <p class="disclosure">Gross expense ratio reflects expenses before any fee waiver. Net expense ratio reflects expenses with contractual waiver through <strong>[DATE]</strong>, where applicable.</p>
 
   </div>
@@ -602,6 +500,10 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
         <p>A capital-intensive, fast-moving race that can swing sentiment sharply once ANTH trades.</p>
       </div>
     </div>
+    <div>
+      <p class="src-note">Sources: 2,500+ employees: Fortune, 6/7/2026; Anthropic founders: Anthropic.com; Origin of the Claude name: New York Times, 10/25/2024; Run-rate revenue and valuation: Anthropic Funding Series Announcements; Bloomberg, 8/31/2026; Financial Times, 8/14/2026; Anthropic IPO estimate: The Wall Street Journal; Historical IPO offer sizes: Bloomberg, 9/4/2026</p>
+ 
+    </div>
   </div>
 </section>
 
@@ -612,6 +514,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
       <h2 class="sec-title">About ProShares Anthropic ETFs</h2>
       <div class="sec-rule"></div>
       <p class="sec-sub">Answers to common questions about ANTU, ANTY, and how to get 2x leveraged or short exposure to Anthropic (ANTH) stock.</p>
+      <button type="button" class="faq-collapse-all" id="collapseAll" aria-controls="faq-Accordion">Close all</button>
     </div>
     <!-- ============================================================
          FAQ LIST — add, remove, or edit any .acc-item block below,

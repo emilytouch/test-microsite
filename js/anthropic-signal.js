@@ -14,7 +14,7 @@ function closeMobileNav(){
 }
 
 // ---- header "ETFs" dropdown ----
-function toggleEtfsDropdown(){
+/*function toggleEtfsDropdown(){
   const menu = document.getElementById('etfsDropdownMenu');
   const trigger = document.querySelector('#etfsDropdown .dropdown-trigger');
   const isOpen = menu.classList.toggle('open');
@@ -27,7 +27,7 @@ document.addEventListener('click', (e) => {
     document.getElementById('etfsDropdownMenu').classList.remove('open');
     document.querySelector('#etfsDropdown .dropdown-trigger').classList.remove('open');
   }
-});
+});*/
 
 // ---- mode toggle (signature interaction) ----
 const heroTicker = document.getElementById('heroTicker');
@@ -90,11 +90,10 @@ const STATUS_BADGE_TEXT = FUND_LISTED ? 'Now Trading' : 'Pending Anthropic IPO L
 const SIGNUP_HEADING_PRE_LISTING = 'Be first to trade <strong>ANTU</strong> and <strong>ANTY</strong>';
 const SIGNUP_HEADING_LISTED = 'Stay updated on market insights and ProShares products.';
 const SIGNUP_POPUP_SUBTITLE_PRE_LISTING = 'Get an email alert as soon as the funds list.';
-const CONFIRM_MESSAGE_PRE_LISTING = 'ProShares will notify you when ANTU and ANTY are available to trade.';
-const CONFIRM_MESSAGE_LISTED = "You'll get market insights and ProShares updates in your inbox.";
+//const CONFIRM_MESSAGE_PRE_LISTING = 'ProShares will notify you when ANTU and ANTY are available to trade.';
+//const CONFIRM_MESSAGE_LISTED = "You'll get market insights and ProShares updates in your inbox.";
 
 document.getElementById('signupThinHeading').innerHTML = FUND_LISTED ? SIGNUP_HEADING_LISTED : SIGNUP_HEADING_PRE_LISTING;
-document.getElementById('confirmMessage').textContent = FUND_LISTED ? CONFIRM_MESSAGE_LISTED : CONFIRM_MESSAGE_PRE_LISTING;
 
 if(FUND_LISTED){
   document.getElementById('signupThinAction').innerHTML = `
@@ -117,7 +116,6 @@ document.getElementById('statusBadge').style.cssText = FUND_LISTED ? `
   gap:8px;
   justify-content:center;
   width:fit-content;
-  margin:0 auto 20px;
   font-family:var(--font-body);
   font-size:11.5px;
   font-weight:700;
@@ -215,10 +213,9 @@ function toggleSection(id, isLive, navHref){
     });
   }
 }
-toggleSection('fundDetails', FUND_DETAILS_LIVE, '#fundDetails');
-toggleSection('insightsGrid', INSIGHTS_LIVE, null); // no own nav link — it's part of the Anthropic at a Glance section
-toggleSection('why', WHY_ANTHROPIC_LIVE, '#why');
-toggleSection('faq', FAQ_LIVE, '#faq');
+
+toggleSection('fundDetails', FUND_DETAILS_LIVE);
+
 if(!FAQ_LIVE){
   const faqSchema = document.getElementById('faqJsonLd');
   if(faqSchema) faqSchema.remove();
@@ -262,19 +259,31 @@ const loopContent = tickerItems.concat(tickerItems).map(t => `<span>${t}</span>`
 track.innerHTML = loopContent;
 
 // ---- accordion ----
-document.querySelectorAll('.acc-item').forEach(item => {
-  const q = item.querySelector('.acc-q');
-  const a = item.querySelector('.acc-a');
-  q.addEventListener('click', () => {
-    const isOpen = item.classList.contains('open');
-    document.querySelectorAll('.acc-item.open').forEach(o => { o.classList.remove('open'); o.querySelector('.acc-a').style.maxHeight = null; });
-    if(!isOpen){
-      item.classList.add('open');
-      a.style.maxHeight = a.scrollHeight + 20 + 'px';
-      trackEvent('faq_opened', {question: q.textContent.replace('+','').trim()});
-    }
+const faqExpandButton = document.getElementById('collapseAll');
+const faqAccordions = document.querySelectorAll('.accordion-collapse');
+
+function updateFaqToggleLabel(){
+  if(!faqExpandButton || !faqAccordions.length) return;
+  const allExpanded = [...faqAccordions].every(accordion => accordion.classList.contains('show'));
+  faqExpandButton.textContent = allExpanded ? 'Close all' : 'Expand all';
+}
+
+if(faqExpandButton){
+  faqExpandButton.addEventListener('click', () => {
+    const allExpanded = [...faqAccordions].every(accordion => accordion.classList.contains('show'));
+    faqAccordions.forEach(accordion => {
+      const collapse = bootstrap.Collapse.getOrCreateInstance(accordion, { toggle: false });
+      allExpanded ? collapse.hide() : collapse.show();
+    });
+    updateFaqToggleLabel();
   });
+}
+
+faqAccordions.forEach(accordion => {
+  accordion.addEventListener('shown.bs.collapse', updateFaqToggleLabel);
+  accordion.addEventListener('hidden.bs.collapse', updateFaqToggleLabel);
 });
+updateFaqToggleLabel();
 
 // ============================================================
 // ENGAGEMENT TRACKING — one helper, used everywhere on the page.
@@ -308,27 +317,6 @@ function doSignup(e){
   const email = form.querySelector('input[type="email"]').value;
   const investorTypeEl = form.querySelector('input[name="investor_type"]:checked');
   const investorType = investorTypeEl ? investorTypeEl.value : 'not_asked';
-
-  // Submit to HubSpot's Forms API. Silently no-ops (still shows the
-  // thank-you state) if the portal/form IDs above haven't been filled
-  // in yet, so this is safe to ship before HubSpot is fully wired up.
-  if(HUBSPOT_PORTAL_ID !== '47065601' && HUBSPOT_FORM_GUID !== '12d648a0-6a72-427a-991c-e3afaa092224'){
-    fetch(`https://api.hsforms.com/submissions/v3/integration/submit/${HUBSPOT_PORTAL_ID}/${HUBSPOT_FORM_GUID}`, {
-      method: 'POST',
-      headers: {'Content-Type': 'application/json'},
-      body: JSON.stringify({
-        fields: [
-          {name: 'email', value: email},
-          {name: 'investor_type', value: investorType}
-        ],
-        context: {
-          hutk: getHubspotCookie('hubspotutk'), // links submission to this visitor's HubSpot session
-          pageUri: window.location.href,
-          pageName: document.title
-        }
-      })
-    }).catch(err => console.error('HubSpot submission failed:', err));
-  }
 
   trackEvent('signup_submitted', {investor_type: investorType, mode: document.body.dataset.mode});
 
@@ -371,7 +359,7 @@ if(SIGNUP_STYLE === 'popup' && !FUND_LISTED){
 }
 
 // ---- signup confirmation popup ----
-function openConfirmPopup(){
+/*function openConfirmPopup(){
   document.getElementById('confirmOverlay').classList.add('open');
   // tags (Google Ads, Meta, LinkedIn, etc.) to this event name if a
   // platform needs its own specific trigger rather than reusing
@@ -386,10 +374,14 @@ document.getElementById('confirmOverlay').addEventListener('click', (e) => {
 });
 document.addEventListener('keydown', (e) => {
   if(e.key === 'Escape') closeConfirmPopup();
-});
+});*/
 
 // ---- scroll reveal ----
 const io = new IntersectionObserver((entries) => {
   entries.forEach(en => { if(en.isIntersecting){ en.target.classList.add('in'); io.unobserve(en.target); } });
 }, {threshold:.12});
 document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+
+// transition when clicking on external links
+//function externalLinkWarning(){
+  //document.getElementById('externalLinkOverlay').classList.add('open');}
