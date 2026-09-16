@@ -385,3 +385,7 @@ document.querySelectorAll('.reveal').forEach(el => io.observe(el));
 // transition when clicking on external links
 //function externalLinkWarning(){
   //document.getElementById('externalLinkOverlay').classList.add('open');}
+
+// Bootstrap Tooltip
+const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]')
+const tooltipList = [...tooltipTriggerList].map(tooltipTriggerEl => new bootstrap.Tooltip(tooltipTriggerEl))
