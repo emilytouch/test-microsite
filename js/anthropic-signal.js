@@ -247,16 +247,15 @@ function setMode(mode){
 // for any reason — none of it is tied to fund status automatically.
 // Plain HTML is fine inside each string, including real links —
 // e.g. the "How They Work" line below links to the actual page. ----
-/*const tickerItems = [
+const tickerItems = [
   "Claude is reportedly named after <b>Claude Shannon</b>, the father of information theory",
   'Anthropic was co-founded in 2021 by siblings <b>Dario and Daniela Amodei</b>',
   'Anthropic employs more than <b>2,500 people</b> company-wide',
-  "Anthropic's valuation more than <b>doubled</b> in just 3 months, Feb–May 2026",
-  "Anthropic's revenue run rate more than <b>tripled</b> in just 3 months, Feb–May 2026"
+  "Anthropic's valuation more than <b>doubled</b> in just 3 months, Feb–May 2026"
 ];
 const track = document.getElementById('tickerTrack');
 const loopContent = tickerItems.concat(tickerItems).map(t => `<span>${t}</span>`).join('');
-track.innerHTML = loopContent;*/
+track.innerHTML = loopContent;
 
 // ---- accordion ----
 const faqExpandButton = document.getElementById('collapseAll');
