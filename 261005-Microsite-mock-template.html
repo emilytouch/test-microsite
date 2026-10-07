@@ -55,20 +55,31 @@ body.modmap [data-mod]::after{content:"Flexes: " attr(data-flex);position:absolu
 
 /* nav */
 nav.top{position:sticky;top:0;z-index:100;background:rgba(27,48,54,.95);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);color:#fff;border-bottom:1px solid rgba(255,255,255,.08)}
-nav.top .wrap{display:flex;align-items:center;height:var(--navh);gap:22px}
+nav.top .wrap{display:flex;align-items:center;height:var(--navh);gap:16px}
 .home{display:flex;align-items:center;gap:12px;text-decoration:none;flex-shrink:0;padding:6px 10px 6px 0;border-radius:10px;position:relative}
 .home img{height:26px;width:auto;display:block}
-.home .site{display:inline-flex;align-items:center;gap:6px;font-size:12px;font-weight:600;color:rgba(255,255,255,.75);border:1px solid rgba(255,255,255,.22);border-radius:999px;padding:4px 10px 4px 9px;transition:.18s;white-space:nowrap}
-.home .site svg{width:12px;height:12px;transition:transform .18s}
-.home:hover .site,.home:focus-visible .site{background:#fff;color:var(--navy);border-color:#fff}
-.home:hover .site svg,.home:focus-visible .site svg{transform:translate(2px,-2px)}
+.home .site{position:absolute;left:0;top:calc(100% + 6px);display:inline-flex;align-items:center;gap:6px;font-size:12px;font-weight:600;color:var(--navy);background:#fff;padding:6px 10px;border-radius:8px;box-shadow:0 8px 20px rgba(0,0,0,.2);white-space:nowrap;opacity:0;transform:translateY(-4px);pointer-events:none;transition:.2s}
+.home .site svg{width:12px;height:12px}
+.home img{transition:opacity .2s}
+.home:hover .site,.home:focus-visible .site{opacity:1;transform:none}
+.home:hover img{opacity:.8}
 .home:focus-visible{outline:2px solid var(--lime);outline-offset:4px}
-.home .tip{position:absolute;left:0;top:calc(100% + 8px);background:#fff;color:var(--ink);font-size:12px;font-weight:600;padding:7px 10px;border-radius:8px;box-shadow:0 8px 20px rgba(0,0,0,.2);white-space:nowrap;opacity:0;transform:translateY(-4px);pointer-events:none;transition:.18s}
-.home:hover .tip,.home:focus-visible .tip{opacity:1;transform:none}
+nav.top .wrap{max-width:1320px}
+.back-arr{display:grid;place-items:center;width:14px;height:18px;margin-right:-4px;color:rgba(255,255,255,.7);transition:transform .2s,color .2s}
+.back-arr svg{width:16px;height:16px}
+.home:hover .back-arr,.home:focus-visible .back-arr{transform:translateX(-3px);color:#fff}
+.home img{height:26px}
+.brand-stack{display:flex;flex-direction:column;align-items:flex-start;gap:4px;line-height:1}
+.brand-stack img{height:24px}
+.spot{font-size:11.5px;font-weight:600;letter-spacing:.01em;color:rgba(255,255,255,.7);padding-left:2px;transition:color .2s}
+.spot em{font-style:normal;display:inline-block;transition:transform .2s}
+.home:hover .spot,.home:focus-visible .spot{color:var(--lime)}
+.home:hover .spot em,.home:focus-visible .spot em{transform:translateX(3px)}
+.home{margin-right:10px;padding-right:22px!important;border-right:1px solid rgba(255,255,255,.18);border-radius:0!important}
 .divider{width:1px;height:28px;background:rgba(255,255,255,.18);flex-shrink:0}
 .anchors{display:flex;gap:2px;flex:1;overflow-x:auto;scrollbar-width:none}
 .anchors::-webkit-scrollbar{display:none}
-.anchors a{text-decoration:none;font-size:14px;font-weight:500;padding:8px 11px;border-radius:7px;opacity:.72;white-space:nowrap;position:relative}
+.anchors a{text-decoration:none;font-size:13.5px;font-weight:500;padding:8px 9px;border-radius:7px;opacity:.72;white-space:nowrap;position:relative}
 .anchors a:hover{opacity:1;background:rgba(255,255,255,.06)}
 .anchors a.active{opacity:1}
 .anchors a.ext{display:inline-flex;align-items:center;gap:6px}
@@ -79,7 +90,6 @@ body.pre .anchors a.ext{display:none}
 .nav-right .tk{font-weight:800;background:var(--green);padding:3px 9px;border-radius:6px}
 .nav-cta{padding:9px 16px;font-size:14px}
 @media(max-width:1080px){.nav-right .px,.nav-right .tk{display:none}}
-@media(max-width:760px){.home .site span{display:none}.home .site{padding:5px}}
 @media(max-width:620px){nav.top .wrap{gap:12px}.nav-cta{display:none}.home img{height:22px}}
 
 /* modal */
@@ -88,6 +98,14 @@ body.pre .anchors a.ext{display:none}
 .modal-box{background:#fff;border-radius:16px;padding:28px;max-width:420px;width:100%}
 .modal-box h3{font-size:20px;margin-bottom:8px}
 .modal-box p{color:var(--muted);margin:0 0 20px}
+.vmodal{background:rgba(5,14,26,.72);opacity:0;transition:opacity .3s ease}
+.vmodal.revealed{opacity:1}
+.vmodal .vbox{position:relative;width:min(1000px,100%);opacity:0;transform:scale(.97);transition:opacity .3s ease,transform .35s cubic-bezier(.2,.8,.2,1)}
+.vmodal.revealed .vbox{opacity:1;transform:none}
+.vmodal .player{aspect-ratio:16/9;box-shadow:0 30px 80px rgba(0,0,0,.5)}
+.vmodal .vid-links{margin:12px 0 0;justify-content:flex-end}
+.vmodal .vid-links a{color:#fff}
+.vx{position:absolute;right:-6px;top:-46px;background:#fff}
 .modal-box .row{display:flex;gap:10px;justify-content:flex-end}
 .modal.open .modal-box{animation:pop .3s cubic-bezier(.2,.8,.2,1)}
 @keyframes pop{from{opacity:0;transform:translateY(12px) scale(.97)}}
@@ -318,7 +336,19 @@ section.block{padding:96px 0 0}
 .nsoc{width:34px;height:34px;border-radius:50%;display:grid;place-items:center;color:rgba(255,255,255,.75);transition:.18s}
 .nsoc svg{width:17px;height:17px}
 .nsoc:hover,.nsoc:focus-visible{color:var(--navy);background:#fff}
-@media(max-width:860px){.nav-soc{display:none}}
+@media(max-width:1400px){.nav-soc{display:none}}
+
+/* final CTA */
+.final{margin-top:96px;background:var(--green) radial-gradient(700px 260px at 90% 0%,rgba(255,255,255,.14),transparent 70%);color:#fff}
+.final .wrap{display:flex;justify-content:space-between;align-items:center;gap:32px;flex-wrap:wrap;padding-top:56px;padding-bottom:56px}
+.final-copy{flex:1 1 420px}
+.final-k{font-size:12px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:#d6efbd}
+.final h2{font-size:clamp(30px,3.6vw,46px);font-weight:800;letter-spacing:-.02em;margin:10px 0 10px;color:#fff}
+.final p{margin:0;opacity:.88;font-size:17px;max-width:560px}
+.final-btns{display:flex;gap:10px;flex-wrap:wrap}
+.btn-ghost{background:transparent;color:#fff;border-color:rgba(255,255,255,.5)}
+.btn-ghost:hover{border-color:#fff;background:rgba(255,255,255,.08)}
+body.live footer{margin-top:0}
 
 /* fund details */
 .fd{display:grid;grid-template-columns:1.1fr 1fr;gap:20px;align-items:start}
@@ -407,8 +437,8 @@ body.pre button.sv[data-copy=""] i{display:none}
 .hw-steps li.on .hw-body>p{padding-bottom:8px}
 
 /* pre-launch: about */
-.about{display:grid;grid-template-columns:1.25fr 1fr;background:var(--navy) url("data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAxNzQyIDcxMiIgcHJlc2VydmVBc3BlY3RSYXRpbz0ieE1pZFlNaWQgc2xpY2UiPjxyZWN0IHdpZHRoPSIxNzQyIiBoZWlnaHQ9IjcxMiIgZmlsbD0iIzI2NDA0OCIvPjxnIHRyYW5zZm9ybT0idHJhbnNsYXRlKDEwMTUgMzYwKSByb3RhdGUoLTI2KSI+PHJlY3QgeD0iLTIxMCIgeT0iLTIxMCIgd2lkdGg9IjQyMCIgaGVpZ2h0PSI0MjAiIHJ4PSI3MCIgZmlsbD0iIzNlNmEyZiIgb3BhY2l0eT0iLjU1Ii8+PC9nPjxnIHRyYW5zZm9ybT0idHJhbnNsYXRlKDExNTUgMzYwKSByb3RhdGUoLTI2KSI+PHJlY3QgeD0iLTIxMCIgeT0iLTIxMCIgd2lkdGg9IjQyMCIgaGVpZ2h0PSI0MjAiIHJ4PSI3MCIgZmlsbD0iIzQ3NzIyYiIgb3BhY2l0eT0iLjg1Ii8+PC9nPjxnIHRyYW5zZm9ybT0idHJhbnNsYXRlKDEzMTUgMzYwKSByb3RhdGUoLTI2KSI+PHJlY3QgeD0iLTIxMCIgeT0iLTIxMCIgd2lkdGg9IjQyMCIgaGVpZ2h0PSI0MjAiIHJ4PSI3MCIgZmlsbD0iIzRmN2IyMiIvPjwvZz48L3N2Zz4K") 100% 30%/auto 160% no-repeat;border-radius:18px;overflow:hidden;position:relative}
-.about::before{content:"";position:absolute;inset:0;background:linear-gradient(110deg,rgba(38,64,72,.97) 40%,rgba(38,64,72,.75))}
+.about{display:grid;grid-template-columns:1.25fr 1fr;background:var(--navy);border-radius:18px;overflow:hidden;position:relative}
+.about::before{content:"";position:absolute;right:-80px;top:-80px;width:320px;height:320px;border-radius:50%;background:radial-gradient(closest-side,rgba(159,208,107,.12),transparent)}
 .about>*{position:relative}
 .ab-go{display:grid;gap:10px;align-content:center;padding:32px 32px 32px 0}
 .ab-go a{display:flex;align-items:center;gap:14px;padding:16px 18px;border-radius:14px;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.14);color:#fff;text-decoration:none;transition:.2s}
@@ -448,6 +478,8 @@ body.pre button.sv[data-copy=""] i{display:none}
 .socials.dark .soc{border-color:rgba(255,255,255,.2);color:#fff}
 .socials.dark .soc:hover{background:#fff;color:var(--navy)}
 .f-soc{display:flex;align-items:center;gap:16px;flex-wrap:wrap;margin-bottom:28px;padding-bottom:24px;border-bottom:1px solid rgba(255,255,255,.1)}
+.f-soc .socials{gap:4px}
+.fsoc{color:rgba(255,255,255,.8)}
 .f-soc>span{font-size:12px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:#fff}
 
 /* Why [TICKER] rotator */
@@ -526,7 +558,7 @@ body.pre button.sv[data-copy=""] i{display:none}
 .htb-track{display:flex;align-items:flex-start;transition:transform .45s cubic-bezier(.2,.8,.2,1)}
 .htb-view{overflow:hidden;transition:height .45s cubic-bezier(.2,.8,.2,1)}
 .htb-panel{flex:0 0 100%;padding:22px 28px 28px}
-.htb-panel>p{margin:0 0 18px;color:#33464e;max-width:760px}
+.htb-panel>p{margin:0 0 18px;color:#33464e;max-width:none}
 .brokers{display:grid;grid-template-columns:repeat(5,1fr);gap:10px}
 @media(max-width:860px){.brokers{grid-template-columns:repeat(2,1fr)}}
 .brokers a{display:flex;align-items:center;justify-content:space-between;gap:8px;padding:16px;border:1px solid var(--line);border-radius:12px;text-decoration:none;font-weight:700;font-size:15px;color:var(--navy);transition:.15s}
@@ -555,6 +587,9 @@ body.pre button.sv[data-copy=""] i{display:none}
 .ff-viewport{position:relative;border-radius:18px;overflow:hidden;aspect-ratio:4/5;background:var(--navy-2);box-shadow:0 20px 50px rgba(38,64,72,.25)}
 .ff{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block;opacity:0;transform:translateX(24px);transition:opacity .5s,transform .5s cubic-bezier(.2,.8,.2,1);pointer-events:none}
 .ff.on{opacity:1;transform:none;pointer-events:auto}
+.ffvid video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:0}
+.ffvid .ffl,.ffvid .ffs{z-index:1}
+.ffplay{position:absolute;right:16px;top:16px;z-index:1;font-size:10px;font-weight:700;letter-spacing:.1em;background:rgba(0,0,0,.35);color:#fff;padding:4px 8px;border-radius:999px}
 .ffph{display:flex!important;flex-direction:column;align-items:center;justify-content:center;gap:6px;color:#fff;background:#264048 url("data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAxNzQyIDcxMiIgcHJlc2VydmVBc3BlY3RSYXRpbz0ieE1pZFlNaWQgc2xpY2UiPjxyZWN0IHdpZHRoPSIxNzQyIiBoZWlnaHQ9IjcxMiIgZmlsbD0iIzI2NDA0OCIvPjxnIHRyYW5zZm9ybT0idHJhbnNsYXRlKDEwMTUgMzYwKSByb3RhdGUoLTI2KSI+PHJlY3QgeD0iLTIxMCIgeT0iLTIxMCIgd2lkdGg9IjQyMCIgaGVpZ2h0PSI0MjAiIHJ4PSI3MCIgZmlsbD0iIzNlNmEyZiIgb3BhY2l0eT0iLjU1Ii8+PC9nPjxnIHRyYW5zZm9ybT0idHJhbnNsYXRlKDExNTUgMzYwKSByb3RhdGUoLTI2KSI+PHJlY3QgeD0iLTIxMCIgeT0iLTIxMCIgd2lkdGg9IjQyMCIgaGVpZ2h0PSI0MjAiIHJ4PSI3MCIgZmlsbD0iIzQ3NzIyYiIgb3BhY2l0eT0iLjg1Ii8+PC9nPjxnIHRyYW5zZm9ybT0idHJhbnNsYXRlKDEzMTUgMzYwKSByb3RhdGUoLTI2KSI+PHJlY3QgeD0iLTIxMCIgeT0iLTIxMCIgd2lkdGg9IjQyMCIgaGVpZ2h0PSI0MjAiIHJ4PSI3MCIgZmlsbD0iIzRmN2IyMiIvPjwvZz48L3N2Zz4K") 70% center/auto 120% no-repeat}
 .ffph::before{content:"";position:absolute;inset:14px;border:2px dashed rgba(255,255,255,.35);border-radius:12px}
 .ffl{font-weight:700;font-size:18px;position:relative}
@@ -574,8 +609,11 @@ body.pre button.sv[data-copy=""] i{display:none}
 @media(max-width:900px){.insights{grid-template-columns:1fr}}
 .art{background:#fff;border:1px solid var(--line);border-radius:16px;overflow:hidden;display:flex;flex-direction:column;text-decoration:none;transition:.2s}
 .art:hover{transform:translateY(-4px);box-shadow:0 16px 34px rgba(38,64,72,.12);border-color:#c6d2d9}
-.art .img{aspect-ratio:16/9;background:var(--navy) url("data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAxNzQyIDcxMiIgcHJlc2VydmVBc3BlY3RSYXRpbz0ieE1pZFlNaWQgc2xpY2UiPjxyZWN0IHdpZHRoPSIxNzQyIiBoZWlnaHQ9IjcxMiIgZmlsbD0iIzI2NDA0OCIvPjxnIHRyYW5zZm9ybT0idHJhbnNsYXRlKDEwMTUgMzYwKSByb3RhdGUoLTI2KSI+PHJlY3QgeD0iLTIxMCIgeT0iLTIxMCIgd2lkdGg9IjQyMCIgaGVpZ2h0PSI0MjAiIHJ4PSI3MCIgZmlsbD0iIzNlNmEyZiIgb3BhY2l0eT0iLjU1Ii8+PC9nPjxnIHRyYW5zZm9ybT0idHJhbnNsYXRlKDExNTUgMzYwKSByb3RhdGUoLTI2KSI+PHJlY3QgeD0iLTIxMCIgeT0iLTIxMCIgd2lkdGg9IjQyMCIgaGVpZ2h0PSI0MjAiIHJ4PSI3MCIgZmlsbD0iIzQ3NzIyYiIgb3BhY2l0eT0iLjg1Ii8+PC9nPjxnIHRyYW5zZm9ybT0idHJhbnNsYXRlKDEzMTUgMzYwKSByb3RhdGUoLTI2KSI+PHJlY3QgeD0iLTIxMCIgeT0iLTIxMCIgd2lkdGg9IjQyMCIgaGVpZ2h0PSI0MjAiIHJ4PSI3MCIgZmlsbD0iIzRmN2IyMiIvPjwvZz48L3N2Zz4K") center/cover;position:relative}
+.art .img{aspect-ratio:16/9;background:var(--navy) url("data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAxNzQyIDcxMiIgcHJlc2VydmVBc3BlY3RSYXRpbz0ieE1pZFlNaWQgc2xpY2UiPjxyZWN0IHdpZHRoPSIxNzQyIiBoZWlnaHQ9IjcxMiIgZmlsbD0iIzI2NDA0OCIvPjxnIHRyYW5zZm9ybT0idHJhbnNsYXRlKDEwMTUgMzYwKSByb3RhdGUoLTI2KSI+PHJlY3QgeD0iLTIxMCIgeT0iLTIxMCIgd2lkdGg9IjQyMCIgaGVpZ2h0PSI0MjAiIHJ4PSI3MCIgZmlsbD0iIzNlNmEyZiIgb3BhY2l0eT0iLjU1Ii8+PC9nPjxnIHRyYW5zZm9ybT0idHJhbnNsYXRlKDExNTUgMzYwKSByb3RhdGUoLTI2KSI+PHJlY3QgeD0iLTIxMCIgeT0iLTIxMCIgd2lkdGg9IjQyMCIgaGVpZ2h0PSI0MjAiIHJ4PSI3MCIgZmlsbD0iIzQ3NzIyYiIgb3BhY2l0eT0iLjg1Ii8+PC9nPjxnIHRyYW5zZm9ybT0idHJhbnNsYXRlKDEzMTUgMzYwKSByb3RhdGUoLTI2KSI+PHJlY3QgeD0iLTIxMCIgeT0iLTIxMCIgd2lkdGg9IjQyMCIgaGVpZ2h0PSI0MjAiIHJ4PSI3MCIgZmlsbD0iIzRmN2IyMiIvPjwvZz48L3N2Zz4K") center/auto 100% no-repeat;position:relative;transition:background-size .6s cubic-bezier(.2,.8,.2,1)}
 .art .img.b{background-position:82% 40%;background-size:auto 180%}
+.art:hover .img{background-size:auto 112%}
+.art:hover .img.b{background-size:auto 196%}
+.art:hover .img.c{background-size:auto 240%}
 .art .img.c{background-position:96% 90%;background-size:auto 220%}
 .art .img::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,transparent 40%,rgba(38,64,72,.6))}
 .art .img .type{position:absolute;left:14px;top:14px;z-index:1;font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;background:#fff;color:var(--navy);padding:4px 9px;border-radius:999px}
@@ -593,6 +631,7 @@ body.pre button.sv[data-copy=""] i{display:none}
    ========================================================= */
 .paths{display:grid;grid-template-columns:1.2fr 1fr 1fr;gap:20px}
 .paths{display:block}
+#notify-sec .paths{display:block!important}
 body.live .paths{display:none}
 .path.lead.pre-only{display:grid;grid-template-columns:1fr 1fr;gap:12px 40px;align-items:center;padding:36px}
 .path.lead.pre-only .tag,.path.lead.pre-only h3,.path.lead.pre-only p{grid-column:1}
@@ -627,7 +666,7 @@ body.live .paths{display:none}
 .lock{display:inline-flex;align-items:center;gap:6px;font-size:12px;font-weight:600;color:var(--muted);background:var(--sky);padding:4px 10px;border-radius:999px}
 .perf-ph{height:150px;border-radius:10px;background:repeating-linear-gradient(0deg,transparent 0 29px,#eef2f4 29px 30px);display:grid;place-items:center;color:#9aa9b0;font-size:13px;text-align:center;padding:12px}
 
-.faq{max-width:820px}
+.faq{max-width:none}
 details{background:#fff;border:1px solid var(--line);border-radius:12px;padding:0 22px;margin-bottom:10px}
 summary{cursor:pointer;list-style:none;padding:18px 0;font-weight:600;display:flex;justify-content:space-between;gap:16px}
 summary::-webkit-details-marker{display:none}
@@ -639,7 +678,69 @@ footer{background:var(--navy-2);color:#c3cdd6;padding:56px 0 100px;font-size:12.
 footer h4{color:#fff;font-size:13px;letter-spacing:.1em;text-transform:uppercase;margin:0 0 12px}
 footer p{margin:0 0 12px;max-width:980px}
 footer .flogo{height:24px;margin-bottom:22px;display:block}
-@media (prefers-reduced-motion:reduce){*{transition:none !important;animation:none !important}}
+
+/* ===== Motion & interaction layer ===== */
+nav.top .wrap{transition:height .3s ease}
+nav.top.shrink .wrap{height:56px}
+nav.top.shrink{background:rgba(22,40,45,.98);box-shadow:0 6px 20px rgba(0,0,0,.18)}
+.anchors a::before{content:"";position:absolute;left:11px;right:11px;bottom:4px;height:1.5px;background:rgba(255,255,255,.7);transform:scaleX(0);transform-origin:left;transition:transform .25s ease}
+.anchors a:hover::before{transform:scaleX(1)}
+.anchors a.active::before{display:none}
+.ql a b,.final-copy a,.htb-note a{background:linear-gradient(currentColor,currentColor) 0 100%/0 1.5px no-repeat;transition:background-size .25s ease;text-decoration:none}
+.htb-note a:hover{background-size:100% 1.5px}
+.gx-link,.gx-link:hover,.vid-links a,.vid-links a:hover{text-decoration:none!important;background:none!important;border:0!important;box-shadow:none!important}
+
+.h1rev .ln{display:block;overflow:hidden}
+.h1rev .ln>*{display:inline-block;transform:translateY(105%);animation:rise .7s cubic-bezier(.2,.8,.2,1) forwards}
+.h1rev .ln:nth-child(2)>*{animation-delay:.15s}
+@keyframes rise{to{transform:none}}
+.hero .oneliner,.hero .ctas,.hero .badge{opacity:0;animation:fadeup .6s ease forwards}
+.hero .badge{animation-delay:.05s}.hero .oneliner{animation-delay:.35s}.hero .ctas{animation-delay:.5s}
+@keyframes fadeup{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:none}}
+
+.stage{perspective:900px}
+.fcard{transform-style:preserve-3d;will-change:transform}
+.fcard.tilting{transition:transform .08s linear,box-shadow .5s,border-color .5s!important}
+.mult{position:relative;cursor:default}
+.mtick{position:absolute;left:calc(100% + 8px);top:50%;transform:translate(-6px,-50%);white-space:nowrap;font-size:11px;font-weight:600;background:#fff;color:var(--navy);padding:4px 9px;border-radius:999px;opacity:0;pointer-events:none;transition:.25s;box-shadow:0 6px 14px rgba(0,0,0,.2)}
+.mtick b{color:var(--green)}
+.mult:hover .mtick,.stage:hover .mtick{opacity:1;transform:translate(0,-50%)}
+
+.flip{display:flex;gap:4px;margin-top:6px;font-size:15px;color:#fff}
+.flip .u{display:inline-flex;align-items:baseline;gap:1px}
+.flip .d{display:inline-block;min-width:.62em;text-align:center;background:rgba(255,255,255,.1);border-radius:3px;padding:0 2px;perspective:200px}
+.flip .d.go{animation:flipd .45s ease}
+@keyframes flipd{0%{transform:rotateX(0)}50%{transform:rotateX(90deg);opacity:.3}100%{transform:rotateX(0)}}
+.flip .l{font-size:.85em;opacity:.7;margin-right:4px}
+
+.hw-steps{position:relative}
+.hw-fill{position:absolute;left:17px;top:18px;width:2px;height:0;background:var(--green);z-index:0;transition:height .45s cubic-bezier(.2,.8,.2,1)}
+
+.reveal{opacity:0;transform:translateY(14px);transition:opacity .6s ease,transform .6s cubic-bezier(.2,.8,.2,1)}
+.reveal.in{opacity:1;transform:none}
+
+.sv.copied strong{color:#d6efbd;animation:cflash .9s ease}
+@keyframes cflash{0%{text-shadow:0 0 0 rgba(185,224,124,0)}30%{text-shadow:0 0 12px rgba(185,224,124,.9)}100%{text-shadow:none}}
+.sv.copied{border-color:rgba(185,224,124,.8)!important;background:rgba(185,224,124,.15)!important}
+
+.mcta{position:fixed;left:12px;right:12px;bottom:12px;z-index:150;display:none;align-items:center;justify-content:space-between;gap:12px;background:rgba(22,40,45,.97);backdrop-filter:blur(8px);color:#fff;border-radius:14px;padding:10px 10px 10px 18px;box-shadow:0 12px 30px rgba(0,0,0,.3);transform:translateY(140%);transition:transform .35s cubic-bezier(.2,.8,.2,1)}
+.mcta-t{font-weight:800;font-size:16px}
+.mcta .btn{padding:10px 18px}
+.mcta.show{transform:none}
+@media(max-width:760px){.mcta{display:flex}.phase-ctl{bottom:84px}}
+
+/* domino glow on inactive step numbers */
+.hw-steps li:not(.on) button i{animation:domino 3.2s ease-in-out infinite}
+.hw-steps li:nth-child(2) button i{animation-delay:0s}
+.hw-steps li:nth-child(3) button i{animation-delay:.25s}
+.hw-steps li:nth-child(4) button i{animation-delay:.5s}
+.hw-steps li:nth-child(5) button i{animation-delay:.75s}
+@keyframes domino{0%,70%,100%{box-shadow:0 0 0 0 rgba(75,127,35,0);border-color:var(--line);color:var(--muted)}
+ 15%{box-shadow:0 0 0 6px rgba(75,127,35,.18),0 0 14px rgba(75,127,35,.35);border-color:var(--green);color:var(--green)}}
+.hw-steps:hover li button i{animation-play-state:paused}
+.hw-steps li:not(.on) button:hover i{border-color:var(--green);color:var(--green);box-shadow:0 0 0 5px var(--green-soft);animation:none}
+.hw-steps li:not(.on) button:hover span{color:var(--ink)}
+@media (prefers-reduced-motion:reduce){.reveal,.h1rev .ln>*,.hero .oneliner,.hero .ctas,.hero .badge{opacity:1!important;transform:none!important}*{transition:none !important;animation:none !important}}
 </style>
 </head>
 <body class="live">
@@ -656,23 +757,20 @@ footer .flogo{height:24px;margin-bottom:22px;display:block}
 
 <div class="announce">
   <div class="wrap pre-only"><span><span class="dot"></span>[Announcement text]. Be first to know when [TICKER] trades.</span><button class="btn" type="button" onclick="openNotify()">Notify Me</button></div>
-  <div class="wrap launch-only"><span><span class="dot"></span><strong>[TICKER]</strong>, [Fund Name], is now trading.</span><a class="btn" href="#buy">How to Buy</a></div>
+  <div class="wrap launch-only"><span><span class="dot"></span><strong>[TICKER]</strong> | [Fund Name] is now trading.</span><a class="btn" href="#buy">How to Buy</a></div>
 </div>
 
 <nav class="top" aria-label="Page">
   <div class="wrap">
-    <a class="home" href="https://www.proshares.com/" target="_blank" rel="noopener" aria-label="ProShares.com (opens in a new tab)">
-      <img src="data:image/png;base64,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" alt="ProShares">
-      <span class="site" aria-hidden="true"><span>ProShares.com</span>
-        <svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M4.5 2.5H2.5v7h7v-2"/><path d="M7 2h3v3M10 2 5.5 6.5"/></svg>
-      </span>
-      <span class="tip" aria-hidden="true">Opens ProShares.com in a new tab</span>
+    <a class="home" href="https://www.proshares.com/" target="_blank" rel="noopener" aria-label="Back to ProShares.com (opens in a new tab)">
+      <span class="back-arr" aria-hidden="true"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M10 3.5 5.5 8l4.5 4.5"/></svg></span><img src="data:image/png;base64,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" alt="ProShares">
     </a>
-    <span class="divider" aria-hidden="true"></span>
     <div class="anchors" id="anchors">
-      <a href="#video" class="launch-only">Watch Overview</a>
-      <a href="#faq">FAQ</a>
-      <a href="#" class="launch-only ext" target="_blank" rel="noopener">Full Fund Page <svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M4.5 2.5H2.5v7h7v-2"/><path d="M7 2h3v3M10 2 5.5 6.5"/></svg></a>
+      <a href="#matters">Why [Company]</a>
+      <a href="#insights">Related Insights</a>
+      <a href="#faq">FAQs</a>
+      <a href="#" class="launch-only ext vid" onclick="openVideo(event)">Watch Video</a>
+      <a href="#" class="launch-only ext" target="_blank" rel="noopener">[TICKER] Product Details</a>
     </div>
     <div class="nav-right">
       <div class="nav-soc"><a class="nsoc" href="https://x.com/ProShares" target="_blank" rel="noopener" aria-label="ProShares on X"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.8 3h3.1l-6.8 7.7L22 21h-6.2l-4.9-6.3L5.3 21H2.2l7.2-8.3L1.9 3h6.4l4.4 5.8L17.8 3Zm-1.1 16.2h1.7L7.4 4.7H5.6l11.1 14.5Z"/></svg></a><a class="nsoc" href="https://www.instagram.com/proshares/" target="_blank" rel="noopener" aria-label="ProShares on Instagram"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/></svg></a><a class="nsoc" href="https://www.youtube.com/@ProSharesETFs" target="_blank" rel="noopener" aria-label="ProShares on YouTube"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M22.5 7.2a2.8 2.8 0 0 0-2-2C18.7 4.7 12 4.7 12 4.7s-6.7 0-8.5.5a2.8 2.8 0 0 0-2 2C1 9 1 12 1 12s0 3 .5 4.8a2.8 2.8 0 0 0 2 2c1.8.5 8.5.5 8.5.5s6.7 0 8.5-.5a2.8 2.8 0 0 0 2-2C23 15 23 12 23 12s0-3-.5-4.8ZM9.8 15.3V8.7l5.7 3.3-5.7 3.3Z"/></svg></a><a class="nsoc" href="https://www.linkedin.com/company/proshare-advisors-llc/" target="_blank" rel="noopener" aria-label="ProShares on LinkedIn"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M4.98 3.5a2.5 2.5 0 1 1 0 5 2.5 2.5 0 0 1 0-5ZM3 9.5h4V21H3V9.5Zm6.5 0h3.8v1.6h.1c.5-1 1.8-2 3.8-2 4 0 4.8 2.6 4.8 6V21h-4v-5.2c0-1.2 0-2.9-1.8-2.9s-2 1.4-2 2.8V21h-4V9.5Z"/></svg></a></div>
@@ -689,19 +787,19 @@ footer .flogo{height:24px;margin-bottom:22px;display:block}
       <div>
         <span class="badge pre-only">● Coming Soon · [ETF Type]</span>
         <span class="badge live launch-only">● Now Trading · [ETF Type]</span>
-        <h1>Headline<br><em>goes here.</em></h1>
+        <h1 class="h1rev"><span class="ln"><span>Headline</span></span><span class="ln"><em>goes here.</em></span></h1>
         <p class="oneliner">Sub-headline goes here. One or two sentences that say what the fund is and what it seeks to do.</p>
         <div class="ctas">
           <a class="btn btn-primary launch-only" href="#buy">How to Buy</a>
           <button class="btn btn-primary pre-only" type="button" onclick="openNotify()">Notify Me at Launch</button>
-          <a class="btn btn-light launch-only" href="#video"><span class="play"></span>Watch Overview</a>
+          <button class="btn btn-light launch-only" type="button" onclick="openVideo(event)"><span class="play"></span>Watch Video</button>
           <a class="btn btn-light pre-only" href="#learn">Learn the Basics</a>
         </div>
       </div>
       <div class="stage">
         <div class="glow" aria-hidden="true"></div>
         <div class="fcard" tabindex="0" aria-label="[TICKER] fund summary">
-          <span class="mult">[Multiple]</span>
+          <span class="mult">[Multiple]<span class="mtick" aria-hidden="true">+1% day → <b>+[N]%</b></span></span>
           <div class="tk">[TICKER]</div>
           <div class="nm">[Fund Name]</div>
           <div class="rows">
@@ -725,8 +823,8 @@ footer .flogo{height:24px;margin-bottom:22px;display:block}
   <div class="wrap">
     <div class="status">
       <div class="k">Launch status</div>
-      <div class="pre-only"><div class="v">Pending effectiveness</div><div class="s">Target launch in <b id="cdTxt">--</b></div></div>
-      <div class="launch-only"><div class="v"><span class="live-dot"></span>Now trading</div><div class="s">Day <b id="dayN">--</b> since launch</div></div>
+      <div class="pre-only"><div class="v">Pending effectiveness</div><div class="s">Target launch in <b id="cdTxt" class="flip"></b></div></div>
+      <div class="launch-only"><div class="v"><span class="live-dot"></span>Now trading</div></div>
     </div>
     <div class="track-wrap">
       <div class="line"><i id="lineFill"></i></div>
@@ -748,7 +846,7 @@ footer .flogo{height:24px;margin-bottom:22px;display:block}
       <a href="#" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M14 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8z"/><path d="M14 3v5h5M9 13h6M9 17h4"/></svg><b>Fact sheet</b><small>PDF</small></a>
       <a href="#" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 5a2 2 0 0 1 2-2h12v18H6a2 2 0 0 1-2-2z"/><path d="M8 7h6M8 11h6"/></svg><b>Summary prospectus</b><small>PDF</small></a>
       <a href="#" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 7h18v13H3zM8 7V4h8v3"/><path d="M3 12h18"/></svg><b>Prospectus &amp; reports</b><small>PDF</small></a>
-      <a href="#" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19V5M4 19h16M8 15l4-4 3 3 5-6"/></svg><b>Full fund page</b><small>ProShares.com ↗</small></a>
+      <a href="#" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19V5M4 19h16M8 15l4-4 3 3 5-6"/></svg><b>[TICKER] Product Details</b></a>
     </div>
   </div>
 </div>
@@ -767,7 +865,7 @@ footer .flogo{height:24px;margin-bottom:22px;display:block}
         <p class="fd-obj">[TICKER] seeks daily investment results, before fees and expenses, that correspond to [multiple, e.g. two times (2x)] the daily performance of [Underlying] ([UND]).</p>
         <p class="fd-fine pre-only">Subject to change until the registration statement is effective.</p>
         <div class="benefits fd-benefits launch-only" id="benefits">
-          <div class="b-head"><h4>Intended benefits</h4><button class="b-pause" id="bPause" onclick="benToggle()" aria-label="Pause rotation">❚❚</button></div>
+          <div class="b-head"><h4>Why [TICKER]?</h4></div>
           <div class="b-tabs" role="tablist">
             <button class="b-tab on" role="tab" onclick="benShow(0,true)">
               <span class="ic-wrap"><svg class="ico i-zoom" viewBox="0 0 40 40" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><g class="lens"><circle cx="17" cy="17" r="11"/><path d="M25 25l9 9"/></g><path class="bar" d="M12 22v-3"/><path class="bar" d="M15.5 22v-6"/><path class="bar" d="M19 22v-4"/><path class="bar" d="M22.5 22v-8"/></svg></span>
@@ -815,12 +913,12 @@ footer .flogo{height:24px;margin-bottom:22px;display:block}
 </section>
 
 <!-- M05 · WHY [UNDERLYING] -->
-<section class="block" id="matters" data-mod="M05a · Why [Underlying] (editorial + stat carousel)" data-flex="left: editorial text slots; right: 1–6 social stat cards">
+<section class="block" id="matters" data-mod="M05a · About [Company] (editorial + stat carousel)" data-flex="left: editorial text slots; right: 1–6 social stat cards">
   <div class="wrap">
     <div class="why2">
       <div class="why-copy">
-        <div class="kicker">The underlying</div>
-        <h2>Why [Underlying]</h2>
+        <div class="kicker">Company at a glance</div>
+        <h2>About [Company]</h2>
         <p class="lede">Headline-style lead sentence goes here. <span class="ph">[Approved editorial]</span></p>
         <p>Body copy goes here: what the underlying company or theme does, and why it matters to investors today. <span class="ph">[Approved editorial]</span></p>
         <div class="idx">
@@ -840,7 +938,7 @@ footer .flogo{height:24px;margin-bottom:22px;display:block}
       <aside class="facts-rail" aria-label="Stat cards" data-mod="M05b · Social stat carousel" data-flex="1–6 social stat cards, reused from campaign social; each needs a source line">
         <div class="ff-viewport" id="ffv" onmouseenter="ffPause=true" onmouseleave="ffPause=false">
           <div class="ff on ffph"><span class="ffl">Social stat card 1</span><span class="ffs">1080 × 1350 image</span></div>
-          <div class="ff ffph"><span class="ffl">Social stat card 2</span><span class="ffs">1080 × 1350 image</span></div>
+          <div class="ff ffph ffvid"><video muted loop playsinline preload="metadata" src="" poster="" aria-label="Social stat card 2 (looping video)"></video><span class="ffl">Social stat card 2</span><span class="ffs">MP4 loop · muted · 1080 × 1350</span><span class="ffplay" aria-hidden="true">▶ LOOP</span></div>
           <div class="ff ffph"><span class="ffl">Social stat card 3</span><span class="ffs">1080 × 1350 image</span></div>
         </div>
         <div class="ff-dots" id="ffd"></div>
@@ -851,52 +949,29 @@ footer .flogo{height:24px;margin-bottom:22px;display:block}
   </div>
 </section>
 
-<!-- M05d · STAT GRID (alt fast facts) -->
-<section class="block" id="numbers" style="padding-top:40px" data-mod="M05d · Stat grid (alt presentation of fast facts)" data-flex="3 or 6 cells; label + stat + line + source">
-  <div class="wrap">
-    <div class="statgrid">
-      <div class="stat"><div class="lbl">[Stat label]</div><div class="big">[Stat]</div><p>One-sentence description of the stat goes here.</p><span class="src">Source: [Source, Year]</span></div>
-      <div class="stat"><div class="lbl">[Stat label]</div><div class="big">[Stat]</div><p>One-sentence description of the stat goes here.</p><span class="src">Source: [Source, Year]</span></div>
-      <div class="stat"><div class="lbl">[Stat label]</div><div class="big">[Stat]</div><p>One-sentence description of the stat goes here.</p><span class="src">Source: [Source, Year]</span></div>
-    </div>
-    <p class="stat-note">Facts about the underlying company, not [TICKER] performance.</p>
-  </div>
-</section>
 
-<!-- M04 · WHAT DOES IT DO? -->
-<section class="block launch-only" id="video">
+
+
+
+
+
+<!-- PRE-ONLY · NOTIFY (moved above insights) -->
+<section class="block pre-only" id="notify-sec" data-mod="P3 · Notify Me (pre-launch only)" data-flex="sign-up banner; same form as the Notify popup">
   <div class="wrap">
-    <div class="sec-head">
-      <h2>Watch the<br>overview</h2>
-      <p>Text can be inputted here.</p>
-    </div>
-    <div class="video" data-mod="M04a · Video explainer" data-flex="poster title + subline are content fields; embed is Vimeo">
-      <div class="player" id="player">
-        <button class="poster" onclick="playVideo(0)" aria-label="Play the explainer video">
-          <div class="top"><span class="chip">Video explainer</span><span class="chip ph" style="color:#fff">[0:00]</span></div>
-          <h3>Video title <em>goes here.</em></h3>
-          <div class="bottom">
-            <span class="bigplay" aria-hidden="true"></span>
-            <span class="meta"><b>Video subtitle</b>One line describing the video</span>
-          </div>
-        </button>
-        <div class="embed" aria-live="polite">
-          <div>
-            <div style="font-weight:700;font-size:16px">[Vimeo embed]</div>
-            
-            <div class="bar"><i id="embedBar"></i></div>
-          </div>
-        </div>
+    <div class="paths">
+      <div class="path lead pre-only">
+        <div class="tag">Be first to know</div>
+        <h3>Get the alert the day [TICKER] trades</h3>
+        <p>One email at launch, with the prospectus link.</p>
+        <form class="form" onsubmit="event.preventDefault();this.innerHTML='<p style=&quot;font-size:17px;font-weight:600;color:#fff;margin:0&quot;>You\'re on the list.</p>'">
+          <input type="email" placeholder="Email address" required>
+          <div class="who"><input type="radio" name="w" id="w1" checked><label for="w1">Individual investor</label><input type="radio" name="w" id="w2"><label for="w2">Financial professional</label></div>
+          <button class="btn" type="submit" style="background:#fff;color:var(--green)">Notify Me</button>
+        </form>
       </div>
     </div>
-    <div class="vid-links"><a href="#" target="_blank" rel="noopener">Read transcript</a></div>
-
   </div>
 </section>
-
-
-
-
 
 <!-- M06 · INSIGHTS -->
 <section class="block" id="insights" data-mod="M06 · Insights" data-flex="1 lead + 2 supporting articles; pulls from the CMS insights feed or hand-picked">
@@ -935,38 +1010,6 @@ footer .flogo{height:24px;margin-bottom:22px;display:block}
   </div>
 </section>
 
-<!-- ABOUT PROSHARES (both phases) -->
-<section class="block" id="about" data-mod="P2 · Meet ProShares" data-flex="evergreen; first-time visitors (left) vs. existing ProShares investors (right) + socials">
-  <div class="wrap">
-    <div class="sec-head">
-      <h2>Meet ProShares</h2>
-      <p>Text can be inputted here.</p>
-    </div>
-    <div class="about">
-      <div class="ab-new">
-        <h3>The pioneer of geared ETFs</h3>
-        <p>ProShares introduced leveraged and inverse ETFs in 2006 and has been at the forefront of the ETF revolution ever since.</p>
-        <div class="ab-stats">
-          <div><strong data-count="2006" data-plain="1">2006</strong><span>Geared ETFs introduced</span></div>
-          <div><strong data-count="110" data-pre="$" data-suf="B+">$110B+</strong><span>In assets</span></div>
-          <div><strong data-count="115" data-suf="+">115+</strong><span>Geared ETFs</span></div>
-        </div>
-        <span class="ab-src">Source: ProShares. <span class="ph">[Confirm figures + as-of date]</span></span>
-      </div>
-      <div class="ab-go">
-        <a href="https://www.proshares.com/our-etfs/find-leveraged-and-inverse-etfs?etftype=&amp;strategy=&amp;benchmark=&amp;product=Product+Overview+&amp;search=" target="_blank" rel="noopener">
-          <span class="ab-gi"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="2.5" y="4.5" width="17" height="12" rx="1.5"/><rect x="4.5" y="6.5" width="13" height="8" rx=".8" stroke-width="1"/><path d="M7 9h5M7 11.5h4"/><circle cx="17.5" cy="14" r="2.6"/><path d="M16.3 16.2l-.6 4 1.8-1 1.8 1-.6-4"/></svg></span>
-          <span class="ab-gt"><b>Geared ETF lineup</b><small>See funds already trading</small></span><span class="ab-arr">↗</span></a>
-        <a href="https://www.proshares.com/strategies/leveraged-and-inverse" target="_blank" rel="noopener">
-          <span class="ab-gi"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M10 2.5 3.5 10.8H17.5L12.6 5.6"/><path d="M14 21.5 20.5 13.2H6.5L11.4 18.4"/></svg></span>
-          <span class="ab-gt"><b>Leveraged &amp; Inverse ETFs</b><small>Magnify a bullish or bearish view</small></span><span class="ab-arr">↗</span></a>
-        <a href="https://www.proshares.com/resources/geared-faqs" target="_blank" rel="noopener">
-          <span class="ab-gi"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M9.5 9.5a2.5 2.5 0 1 1 3.5 2.3c-.6.3-1 .8-1 1.5V14M12 17.2v.1"/></svg></span>
-          <span class="ab-gt"><b>Geared fund FAQs</b><small>Common questions, answered</small></span><span class="ab-arr">↗</span></a>
-      </div>
-    </div>
-  </div>
-</section>
 
 <!-- HOW GEARED ETFs WORK (both phases) -->
 <section class="block" id="learn" data-mod="P1 · How Geared ETFs Work" data-flex="evergreen; reusable across every geared launch; links to the two main-site education pages">
@@ -989,12 +1032,12 @@ footer .flogo{height:24px;margin-bottom:22px;display:block}
         </div>
         <div class="gx-day"><span>Benchmark day:</span><button class="on" onclick="gxDay(1,this)">Up 1%</button><button onclick="gxDay(-1,this)">Down 1%</button></div>
         <p class="gx-cap">Hypothetical one-day example, before fees and expenses.</p>
-        <a class="gx-link" href="https://www.proshares.com/strategies/leveraged-and-inverse" target="_blank" rel="noopener">Explore Leveraged &amp; Inverse ETFs <span>↗</span></a>
+        <a class="gx-link" href="https://www.proshares.com/strategies/leveraged-and-inverse" target="_blank" rel="noopener">Explore Leveraged &amp; Inverse ETFs <span>→</span></a>
       </div>
 
       <div class="hw">
         <div class="hw-head"><h3>How they work</h3><span class="hw-count" id="hwCount">1 / 4</span></div>
-        <ol class="hw-steps" id="hwSteps">
+        <ol class="hw-steps" id="hwSteps"><span class="hw-fill" id="hwFill" aria-hidden="true"></span>
           <li class="on"><button onclick="hw(0)"><i>1</i><span>A daily objective</span></button>
             <div class="hw-body"><p>Geared funds aim to deliver their multiple, like 2x, from the close of one trading day to the close of the next. Not over weeks or months.</p></div></li>
           <li><button onclick="hw(1)"><i>2</i><span>They reset every day</span></button>
@@ -1004,14 +1047,14 @@ footer .flogo{height:24px;margin-bottom:22px;display:block}
           <li><button onclick="hw(3)"><i>4</i><span>No margin, no borrowing shares</span></button>
             <div class="hw-body"><p>Unlike buying on margin or shorting a stock, your loss is limited to what you invest, with no margin calls and no borrowing.</p></div></li>
         </ol>
-        <a class="gx-link" href="https://www.proshares.com/resources/geared-faqs" target="_blank" rel="noopener">Read How They Work: Geared Fund FAQs <span>↗</span></a>
+        <a class="gx-link" href="https://www.proshares.com/resources/geared-faqs" target="_blank" rel="noopener">Read How They Work: Geared Fund FAQs <span>→</span></a>
       </div>
     </div>
   </div>
 </section>
 
 <!-- M07 · WHERE DO I GO NEXT? -->
-<section class="block" id="next" data-mod="M07 · Pathways" data-flex="lead path swaps per phase (notify → buy)">
+<section class="block launch-only" id="next" data-mod="M07 · Pathways" data-flex="lead path swaps per phase (notify → buy)">
   <div class="wrap">
 
     <div class="htb launch-only" id="buy" data-mod="M07a · How to Buy (tab slider)" data-flex="mirrors the main-site How to Buy page; ticker in steps is a variable">
@@ -1031,11 +1074,11 @@ footer .flogo{height:24px;margin-bottom:22px;display:block}
           <div class="htb-panel">
             <p>You can find ProShares ETFs on most trading platforms, or talk to your financial advisor or brokerage account representative. Please note, your advisor or broker may charge commissions or other transaction fees.</p>
             <div class="brokers">
-              <a href="https://www.schwab.com" target="_blank" rel="noopener">Charles Schwab <small>↗</small></a>
-              <a href="https://www.fidelity.com" target="_blank" rel="noopener">Fidelity <small>↗</small></a>
-              <a href="https://us.etrade.com" target="_blank" rel="noopener">E*Trade <small>↗</small></a>
-              <a href="https://www.interactivebrokers.com" target="_blank" rel="noopener">Interactive Brokers <small>↗</small></a>
-              <a href="https://robinhood.com" target="_blank" rel="noopener">Robinhood <small>↗</small></a>
+              <a href="https://www.schwab.com" target="_blank" rel="noopener">Charles Schwab</a>
+              <a href="https://www.fidelity.com" target="_blank" rel="noopener">Fidelity</a>
+              <a href="https://us.etrade.com" target="_blank" rel="noopener">E*Trade</a>
+              <a href="https://www.interactivebrokers.com" target="_blank" rel="noopener">Interactive Brokers</a>
+              <a href="https://robinhood.com" target="_blank" rel="noopener">Robinhood</a>
             </div>
             <ol class="htb-steps">
               <li>Log in to your brokerage account</li>
@@ -1056,26 +1099,13 @@ footer .flogo{height:24px;margin-bottom:22px;display:block}
       </div>
     </div>
 
-    <div class="paths">
-      <div class="path lead pre-only">
-        <div class="tag">Be first to know</div>
-        <h3>Get the alert the day [TICKER] trades</h3>
-        <p>One email at launch, with the prospectus link.</p>
-        <form class="form" onsubmit="event.preventDefault();this.innerHTML='<p style=&quot;font-size:17px;font-weight:600;color:#fff;margin:0&quot;>You\'re on the list.</p>'">
-          <input type="email" placeholder="Email address" required>
-          <div class="who"><input type="radio" name="w" id="w1" checked><label for="w1">Individual investor</label><input type="radio" name="w" id="w2"><label for="w2">Financial professional</label></div>
-          <button class="btn" type="submit" style="background:#fff;color:var(--green)">Notify Me</button>
-        </form>
-      </div>
-    </div>
-
   </div>
 </section>
 
 <!-- M08 · FAQ -->
 <section class="block" id="faq" data-mod="M08 · FAQ" data-flex="phase-tagged questions; shared geared-fund questions reused">
   <div class="wrap">
-    <div class="sec-head"><h2>FAQs</h2><p>Text can be inputted here.</p></div>
+    <div class="sec-head"><h2>FAQs</h2></div>
     <div class="faq">
       <details class="pre-only"><summary>When will [TICKER] launch?</summary><p>Only after its registration statement becomes effective. Sign up above to be notified.</p></details>
       <details class="launch-only"><summary>Where can I buy [TICKER]?</summary><p>Through most standard brokerage accounts that offer ETFs. No margin account is required.</p></details>
@@ -1087,13 +1117,63 @@ footer .flogo{height:24px;margin-bottom:22px;display:block}
   </div>
 </section>
 
+<!-- ABOUT PROSHARES (both phases) -->
+<section class="block" id="about" data-mod="P2 · Meet ProShares" data-flex="evergreen; first-time visitors (left) vs. existing ProShares investors (right) + socials">
+  <div class="wrap">
+    <div class="about">
+      <div class="ab-new">
+        <h3>About ProShares</h3>
+        <p>ProShares introduced leveraged and inverse ETFs in 2006 and has been at the forefront of the ETF revolution ever since.</p>
+        <div class="ab-stats">
+          <div><strong data-count="2006" data-plain="1">2006</strong><span>Geared ETFs introduced</span></div>
+          <div><strong data-count="110" data-pre="$" data-suf="B+">$110B+</strong><span>In assets</span></div>
+          <div><strong data-count="115" data-suf="+">115+</strong><span>Geared ETFs</span></div>
+        </div>
+        <span class="ab-src">Source: ProShares. <span class="ph">[Confirm figures + as-of date]</span></span>
+      </div>
+      <div class="ab-go">
+        <a href="https://www.proshares.com/our-etfs/find-leveraged-and-inverse-etfs?etftype=&amp;strategy=&amp;benchmark=&amp;product=Product+Overview+&amp;search=" target="_blank" rel="noopener">
+          <span class="ab-gi"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="2.5" y="4.5" width="17" height="12" rx="1.5"/><rect x="4.5" y="6.5" width="13" height="8" rx=".8" stroke-width="1"/><path d="M7 9h5M7 11.5h4"/><circle cx="17.5" cy="14" r="2.6"/><path d="M16.3 16.2l-.6 4 1.8-1 1.8 1-.6-4"/></svg></span>
+          <span class="ab-gt"><b>Geared ETF lineup</b><small>See funds already trading</small></span><span class="ab-arr">→</span></a>
+        <a href="https://www.proshares.com/strategies/leveraged-and-inverse" target="_blank" rel="noopener">
+          <span class="ab-gi"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M10 2.5 3.5 10.8H17.5L12.6 5.6"/><path d="M14 21.5 20.5 13.2H6.5L11.4 18.4"/></svg></span>
+          <span class="ab-gt"><b>Leveraged &amp; Inverse ETFs</b><small>Magnify a bullish or bearish view</small></span><span class="ab-arr">→</span></a>
+        <a href="https://www.proshares.com/resources/geared-faqs" target="_blank" rel="noopener">
+          <span class="ab-gi"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M9.5 9.5a2.5 2.5 0 1 1 3.5 2.3c-.6.3-1 .8-1 1.5V14M12 17.2v.1"/></svg></span>
+          <span class="ab-gt"><b>Geared fund FAQs</b><small>Common questions, answered</small></span><span class="ab-arr">→</span></a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FINAL CTA (launch only, full width) -->
+<section class="final launch-only" id="final" data-mod="M09 · Final CTA" data-flex="headline + line + product-details link">
+  <div class="wrap">
+    <div class="final-copy">
+      <div class="final-k">Go deeper on [TICKER]</div>
+      <h2>Everything you need, in one place.</h2>
+      <p>Performance, holdings, distributions and documents live on the [TICKER] product page.</p>
+    </div>
+    <div class="final-btns">
+      <a class="btn btn-light" href="#" target="_blank" rel="noopener">View [TICKER] Product Details</a>
+      <a class="btn btn-ghost" href="#buy">How to Buy</a>
+    </div>
+  </div>
+</section>
+
+<div class="mcta" id="mcta" aria-hidden="true">
+  <span class="mcta-t">[TICKER]</span>
+  <a class="btn btn-primary launch-only" href="#buy">How to Buy</a>
+  <button class="btn btn-primary pre-only" type="button" onclick="openNotify()">Notify Me</button>
+</div>
+
 <footer><div class="wrap">
   <img class="flogo" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAQAAAAA4CAYAAAASLCYSAAAM/klEQVR4nO1d65HcNhL+pPJ/0RGIF8HyIhAdgXgRiI5A4wg0jsBzEZiKQNwIjhuBuRGYmwE3gr4fDRQxTQAESM5DMr4q1C5AoLuBbjRBvOYNEWEn5CoAwAig34twQkLCZfBTZP4cQAmgUCEH8D6g3BMmp9AD6FQ8ISHhhngTMAIoANQAKoR19lA8gx1Bq/4mJCRcGT4HUAI4AvhwBTlewI7gBGC4Ar+EhATYHUAOoMF1Or4Nj2BH0N2If0LCPwbSAdTgzvfuFsIIPAI4II0IEhIuhrfG/zWAP3EfnR8APoInDA+3FSMh4ceFHgFUAL7dVhQvHsEOarytGAmBKMBzSCP4czLhTvGGiDLwMPte3vwuPGMyKh8ysAFuRbcDjXtGjvMlXYDbtgNPyA4ifwH/3o4C89Wi38ETyQl3ip/ASrv3zg8AD2DjLOF3AgWA/+3E80XxPOHH2diUgzvlJ8fzjwD+ADvcFuxQa3Cb5yJvpmhV2HeJOOFKeENEPbhz7QXdaTrwW6THvMPmRijBBhTqhJ7hf8PnYIPNA+jq5UctX6bksbXHj/AZUoGH5LpNHlW8VfEc0/KvrUP/x8gLldfnbNMI4N5B+2AkooaICiLCylAT0RDI7xhIM/PQ9NHI1XNbPbfU8ZahEHWpF/IfVH1NNCJPRkSlaqvO0l6hekrhRgEWpcWiJTaEvYQ60NzwbMgj6EkMgWVrS9l+5/peKwxGHQ6BZQpVXxO+ug8i7/EO6p2CJ7xdHiN48St4WDluHopMOIGHls8L+Q6B9HpL2hBYtgEPY008RPC+F9SYhvQv4DYOQY+5LipP/i5GqITbY4sD+BWXW+LpsewEqghaEl2ELCdLWh1R/h5QG/+3kWVHVf5VxQ+evEMk7YQb4y14IigWT7j8+u4IvxN4j/mstIvOVjmeLLyLjXSvCXNb97iifI/JiTwgrN0TvgO8RfwbAQgfQm7FiPO3j0R+JTl6S1p2Jd73ghbAf9X/1e3ESNgTb8Fv8qXvbYl2Ba8C7DiqyHI9br+UNN6Y/xaUC/EYHAH8guu9ABIuDD0HUF+BV6/CN/C3YhVR9gSevJIYNkkUjnJFmdyTXuJ6nxCdiH/Aen2PFno/KjK4dViAdeh6fmtksI9Qc/ALvwP3qUw7gB48qReKYpVYzPwr+Bv6G+LmEY4i/oLrOYDckmbjnYMbdsS8kxXghv8bvHnmLxXPPHxLcBv1AEiFATwCk/R9kJ9Qp8jyeyEHTyJ24DbS9WmwzslWmAyajNCp9GoFzUKVHTBvoxKsi7/AOvwbyzZcYh8dSnqDojWC63vEtIlrsNDOMG1665Q8rVwXPFIYThvWHnNBqwksl4lyxwieEjFlS0v5XshV03y93ORRW2hoHCw8c5pvrOktaYOSb6kOrYN3S+H7KUKCtB/dBjmxnpdQB/I50HyvyEjcPjK9p+XNW5miOTjkB7HNu1BZaBY011dnSQvVYSbKDo76ms+lHdeGDCciamyMfMaqMdI2w+kFvZAGgNEAI8VtxpE4RpSVshJNhlqTWwFHI48PUpZC0OzpvK0zmnemmvx1KBdkaBWNmDa1haOlbgdRH22AtnYN0ausu+bjyzN46Pn0o+naePr4S7s4iXplNG8rnw4zmtqrp3l/qci+E7Mw8pQ0OYBWxa0OQGd2GbZGT+sN5iRo+RRkU+whkp+EVJir0VtL2dbIoxvU1lZHCnOmZl0Kmnf+pbbQqBbqI9vchVbJlC/QswVp1KPx90hze7G1j0+3tvytI+8g8tUemp2jLY4UNnIpDXqlhYarPgeR16VDUwafXmT7n4xnGbE9Ncb/3VIHWKq8JrbVUIjC9ti3FP7JYAYJn1Jycm9Hbh31zWhucNqoepoMJKfzNpXG2wsaPmVnQsbRIZvLkELQUfiw3KXXfqEencjfReQlCus0RMufrYVDdlmHUshh0pU6GRZ4gs7txqbDTMizRK/28M+VvB0phxyiVFlhWyP5FBxqKEsKAsW/+XWQ0A2gg26UwZKXVHq9wKN1tI1UaGibtAFlTqJME1Cm8tTThZD6u+qwVP9alJFGawZph2OELF2A/L2l7iF60KERZUPa7CDKnMTzUjwPsSezTStf3tCKaUFaSwMRsSIOEbSkcojCFLQ2rEFHrIxiZZ1GinOMoyjvVZwKhUXuUJ412Q3eh478Bijb4BggR2nhE0q/jsgbYl+dKNMv1NcMuaUeIWVl/ceF502gPKeQ/CFnAXK1vNCBl1X+BeA3nG8eege+RMK2/OCiKXHNW4i/gje0yPBvAG9UKMFLVv1KHg3ClykrzO8t6ALK9Q5aIWjAS142fbrwActLl5fEEawjravmwvxahG8Cq0T8JaKsiXfwL4l+wnRWxocD2M5bX6aQXwY64bxyg0o7YXIOOrwHXyx6VIwb2I20COB7SQy4/IaWMSJvJeKvEeWfcO48K8Tt1Btwrs8KbDyuG34ecLt9BMD93sxUi3iGMBvLLGmlUba3PH8A70PQF9o0jnxSphmWHMAJ/koMinmj4hmmnwzLMd3M06k8o4rveQPRj4BcxPsNtLaMpAZMzqCE+4dhPmHacHJPKDHt0iuuzFva9DvsM6odwWcwPluevVfpn8HOoEHcyNPrAEpF+OdQYgjbKlpG0PunYIuhdBvL++iW4NHAH5bnNW5/RgOYLiItcbu7LXNL2les/0QZRPwAfrm67nEE2Bl8UeERrJt+iZHPAZwUoXGJSCQOO9NLmKPAfkPlE9gG/hTp5U701yAD29EB551eX3bSgh3DlyvJk1vSRuz7mVljOhi35Og+qrB4J6NrErAGD2n6UOkCUcI9/I89kZjAKC1pw848GszvRLgVCrBdfsHUEV7AE4M5bvP7kqMlrbgAnxPY+f2KsHs8vmBhPsjlAI7qbxciVQSOnmfDzry+J8jDOsVGeqPxf4l9zu+fdqCxFQXYJs0Jyq9G+q3QW9KyC/JrwDr9GcvO4DM8pxZtDqDG1MBDvGxOVPB/q/Y78vre0In4O4QbUCHi5kgqB88Wf7Pki0W3sfweaHE+/H3C/VzVLo+rP2A/J1A40kecO4PfLHIAntUAmwM4Gv8PS5IFIsPyhEi3E6/vEZ0lrQgol8O/f2DANHTvAmm6MC7EL40a86XJ+soy+NBa0sod6J7Ax4+LhXyjyluAR0VBckgHUOAyv/DSwD9x8YrrOoDsirxC0FjSqoByZQAtHX+n/s9CBLIgF/F2JZ21KET8Gff12dhY0qoVdHIH3RZhuhvBjtE2EphBOoBaxMsQIgs4gmckfWh34ONCaUkrLshvDUbMvXYVUK4W8SfMP6VaTHMM+ufVsmDJ7LxecXsHcG/oMZ8o/YS4W4MK8CUjpaD7An4xdwjXXSdoWCEdQGURaAtqhC3FNBv5+JAHpu2NIjL/AeeTge/hH+KWOJ9TeXXkH3HeWR/Ab84iQrYM58u3J9g/ATIRzyN4LGEQcd/txCXmy82Z8X+xXRwraswndJvAsiW40z5jPhrWNLQDzwPomXlaZ66FwwwhByh8h01C0G/gERLkAQ+Ncmc+/Q71KgSNgdzHjyW/2kNXHijROAbIJHn5bGJNG9jspAjM19PyRRsmDjQdaLO11yDyNwHyy1BZ+DbkPhhkyjw66p4LeiP5D4uZduTT15kDsDUwUXxHySju3LnPcNeETMl8IP8x5pH4xFRF63/vT/NyGV2jnruUbws1+W8Eyimu8+swOGQcyH4BiDZMU5bOUhfdBicH/ZOjDQpLXc06S71kjrwjza/a6sn+k3AagyGPlr915D065PeF0iKrtrdShUrFdb6B/HYodU6qzpWHd78ktxlxGfEYUfnSIagLQyDdmFBG8NfoVvJytZnEMZJuQfajqbJtO1p3XHkg+01GOn0Q6SO5j3uvbYNQyHaRMks5TT42WxzpvM1kO7sQq8Ocwl+EDcXfmyDrJPXZBdDEGyIyvxNck3Wv4PkB+W2iUcJ9cMSHXzw01yJH/PLQgHXzECXCJko7rKtnCa5LgWkH5RMmeWNo5phuj22M9AJTPXILnw7+Y7G67BI6nMt7DChjy5eDv+9LsKyv0DfcTgfONDKV9hHTz9YfRJ4aYd/UHdbpMFc8SvX/e0wydwg/vJOpMg0m/ZXgflkous9GniBZTQfQYbkD6+OHo4rnmI4Bx+IR6RdmEhJuilgHsBdewV5ruBK/hIQEC7b+PPha1EidPyHh5riFA1i8pighIeE6MB1AfwV+z7iv/dsJCf9oXNMBPCPdBpSQcFcwHUB3QT66848X5JGQkBAJ0wEMCLtlJBap8yck3CnkJOBpZ/r6tpZxZ7oJCQk7QDqADnwF8Va8gq8qqneglZCQcCHYlgEPmJ9Nj4F+6zcbaCQkJFwBvluBf4+k9Qje218jbfJJSPguYG4FtiEHjwgq2Pf7P4E39bRInT4h4bvDkgOQKBD+m2cJCQl3jv8DkywHN/QNUEAAAAAASUVORK5CYII=" alt="ProShares">
-  <div class="f-soc"><span>Follow ProShares</span><div class="socials dark">
-          <a class="soc" href="https://x.com/ProShares" target="_blank" rel="noopener" aria-label="ProShares on X"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.8 3h3.1l-6.8 7.7L22 21h-6.2l-4.9-6.3L5.3 21H2.2l7.2-8.3L1.9 3h6.4l4.4 5.8L17.8 3Zm-1.1 16.2h1.7L7.4 4.7H5.6l11.1 14.5Z"/></svg><span>X</span></a>
-          <a class="soc" href="https://www.instagram.com/proshares/" target="_blank" rel="noopener" aria-label="ProShares on Instagram"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/></svg><span>Instagram</span></a>
-          <a class="soc" href="https://www.youtube.com/@ProSharesETFs" target="_blank" rel="noopener" aria-label="ProShares on YouTube"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M22.5 7.2a2.8 2.8 0 0 0-2-2C18.7 4.7 12 4.7 12 4.7s-6.7 0-8.5.5a2.8 2.8 0 0 0-2 2C1 9 1 12 1 12s0 3 .5 4.8a2.8 2.8 0 0 0 2 2c1.8.5 8.5.5 8.5.5s6.7 0 8.5-.5a2.8 2.8 0 0 0 2-2C23 15 23 12 23 12s0-3-.5-4.8ZM9.8 15.3V8.7l5.7 3.3-5.7 3.3Z"/></svg><span>YouTube</span></a>
-          <a class="soc" href="https://www.linkedin.com/company/proshare-advisors-llc/" target="_blank" rel="noopener" aria-label="ProShares on LinkedIn"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M4.98 3.5a2.5 2.5 0 1 1 0 5 2.5 2.5 0 0 1 0-5ZM3 9.5h4V21H3V9.5Zm6.5 0h3.8v1.6h.1c.5-1 1.8-2 3.8-2 4 0 4.8 2.6 4.8 6V21h-4v-5.2c0-1.2 0-2.9-1.8-2.9s-2 1.4-2 2.8V21h-4V9.5Z"/></svg><span>LinkedIn</span></a>
+  <div class="f-soc"><div class="socials dark">
+          <a class="nsoc fsoc" href="https://x.com/ProShares" target="_blank" rel="noopener" aria-label="ProShares on X"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.8 3h3.1l-6.8 7.7L22 21h-6.2l-4.9-6.3L5.3 21H2.2l7.2-8.3L1.9 3h6.4l4.4 5.8L17.8 3Zm-1.1 16.2h1.7L7.4 4.7H5.6l11.1 14.5Z"/></svg></a>
+          <a class="nsoc fsoc" href="https://www.instagram.com/proshares/" target="_blank" rel="noopener" aria-label="ProShares on Instagram"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/></svg></a>
+          <a class="nsoc fsoc" href="https://www.youtube.com/@ProSharesETFs" target="_blank" rel="noopener" aria-label="ProShares on YouTube"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M22.5 7.2a2.8 2.8 0 0 0-2-2C18.7 4.7 12 4.7 12 4.7s-6.7 0-8.5.5a2.8 2.8 0 0 0-2 2C1 9 1 12 1 12s0 3 .5 4.8a2.8 2.8 0 0 0 2 2c1.8.5 8.5.5 8.5.5s6.7 0 8.5-.5a2.8 2.8 0 0 0 2-2C23 15 23 12 23 12s0-3-.5-4.8ZM9.8 15.3V8.7l5.7 3.3-5.7 3.3Z"/></svg></a>
+          <a class="nsoc fsoc" href="https://www.linkedin.com/company/proshare-advisors-llc/" target="_blank" rel="noopener" aria-label="ProShares on LinkedIn"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M4.98 3.5a2.5 2.5 0 1 1 0 5 2.5 2.5 0 0 1 0-5ZM3 9.5h4V21H3V9.5Zm6.5 0h3.8v1.6h.1c.5-1 1.8-2 3.8-2 4 0 4.8 2.6 4.8 6V21h-4v-5.2c0-1.2 0-2.9-1.8-2.9s-2 1.4-2 2.8V21h-4V9.5Z"/></svg></a>
         </div></div>
   <h4>Important information</h4>
   <p class="pre-only">The registration statement for [TICKER] has been filed with the SEC but is not yet effective and may be changed. Shares may not be sold, nor may offers to buy be accepted, until the registration statement is effective. <span class="ph">[Full pre-launch legend]</span></p>
@@ -1101,6 +1181,21 @@ footer .flogo{height:24px;margin-bottom:22px;display:block}
   <p>Fast facts describe the underlying company and are not indicative of [TICKER] performance. Carefully consider the investment objectives, risks, charges and expenses of ProShares before investing. This and other information can be found in the summary and full prospectuses. ProShares are distributed by SEI Investments Distribution Co., which is not affiliated with the funds' advisor or sponsor. <span class="ph">[Remaining approved legal]</span></p>
 </div></footer>
 
+
+<div class="modal vmodal" id="vmodal" role="dialog" aria-modal="true" aria-label="[TICKER] video">
+  <div class="vbox">
+    <button class="m-x vx" type="button" onclick="closeVideo()" aria-label="Close video">✕</button>
+    <div class="player" id="player">
+      <button class="poster" onclick="playVideo(0)" aria-label="Play the video">
+        <div class="top"><span class="chip">Video</span><span class="chip ph" style="color:#fff">[0:00]</span></div>
+        <h3>Video title <em>goes here.</em></h3>
+        <div class="bottom"><span class="bigplay" aria-hidden="true"></span><span class="meta"><b>Video subtitle</b>One line describing the video</span></div>
+      </button>
+      <div class="embed" aria-live="polite"><div><div style="font-weight:700;font-size:16px">[Vimeo embed]</div><div class="bar"><i id="embedBar"></i></div></div></div>
+    </div>
+    <div class="vid-links"><a href="#" target="_blank" rel="noopener">Read transcript</a></div>
+  </div>
+</div>
 
 <div class="modal" id="notify" role="dialog" aria-modal="true" aria-labelledby="nT">
   <div class="modal-box notify-box">
@@ -1117,6 +1212,14 @@ footer .flogo{height:24px;margin-bottom:22px;display:block}
 </div>
 
 <script>
+function openVideo(e){if(e)e.preventDefault();
+  const t=e&&e.currentTarget?e.currentTarget.getBoundingClientRect():null;
+  const x=t?t.left+t.width/2:innerWidth/2, y=t?t.top+t.height/2:innerHeight/2;
+  vmodal.style.setProperty('--ox',x+'px');vmodal.style.setProperty('--oy',y+'px');
+  vmodal.classList.remove('closing');vmodal.classList.add('open');requestAnimationFrame(()=>vmodal.classList.add('revealed'))}
+function closeVideo(){if(!vmodal.classList.contains('open'))return;vmodal.classList.add('closing');vmodal.classList.remove('revealed');setTimeout(()=>{vmodal.classList.remove('open','closing');player.classList.remove('playing')},300)}
+vmodal.addEventListener('click',e=>{if(e.target===vmodal)closeVideo()});
+addEventListener('keydown',e=>{if(e.key==='Escape')closeVideo()});
 function openNotify(){notify.classList.add('open');setTimeout(()=>notify.querySelector('input[type=email]')?.focus(),50)}
 function closeNotify(){notify.classList.remove('open')}
 notify.addEventListener('click',e=>{if(e.target===notify)closeNotify()});
@@ -1136,11 +1239,15 @@ function rail(p){
   requestAnimationFrame(()=>requestAnimationFrame(()=>{lineFill.style.width=p==='pre'?'38%':'100%';railEl.classList.add('go')}));
 }
 new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting)rail(document.body.classList.contains('pre')?'pre':'live')}),{threshold:.6}).observe(railEl);
-dayN.textContent=Math.max(1,Math.floor((Date.now()-new Date('2026-06-15T09:30:00-04:00'))/864e5)+1);
 const target=Date.now()+21*864e5+5*36e5;
 function tick(){let t=Math.max(0,target-Date.now());const d=Math.floor(t/864e5);t-=d*864e5;const h=Math.floor(t/36e5);t-=h*36e5;const m=Math.floor(t/6e4);
-cdTxt.textContent=`${d}d ${String(h).padStart(2,'0')}h ${String(m).padStart(2,'0')}m`}
-tick();setInterval(tick,30000);
+const s=Math.floor((t-m*6e4)/1e3);flipSet([[d,'d'],[String(h).padStart(2,'0'),'h'],[String(m).padStart(2,'0'),'m'],[String(s).padStart(2,'0'),'s']])}
+function flipSet(parts){
+  if(!cdTxt.children.length){cdTxt.innerHTML=parts.map(([v,l])=>`<span class="u">${String(v).split('').map(c=>`<span class="d">${c}</span>`).join('')}<span class="l">${l}</span></span>`).join('');return}
+  parts.forEach(([v,l],i)=>{const u=cdTxt.children[i];const ds=[...u.querySelectorAll('.d')];const cs=String(v).split('');
+    if(ds.length!==cs.length){u.innerHTML=cs.map(c=>`<span class="d">${c}</span>`).join('')+`<span class="l">${l}</span>`;return}
+    ds.forEach((d,k)=>{if(d.textContent!==cs[k]){d.classList.remove('go');void d.offsetWidth;d.classList.add('go');setTimeout(()=>d.textContent=cs[k],200)}})})}
+tick();setInterval(tick,1000);
 
 
 
@@ -1203,9 +1310,9 @@ const benTabs=[...document.querySelectorAll('.b-tab')],benCopy=[...document.quer
 document.getElementById('benefits').style.setProperty('--bdur',BEN_MS+'ms');
 function benShow(i,user){
   benI=i;benTabs.forEach((t,k)=>{t.classList.remove('on');void t.offsetWidth;t.classList.toggle('on',k===i)});benCopy.forEach((c,k)=>c.classList.toggle('on',k===i));
-  clearTimeout(benTimer);if(user&&!benPaused){benToggle()}else if(!benPaused){benTimer=setTimeout(()=>benShow((benI+1)%3),BEN_MS)}
+  clearTimeout(benTimer);if(!benPaused){benTimer=setTimeout(()=>benShow((benI+1)%3),BEN_MS)}
 }
-function benToggle(){benPaused=!benPaused;benefits.classList.toggle('paused',benPaused);bPause.textContent=benPaused?'▶':'❚❚';bPause.setAttribute('aria-label',benPaused?'Resume rotation':'Pause rotation');
+function benToggle(){benPaused=!benPaused;benefits.classList.toggle('paused',benPaused);
   clearTimeout(benTimer);if(!benPaused)benTimer=setTimeout(()=>benShow((benI+1)%3),BEN_MS*.5)}
 benefits.addEventListener('mouseenter',()=>{if(!benPaused){clearTimeout(benTimer);benefits.classList.add('paused')}});
 benefits.addEventListener('mouseleave',()=>{if(!benPaused){benefits.classList.remove('paused');benTimer=setTimeout(()=>benShow((benI+1)%3),BEN_MS*.5)}});
@@ -1214,10 +1321,51 @@ benShow(0);
 /* fast facts carousel */
 const ffs=[...document.querySelectorAll('.ff')];let ffI=0,ffPause=false;
 ffd.innerHTML=ffs.map((_,i)=>`<button aria-label="Fact ${i+1}" onclick="ffShow(${i})"></button>`).join('');
-function ffShow(i){ffI=(i+ffs.length)%ffs.length;ffs.forEach((f,k)=>f.classList.toggle('on',k===ffI));[...ffd.children].forEach((d,k)=>d.classList.toggle('on',k===ffI))}
+function ffShow(i){ffI=(i+ffs.length)%ffs.length;ffs.forEach((f,k)=>{f.classList.toggle('on',k===ffI);const v=f.querySelector('video');if(v&&v.getAttribute('src')){if(k===ffI){v.currentTime=0;v.play().catch(()=>{})}else v.pause()}});[...ffd.children].forEach((d,k)=>d.classList.toggle('on',k===ffI))}
 function ffGo(d){ffShow(ffI+d)}
 ffShow(0);setInterval(()=>{if(!ffPause)ffGo(1)},6000);
 
+
+/* ===== Motion & interaction layer ===== */
+(function(){
+const RM=matchMedia('(prefers-reduced-motion: reduce)').matches;
+const nav=document.querySelector('nav.top'),hero=document.querySelector('header.hero'),mcta=document.getElementById('mcta');
+function onScroll(){
+  const y=scrollY;nav.classList.toggle('shrink',y>80);
+  const past=hero.getBoundingClientRect().bottom<0;mcta.classList.toggle('show',past);mcta.setAttribute('aria-hidden',!past);
+  if(!RM){hero.style.backgroundPositionY=`calc(50% + ${Math.min(y,800)*.25}px)`}
+}
+addEventListener('scroll',onScroll,{passive:true});onScroll();
+/* step line fills to the step the visitor opened */
+function hwFillTo(){const ol=document.getElementById('hwSteps'),fill=document.getElementById('hwFill');if(!ol)return;
+  const on=ol.querySelector('li.on i');if(!on){fill.style.height='0';return}
+  const r=ol.getBoundingClientRect(),q=on.getBoundingClientRect();fill.style.height=Math.max(0,q.top+q.height/2-r.top-18)+'px'}
+document.querySelectorAll('#hwSteps button').forEach(b=>b.addEventListener('click',()=>setTimeout(hwFillTo,20)));
+addEventListener('resize',hwFillTo);hwFillTo();
+
+/* hero card tilt + float toward cursor */
+const stage=document.querySelector('.stage'),card=document.querySelector('.fcard');
+if(stage&&!RM&&matchMedia('(hover:hover)').matches){
+  stage.addEventListener('mousemove',e=>{const r=stage.getBoundingClientRect();const x=(e.clientX-r.left)/r.width-.5,y=(e.clientY-r.top)/r.height-.5;
+    card.classList.add('tilting');card.style.transform=`translateY(-10px) translate(${x*10}px,${y*8}px) rotateY(${x*10}deg) rotateX(${-y*8}deg)`});
+  stage.addEventListener('mouseleave',()=>{card.classList.remove('tilting');card.style.transform=''});
+}
+
+/* section fade-up */
+const targets=document.querySelectorAll('.sec-head, .fd-left, .snap, .why-copy, .facts-rail, .insights .art, .gx, .hw, .htb, .faq details, .about, .final .wrap>*, .paths, .docstrip .ds-links');
+targets.forEach((el,i)=>{el.classList.add('reveal');el.style.transitionDelay=(el.matches('.insights .art, .faq details')?([...el.parentNode.children].indexOf(el)*80):0)+'ms'});
+const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target)}}),{threshold:.12,rootMargin:'0px 0px -40px 0px'});
+targets.forEach(el=>RM?el.classList.add('in'):io.observe(el));
+
+/* bars draw in */
+const learn=document.getElementById('learn');
+if(learn){new IntersectionObserver((es,o)=>es.forEach(e=>{if(!e.isIntersecting)return;o.disconnect();
+  ['gxB','gxF'].forEach(id=>{const el=document.getElementById(id);el.style.width='0';el.style.left='50%'});
+  setTimeout(()=>gxDraw(),250)}),{threshold:.35}).observe(learn);}
+
+/* copy flash */
+document.querySelectorAll('button.sv').forEach(b=>b.addEventListener('click',()=>{b.classList.remove('copied');void b.offsetWidth;b.classList.add('copied');setTimeout(()=>b.classList.remove('copied'),1200)}));
+})();
 </script>
 </body>
 </html>
