@@ -1,0 +1,1223 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Fund Launch Template</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{
+  --ink:#14232b; --navy:#264048; --navy-2:#1b3036; --navy-3:#2f4a55; --teal:#2f4a55;
+  --green:#4b7f23; --green-2:#5f9a2e; --sage:#c8dbb0; --lime:#b9e07c; --green-soft:#e6efdc;
+  --red:#b5482f; --sky:#eef3f2; --line:#d6e0df; --muted:#5e717a; --radius:14px; --navh:68px;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;scroll-padding-top:calc(var(--navh) + 12px)}
+body{margin:0;font-family:Inter,system-ui,sans-serif;color:var(--ink);background:var(--sky);line-height:1.5;-webkit-font-smoothing:antialiased}
+a{color:inherit}
+.wrap{max-width:1180px;margin:0 auto;padding:0 24px}
+h1,h2,h3{margin:0;line-height:1.05;letter-spacing:-.02em}
+.q{display:inline-flex;align-items:center;gap:8px;font-size:13px;font-weight:600;color:var(--muted);margin-bottom:10px}
+.q b{display:inline-grid;place-items:center;width:22px;height:22px;border-radius:50%;background:var(--navy);color:#fff;font-size:11px}
+.btn{display:inline-flex;align-items:center;gap:10px;font:600 15px Inter;padding:13px 20px;border-radius:8px;border:1.5px solid transparent;cursor:pointer;text-decoration:none;transition:.15s;white-space:nowrap}
+.btn-primary{background:var(--green);color:#fff}.btn-primary:hover{background:var(--green-2)}
+.btn-light{background:#fff;color:var(--navy)}
+.btn-outline{background:#fff;color:var(--navy);border-color:var(--line)}
+.play{width:22px;height:22px;border-radius:50%;background:var(--green);display:grid;place-items:center}
+.play::after{content:"";border-left:7px solid #fff;border-top:5px solid transparent;border-bottom:5px solid transparent;margin-left:2px}
+.ph{background:rgba(224,161,0,.22);padding:0 4px;border-radius:3px;white-space:nowrap}
+
+/* phase visibility */
+body.pre .launch-only{display:none !important}
+body.live .pre-only{display:none !important}
+body.outline .launch-only,body.outline .pre-only{outline:2px dashed #e0a100;outline-offset:4px}
+
+/* module map */
+[data-mod]{position:relative}
+body.modmap [data-mod]{outline:2px solid #7b5cff;outline-offset:-2px}
+body.modmap [data-mod]::before{content:attr(data-mod);position:absolute;left:12px;top:12px;z-index:60;background:#7b5cff;color:#fff;font:700 11px Inter;padding:5px 9px;border-radius:6px}
+body.modmap [data-mod]::after{content:"Flexes: " attr(data-flex);position:absolute;left:12px;top:40px;z-index:60;background:#fff;color:#4a3aa8;border:1px solid #cfc4ff;font:600 11px Inter;padding:4px 8px;border-radius:6px;max-width:440px}
+
+/* mockup control */
+.phase-ctl{position:fixed;right:16px;bottom:16px;z-index:200;background:#142428;color:#fff;border-radius:14px;padding:12px;box-shadow:0 10px 30px rgba(0,0,0,.3);font-size:13px;width:240px}
+.phase-ctl b{display:block;font-size:11px;letter-spacing:.1em;text-transform:uppercase;opacity:.6;margin-bottom:8px}
+.seg{display:grid;grid-template-columns:1fr 1fr;background:#24393f;border-radius:9px;padding:3px;margin-bottom:10px}
+.seg button{font:600 13px Inter;border:0;background:transparent;color:#cfd8dc;padding:8px;border-radius:7px;cursor:pointer}
+.seg button.on{background:#fff;color:var(--navy)}
+.phase-ctl label{display:flex;gap:8px;align-items:center;cursor:pointer;margin-top:6px}
+
+/* announcement */
+.announce{background:var(--green-soft);font-size:14px}
+.announce .wrap{display:flex;justify-content:center;align-items:center;gap:16px;padding-top:9px;padding-bottom:9px;flex-wrap:wrap;text-align:center}
+.dot{width:8px;height:8px;border-radius:50%;background:var(--green);display:inline-block;margin-right:8px;animation:pulse 1.6s infinite}
+@keyframes pulse{0%{box-shadow:0 0 0 0 rgba(75,127,35,.5)}100%{box-shadow:0 0 0 10px rgba(75,127,35,0)}}
+.announce .btn{padding:6px 14px;font-size:13px;background:#fff;border-color:var(--navy);color:var(--navy)}
+
+/* nav */
+nav.top{position:sticky;top:0;z-index:100;background:rgba(27,48,54,.95);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);color:#fff;border-bottom:1px solid rgba(255,255,255,.08)}
+nav.top .wrap{display:flex;align-items:center;height:var(--navh);gap:22px}
+.home{display:flex;align-items:center;gap:12px;text-decoration:none;flex-shrink:0;padding:6px 10px 6px 0;border-radius:10px;position:relative}
+.home img{height:26px;width:auto;display:block}
+.home .site{display:inline-flex;align-items:center;gap:6px;font-size:12px;font-weight:600;color:rgba(255,255,255,.75);border:1px solid rgba(255,255,255,.22);border-radius:999px;padding:4px 10px 4px 9px;transition:.18s;white-space:nowrap}
+.home .site svg{width:12px;height:12px;transition:transform .18s}
+.home:hover .site,.home:focus-visible .site{background:#fff;color:var(--navy);border-color:#fff}
+.home:hover .site svg,.home:focus-visible .site svg{transform:translate(2px,-2px)}
+.home:focus-visible{outline:2px solid var(--lime);outline-offset:4px}
+.home .tip{position:absolute;left:0;top:calc(100% + 8px);background:#fff;color:var(--ink);font-size:12px;font-weight:600;padding:7px 10px;border-radius:8px;box-shadow:0 8px 20px rgba(0,0,0,.2);white-space:nowrap;opacity:0;transform:translateY(-4px);pointer-events:none;transition:.18s}
+.home:hover .tip,.home:focus-visible .tip{opacity:1;transform:none}
+.divider{width:1px;height:28px;background:rgba(255,255,255,.18);flex-shrink:0}
+.anchors{display:flex;gap:2px;flex:1;overflow-x:auto;scrollbar-width:none}
+.anchors::-webkit-scrollbar{display:none}
+.anchors a{text-decoration:none;font-size:14px;font-weight:500;padding:8px 11px;border-radius:7px;opacity:.72;white-space:nowrap;position:relative}
+.anchors a:hover{opacity:1;background:rgba(255,255,255,.06)}
+.anchors a.active{opacity:1}
+.anchors a.ext{display:inline-flex;align-items:center;gap:6px}
+body.pre .anchors a.ext{display:none}
+.anchors a.ext svg{width:11px;height:11px;opacity:.7}
+.anchors a.active::after{content:"";position:absolute;left:11px;right:11px;bottom:-14px;height:3px;border-radius:3px;background:var(--lime)}
+.nav-right{display:flex;align-items:center;gap:10px;font-size:13px;flex-shrink:0}
+.nav-right .tk{font-weight:800;background:var(--green);padding:3px 9px;border-radius:6px}
+.nav-cta{padding:9px 16px;font-size:14px}
+@media(max-width:1080px){.nav-right .px,.nav-right .tk{display:none}}
+@media(max-width:760px){.home .site span{display:none}.home .site{padding:5px}}
+@media(max-width:620px){nav.top .wrap{gap:12px}.nav-cta{display:none}.home img{height:22px}}
+
+/* modal */
+.modal{position:fixed;inset:0;background:rgba(5,15,25,.6);display:none;place-items:center;z-index:300;padding:16px}
+.modal.open{display:grid}
+.modal-box{background:#fff;border-radius:16px;padding:28px;max-width:420px;width:100%}
+.modal-box h3{font-size:20px;margin-bottom:8px}
+.modal-box p{color:var(--muted);margin:0 0 20px}
+.modal-box .row{display:flex;gap:10px;justify-content:flex-end}
+.modal.open .modal-box{animation:pop .3s cubic-bezier(.2,.8,.2,1)}
+@keyframes pop{from{opacity:0;transform:translateY(12px) scale(.97)}}
+.notify-box{position:relative;max-width:460px;padding:32px;border-top:4px solid var(--green)}
+.m-x{position:absolute;right:14px;top:14px;width:32px;height:32px;border-radius:50%;border:1px solid var(--line);background:#fff;cursor:pointer;color:var(--muted)}
+.m-x:hover{color:var(--ink);border-color:#b9c7cf}
+.n-tag{font-size:11px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--green)}
+.notify-box h3{font-size:24px;margin:8px 0 6px;color:var(--navy)}
+.n-form{display:grid;gap:12px}
+.n-form input[type=email]{font:500 15px Inter;padding:13px 14px;border-radius:8px;border:1px solid var(--line);width:100%}
+.n-form input[type=email]:focus{outline:2px solid var(--green);outline-offset:1px}
+.n-who{display:flex;gap:6px;flex-wrap:wrap}
+.n-who input{display:none}
+.n-who label{font-size:13px;font-weight:600;padding:7px 12px;border-radius:999px;border:1px solid var(--line);cursor:pointer;color:var(--muted)}
+.n-who input:checked+label{background:var(--green-soft);border-color:var(--green);color:var(--green)}
+.n-form .btn{justify-content:center}
+.n-done{font-size:16px;font-weight:600;color:var(--green);margin:0}
+
+/* =========================================================
+   M01 HERO
+   ========================================================= */
+.hero{position:relative;color:#fff;overflow:hidden;padding:84px 0 60px;background:#264048 url("data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAxNzQyIDcxMiIgcHJlc2VydmVBc3BlY3RSYXRpbz0ieE1pZFlNaWQgc2xpY2UiPjxyZWN0IHdpZHRoPSIxNzQyIiBoZWlnaHQ9IjcxMiIgZmlsbD0iIzI2NDA0OCIvPjxnIHRyYW5zZm9ybT0idHJhbnNsYXRlKDEwMTUgMzYwKSByb3RhdGUoLTI2KSI+PHJlY3QgeD0iLTIxMCIgeT0iLTIxMCIgd2lkdGg9IjQyMCIgaGVpZ2h0PSI0MjAiIHJ4PSI3MCIgZmlsbD0iIzNlNmEyZiIgb3BhY2l0eT0iLjU1Ii8+PC9nPjxnIHRyYW5zZm9ybT0idHJhbnNsYXRlKDExNTUgMzYwKSByb3RhdGUoLTI2KSI+PHJlY3QgeD0iLTIxMCIgeT0iLTIxMCIgd2lkdGg9IjQyMCIgaGVpZ2h0PSI0MjAiIHJ4PSI3MCIgZmlsbD0iIzQ3NzIyYiIgb3BhY2l0eT0iLjg1Ii8+PC9nPjxnIHRyYW5zZm9ybT0idHJhbnNsYXRlKDEzMTUgMzYwKSByb3RhdGUoLTI2KSI+PHJlY3QgeD0iLTIxMCIgeT0iLTIxMCIgd2lkdGg9IjQyMCIgaGVpZ2h0PSI0MjAiIHJ4PSI3MCIgZmlsbD0iIzRmN2IyMiIvPjwvZz48L3N2Zz4K") right center/auto 100% no-repeat}
+.hero .art-tag{position:absolute;right:24px;top:18px;z-index:2;font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:rgba(255,255,255,.75);border:1px dashed rgba(255,255,255,.4);padding:5px 10px;border-radius:6px}
+.hero::before{content:"";position:absolute;inset:0;background:linear-gradient(90deg,#264048 0%,#264048 35%,rgba(38,64,72,0) 60%);pointer-events:none}
+.hero .wrap{position:relative}
+.hero-grid{display:grid;grid-template-columns:1.1fr .9fr;gap:40px;align-items:center;min-height:440px}
+@media(max-width:900px){.hero-grid{grid-template-columns:1fr;min-height:0}.hero{background-position:78% center}.hero::before{background:rgba(38,64,72,.7)}}
+.badge{display:inline-flex;align-items:center;gap:8px;background:var(--green);color:#fff;font-weight:700;font-size:13px;padding:6px 14px;border-radius:999px}
+.badge.live{background:#fff;color:var(--green)}
+.hero h1{font-size:clamp(42px,5.6vw,80px);font-weight:500;margin:22px 0 18px;text-transform:uppercase}
+.hero h1 em{font-style:normal;color:var(--sage)}
+.oneliner{font-size:20px;max-width:520px;margin:0;opacity:.92}
+.oneliner strong{color:#fff}
+.ctas{display:flex;gap:14px;margin-top:30px;flex-wrap:wrap}
+
+.stage{position:relative;height:420px}
+.glow{position:absolute;right:-6%;top:0;width:60%;height:80%;border-radius:50%;background:radial-gradient(closest-side,rgba(200,240,140,.28),transparent);opacity:.35;transition:opacity .5s;pointer-events:none}
+.stage:hover .glow{opacity:1}
+.fcard{position:absolute;left:-56px;bottom:4%;width:300px;border-radius:24px;padding:26px;color:#fff;
+  background:linear-gradient(150deg,rgba(47,74,85,.82),rgba(38,64,72,.88));
+  border:1px solid rgba(200,219,176,.35);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);
+  box-shadow:0 30px 60px rgba(0,0,0,.4);transform:none;transition:transform .55s cubic-bezier(.2,.8,.2,1),box-shadow .55s,border-color .55s}
+.stage:hover .fcard,.fcard:focus-within{transform:translateY(-10px);box-shadow:0 40px 80px rgba(0,0,0,.5);border-color:rgba(200,219,176,.7)}
+.fcard .mult{display:inline-block;margin-bottom:12px;font-size:15px;font-weight:800;background:var(--green);padding:4px 11px;border-radius:999px}
+.fcard .tk{font-size:44px;font-weight:800;letter-spacing:-.04em;line-height:1;color:var(--sage)}
+.fcard .nm{opacity:.92;font-size:15px;margin-top:6px}
+.fcard .ex{font-size:12px;opacity:.7;margin-top:2px}
+.fcard .rows{display:grid;grid-template-columns:1fr;column-gap:28px;gap:14px;margin-top:20px;padding-top:16px;border-top:1px solid rgba(255,255,255,.2)}
+.fcard .rows span{display:block;opacity:.7;font-size:11px;text-transform:uppercase;letter-spacing:.08em}
+.fcard .rows strong{font-size:18px;white-space:nowrap}
+.fcard .more{display:grid;grid-template-rows:0fr;transition:grid-template-rows .45s cubic-bezier(.2,.8,.2,1),opacity .35s;opacity:0}
+.fcard .more>div{overflow:hidden}
+.stage:hover .fcard .more,.fcard:focus-within .more{grid-template-rows:1fr;opacity:1}
+.fcard .more p{margin:16px 0 0;padding:12px 14px;border-radius:12px;background:rgba(255,255,255,.08);font-size:13px;line-height:1.55}
+.fcard .more b{color:#fff;font-weight:700}
+.fcard .more .g{color:var(--sage)}
+.fcard .hint{position:absolute;left:26px;bottom:-30px;font-size:12px;opacity:.6;transition:opacity .3s;white-space:nowrap}
+.stage:hover .hint{opacity:0}
+@media(max-width:900px){.stage{height:auto;padding:10px 0 40px}.fcard{position:relative;left:auto;bottom:auto;width:100%;max-width:330px}.glow{display:none}}
+.hero-disc{margin-top:40px;font-size:12.5px;line-height:1.7;opacity:.75;max-width:900px}
+
+/* =========================================================
+   M02 LAUNCH RAIL
+   ========================================================= */
+.rail{background:var(--navy-2);color:#fff;position:relative;overflow:hidden;border-top:1px solid rgba(255,255,255,.06)}
+.rail::before{content:"";position:absolute;inset:0;background:radial-gradient(600px 120px at var(--glow,85%) 50%,rgba(185,224,124,.15),transparent 70%);pointer-events:none}
+.rail .wrap{display:grid;grid-template-columns:220px 1fr;gap:32px;align-items:center;padding-top:22px;padding-bottom:22px}
+@media(max-width:820px){.rail .wrap{grid-template-columns:1fr;gap:16px}}
+.status .k{font-size:11px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;opacity:.55}
+.status .v{font-size:26px;font-weight:800;letter-spacing:-.02em;display:flex;align-items:center;gap:10px;margin-top:2px}
+.live-dot{width:11px;height:11px;border-radius:50%;background:var(--lime);animation:pulseL 1.6s infinite}
+@keyframes pulseL{0%{box-shadow:0 0 0 0 rgba(185,224,124,.6)}100%{box-shadow:0 0 0 14px rgba(185,224,124,0)}}
+.status .s{font-size:13px;opacity:.7;font-variant-numeric:tabular-nums}
+.track-wrap{position:relative;padding-top:6px}
+.line{position:absolute;left:12px;right:12px;top:17px;height:4px;border-radius:4px;background:rgba(255,255,255,.12)}
+.line i{position:absolute;left:0;top:0;bottom:0;width:0;border-radius:4px;background:linear-gradient(90deg,var(--green),var(--lime));box-shadow:0 0 14px rgba(185,224,124,.6);transition:width 1.6s cubic-bezier(.2,.8,.2,1)}
+.nodes{position:relative;display:grid;grid-template-columns:repeat(4,1fr)}
+.node{display:flex;flex-direction:column;align-items:flex-start;gap:8px;opacity:0;transform:translateY(6px);transition:.5s}
+.node:nth-child(2),.node:nth-child(3){align-items:center;text-align:center}
+.node:last-child{align-items:flex-end;text-align:right}
+.rail.go .node{opacity:1;transform:none}
+.node .pt{width:26px;height:26px;border-radius:50%;border:2px solid rgba(255,255,255,.3);background:var(--navy-2);display:grid;place-items:center;font-size:13px;font-weight:800;color:var(--navy-2)}
+.node.done .pt{background:var(--lime);border-color:var(--lime)}
+.node.done .pt::after{content:"✓"}
+.node.now .pt{border-color:var(--lime);animation:pulseL 1.6s infinite}
+.node.now .pt::after{content:"";width:10px;height:10px;border-radius:50%;background:var(--lime)}
+.node strong{font-size:14px;display:block}
+.node span{font-size:12px;opacity:.6;font-variant-numeric:tabular-nums}
+.node.now strong{color:var(--lime)}
+@media(max-width:560px){.node strong{font-size:12px}.node span{font-size:11px}}
+
+/* =========================================================
+   M03 FAST LANE
+   ========================================================= */
+.fast{padding:56px 0 0}
+.fast-card{background:#fff;border:1px solid var(--line);border-radius:18px;display:grid;grid-template-columns:1.05fr 1fr;overflow:hidden}
+@media(max-width:900px){.fast-card{grid-template-columns:1fr}}
+.id{padding:30px;border-right:1px solid var(--line)}
+@media(max-width:900px){.id{border-right:0;border-bottom:1px solid var(--line)}}
+.id .tkr{display:flex;align-items:baseline;gap:14px;flex-wrap:wrap}
+.id .tkr .t{font-size:52px;font-weight:800;letter-spacing:-.04em;color:var(--navy);line-height:1}
+.id .tkr .m{font-weight:800;background:var(--green);color:#fff;padding:4px 10px;border-radius:999px;font-size:14px}
+.id .name{font-size:17px;font-weight:600;margin-top:8px}
+.id .obj{color:var(--muted);font-size:15px;margin:10px 0 18px}
+.kv{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--line);border-radius:10px;overflow:hidden}
+@media(max-width:560px){.kv{grid-template-columns:repeat(2,1fr)}}
+.kv div{background:#fff;padding:12px 14px}
+.kv span{display:block;font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:.06em}
+.kv strong{font-size:16px}
+.skel{display:block;height:14px;width:70%;border-radius:4px;background:linear-gradient(90deg,#e8eef1,#f4f7f8,#e8eef1);background-size:200% 100%;animation:sh 1.4s infinite;margin-top:6px}
+@keyframes sh{to{background-position:-200% 0}}
+.quick{padding:30px;background:linear-gradient(180deg,#f7fafc,#fff)}
+.quick h3{font-size:15px;margin-bottom:4px}
+.quick p.sub{color:var(--muted);font-size:14px;margin:0 0 16px}
+.ql{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.ql a{display:flex;flex-direction:column;gap:2px;padding:14px 16px;border:1px solid var(--line);border-radius:12px;text-decoration:none;background:#fff;transition:.15s}
+.ql a:hover{border-color:var(--green);transform:translateY(-2px)}
+.ql a b{font-size:14px}
+.ql a span{font-size:12px;color:var(--muted)}
+.ql a.primary{background:var(--green);border-color:var(--green);color:#fff}
+.ql a.primary span{color:rgba(255,255,255,.8)}
+.skip{display:inline-block;margin-top:16px;font-size:13px;font-weight:600;color:var(--navy);text-decoration:none}
+.skip:hover{text-decoration:underline}
+
+section.block{padding:96px 0 0}
+.sec-head{display:flex;justify-content:space-between;align-items:end;gap:24px;margin-bottom:34px;flex-wrap:wrap}
+.sec-head h2{font-size:clamp(32px,4vw,50px);font-weight:800;text-transform:uppercase;color:var(--navy)}
+.sec-head p{max-width:440px;color:var(--muted);margin:0}
+
+/* =========================================================
+   M04a VIDEO
+   ========================================================= */
+.video{display:block;margin-bottom:10px}
+@media(max-width:760px){.player{aspect-ratio:4/3}}
+.vid-links{display:flex;gap:18px;font-size:13px;font-weight:600;color:var(--navy);margin:0 0 24px}
+.vid-links a{text-decoration:none}.vid-links a:hover{text-decoration:underline}
+@media(max-width:900px){.video{grid-template-columns:1fr}}
+.player{position:relative;border-radius:18px;overflow:hidden;aspect-ratio:21/9;background:var(--navy) url("data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAxNzQyIDcxMiIgcHJlc2VydmVBc3BlY3RSYXRpbz0ieE1pZFlNaWQgc2xpY2UiPjxyZWN0IHdpZHRoPSIxNzQyIiBoZWlnaHQ9IjcxMiIgZmlsbD0iIzI2NDA0OCIvPjxnIHRyYW5zZm9ybT0idHJhbnNsYXRlKDEwMTUgMzYwKSByb3RhdGUoLTI2KSI+PHJlY3QgeD0iLTIxMCIgeT0iLTIxMCIgd2lkdGg9IjQyMCIgaGVpZ2h0PSI0MjAiIHJ4PSI3MCIgZmlsbD0iIzNlNmEyZiIgb3BhY2l0eT0iLjU1Ii8+PC9nPjxnIHRyYW5zZm9ybT0idHJhbnNsYXRlKDExNTUgMzYwKSByb3RhdGUoLTI2KSI+PHJlY3QgeD0iLTIxMCIgeT0iLTIxMCIgd2lkdGg9IjQyMCIgaGVpZ2h0PSI0MjAiIHJ4PSI3MCIgZmlsbD0iIzQ3NzIyYiIgb3BhY2l0eT0iLjg1Ii8+PC9nPjxnIHRyYW5zZm9ybT0idHJhbnNsYXRlKDEzMTUgMzYwKSByb3RhdGUoLTI2KSI+PHJlY3QgeD0iLTIxMCIgeT0iLTIxMCIgd2lkdGg9IjQyMCIgaGVpZ2h0PSI0MjAiIHJ4PSI3MCIgZmlsbD0iIzRmN2IyMiIvPjwvZz48L3N2Zz4K") 92% center/auto 120% no-repeat;box-shadow:0 20px 50px rgba(38,64,72,.2)}
+.player::before{content:"";position:absolute;inset:0;background:linear-gradient(90deg,rgba(38,64,72,.9),rgba(38,64,72,.35) 65%,rgba(38,64,72,.1))}
+.poster{position:absolute;inset:0;display:flex;flex-direction:column;justify-content:space-between;padding:28px;color:#fff;cursor:pointer;border:0;background:none;text-align:left;font:inherit;width:100%}
+.poster .top{display:flex;gap:8px;align-items:center}
+.poster .chip{font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.22);padding:4px 10px;border-radius:999px}
+.poster h3{font-size:clamp(26px,3.2vw,40px);font-weight:700;max-width:420px}
+.poster h3 em{font-style:normal;color:var(--sage)}
+.poster .bottom{display:flex;align-items:center;gap:14px}
+.bigplay{width:72px;height:72px;border-radius:50%;background:#fff;display:grid;place-items:center;transition:transform .25s,box-shadow .25s;flex-shrink:0}
+.bigplay::after{content:"";border-left:20px solid var(--green);border-top:13px solid transparent;border-bottom:13px solid transparent;margin-left:5px}
+.poster:hover .bigplay,.poster:focus-visible .bigplay{transform:scale(1.07);box-shadow:0 0 0 12px rgba(255,255,255,.15)}
+.poster .meta{font-size:14px;opacity:.85}
+.poster .meta b{display:block;font-size:16px;opacity:1}
+.embed{position:absolute;inset:0;display:none;place-items:center;color:#fff;text-align:center;padding:24px;background:rgba(6,16,28,.92);font-size:14px}
+.player.playing .poster{display:none}
+.player.playing .embed{display:grid}
+.embed .bar{width:min(420px,80%);height:4px;border-radius:4px;background:rgba(255,255,255,.2);margin:16px auto 0;overflow:hidden}
+.embed .bar i{display:block;height:100%;width:0;background:var(--lime);transition:width .4s}
+.transcript{margin-top:auto;padding-top:14px;font-size:13px;font-weight:600;color:var(--navy);display:flex;gap:16px}
+.transcript a{text-decoration:none}
+.transcript a:hover{text-decoration:underline}
+
+
+/* =========================================================
+   M05 WHY IT MATTERS — editorial + fast facts side rail
+   ========================================================= */
+.why-grid{display:grid;grid-template-columns:1fr 380px;gap:24px;align-items:start}
+@media(max-width:980px){.why-grid{grid-template-columns:1fr}}
+.why-grid>*{min-width:0}
+@media(max-width:980px){.facts-rail{position:static;max-width:420px}}
+.feature{background:var(--navy) url("data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAxNzQyIDcxMiIgcHJlc2VydmVBc3BlY3RSYXRpbz0ieE1pZFlNaWQgc2xpY2UiPjxyZWN0IHdpZHRoPSIxNzQyIiBoZWlnaHQ9IjcxMiIgZmlsbD0iIzI2NDA0OCIvPjxnIHRyYW5zZm9ybT0idHJhbnNsYXRlKDEwMTUgMzYwKSByb3RhdGUoLTI2KSI+PHJlY3QgeD0iLTIxMCIgeT0iLTIxMCIgd2lkdGg9IjQyMCIgaGVpZ2h0PSI0MjAiIHJ4PSI3MCIgZmlsbD0iIzNlNmEyZiIgb3BhY2l0eT0iLjU1Ii8+PC9nPjxnIHRyYW5zZm9ybT0idHJhbnNsYXRlKDExNTUgMzYwKSByb3RhdGUoLTI2KSI+PHJlY3QgeD0iLTIxMCIgeT0iLTIxMCIgd2lkdGg9IjQyMCIgaGVpZ2h0PSI0MjAiIHJ4PSI3MCIgZmlsbD0iIzQ3NzIyYiIgb3BhY2l0eT0iLjg1Ii8+PC9nPjxnIHRyYW5zZm9ybT0idHJhbnNsYXRlKDEzMTUgMzYwKSByb3RhdGUoLTI2KSI+PHJlY3QgeD0iLTIxMCIgeT0iLTIxMCIgd2lkdGg9IjQyMCIgaGVpZ2h0PSI0MjAiIHJ4PSI3MCIgZmlsbD0iIzRmN2IyMiIvPjwvZz48L3N2Zz4K") 70% 40%/auto 150% no-repeat;color:#fff;border-radius:18px;padding:40px;position:relative;overflow:hidden;min-height:520px;display:flex;flex-direction:column;justify-content:space-between}
+.feature::before{content:"";position:absolute;inset:0;background:linear-gradient(100deg,rgba(38,64,72,.96) 35%,rgba(38,64,72,.5))}
+.feature>*{position:relative}
+.feature .kicker{font-size:12px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--lime)}
+.feature h3{font-size:clamp(28px,3.2vw,40px);font-weight:700;margin:14px 0;max-width:480px}
+.feature p{opacity:.85;max-width:480px;margin:0}
+.pillars{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:16px}
+@media(max-width:760px){.pillars{grid-template-columns:1fr}}
+.pillar{background:#fff;border:1px solid var(--line);border-radius:14px;padding:22px}
+.pillar .ic{width:40px;height:40px;border-radius:11px;background:var(--green-soft);color:var(--green);display:grid;place-items:center;font-weight:800;font-size:16px;margin-bottom:14px}
+.pillar h4{margin:0 0 4px;font-size:16px}
+.pillar p{margin:0;color:var(--muted);font-size:14px}
+.fit{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:16px}
+@media(max-width:760px){.fit{grid-template-columns:1fr}}
+.fitcol{border-radius:14px;padding:24px;border:1px solid var(--line);background:#fff}
+.fitcol h4{margin:0 0 14px;font-size:16px;display:flex;align-items:center;gap:10px}
+.fitcol h4 i{font-style:normal;width:26px;height:26px;border-radius:50%;display:grid;place-items:center;font-size:13px;color:#fff}
+.fitcol.yes h4 i{background:var(--green)}
+.fitcol.no h4 i{background:var(--red)}
+.fitcol ul{margin:0;padding:0;list-style:none;display:grid;gap:10px;font-size:14px}
+.fitcol li{padding-left:18px;position:relative;color:#33464e}
+.fitcol li::before{content:"";position:absolute;left:0;top:8px;width:7px;height:7px;border-radius:50%;background:var(--green)}
+.fitcol.no li::before{background:var(--red)}
+
+/* documents strip */
+.docstrip{background:#fff;border-bottom:1px solid var(--line)}
+.docstrip .ds-links a{background:#fff}
+.docstrip .wrap{display:flex;align-items:center;gap:20px;padding-top:14px;padding-bottom:14px;flex-wrap:wrap}
+.ds-lbl{font-size:12px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);white-space:nowrap}
+.ds-links{display:flex;gap:8px;flex-wrap:wrap;flex:1}
+.ds-links a{display:inline-flex;align-items:center;gap:8px;padding:9px 14px;border:1px solid var(--line);border-radius:10px;text-decoration:none;font-size:14px;color:var(--navy);transition:.15s}
+.ds-links a:hover{border-color:var(--green);background:var(--green-soft);transform:translateY(-1px)}
+.ds-links svg{width:18px;height:18px;color:var(--green)}
+.ds-links small{color:var(--muted);font-size:12px}
+
+/* why two-col */
+.why2{display:grid;grid-template-columns:1fr 400px;gap:56px;align-items:stretch}
+.why-copy{display:flex;flex-direction:column}
+.why-copy .gx-link{margin-top:auto}
+.idx{display:grid;gap:10px;margin:6px 0 20px;max-width:620px}
+.idx-item{display:grid;grid-template-columns:44px 1fr;gap:14px;align-items:start;background:#fff;border:1px solid var(--line);border-radius:14px;padding:16px 18px}
+.idx-ic{width:44px;height:44px;border-radius:12px;background:var(--green-soft);color:var(--green);display:grid;place-items:center}
+.idx-ic svg{width:22px;height:22px}
+.idx-lbl{display:block;font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--muted)}
+.idx-item b{display:block;font-size:18px;color:var(--navy);margin:2px 0 4px}
+.why-copy .idx-item p{margin:0;font-size:15px;line-height:1.55;color:#33464e}
+.why-copy .idx-note{font-size:12px;color:var(--muted);margin:2px 0 0;font-style:italic}
+.pull{margin:8px 0 18px;padding:4px 0 4px 22px;border-left:3px solid var(--green);font-size:20px;line-height:1.45;font-weight:500;color:var(--navy);max-width:600px}
+.pull cite{display:block;margin-top:8px;font-size:13px;font-style:normal;font-weight:600;color:var(--muted)}
+@media(max-width:980px){.why2{grid-template-columns:1fr;gap:32px}}
+.why2>*{min-width:0}
+.why-copy .kicker{font-size:12px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--green)}
+.why-copy h2{font-size:clamp(36px,4.4vw,56px);font-weight:800;text-transform:uppercase;color:var(--navy);margin:10px 0 18px}
+.why-copy .lede{font-size:22px;line-height:1.4;color:var(--ink);font-weight:500;margin:0 0 16px}
+.why-copy p{font-size:17px;line-height:1.65;color:#33464e;margin:0 0 14px;max-width:600px}
+.why-copy .gx-link{padding-top:10px}
+.why2 .facts-rail{position:static}
+
+/* nav socials */
+.nav-soc{display:flex;gap:2px;padding-right:10px;margin-right:4px;border-right:1px solid rgba(255,255,255,.18)}
+.nsoc{width:34px;height:34px;border-radius:50%;display:grid;place-items:center;color:rgba(255,255,255,.75);transition:.18s}
+.nsoc svg{width:17px;height:17px}
+.nsoc:hover,.nsoc:focus-visible{color:var(--navy);background:#fff}
+@media(max-width:860px){.nav-soc{display:none}}
+
+/* fund details */
+.fd{display:grid;grid-template-columns:1.1fr 1fr;gap:20px;align-items:start}
+@media(max-width:960px){.fd{grid-template-columns:1fr}}
+.fd-left{background:#fff;border:1px solid var(--line);border-radius:18px;padding:30px}
+.fd-id{display:flex;gap:10px;align-items:center}
+.fd-pill{background:var(--navy);color:var(--sage);font-weight:800;font-size:18px;letter-spacing:.02em;padding:6px 16px;border-radius:999px}
+.fd-mult{font-weight:700;font-size:13px;color:var(--green);background:var(--green-soft);padding:5px 10px;border-radius:999px}
+.fd-title{font-size:28px;margin:16px 0 18px;color:var(--ink)}
+.fd-lbl{font-size:12px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--muted)}
+.fd-obj{font-size:18px;line-height:1.55;color:#2b3c44;margin:6px 0 0}
+.benefits.fd-benefits{border:0;padding:20px 0 0;margin-top:24px;border-top:1px solid var(--line);border-radius:0}
+.fd-benefits .b-body{min-height:84px}
+@media(max-width:620px){.fd-benefits .b-body{min-height:120px}}
+.fd-benefits .b-head h4{font-size:12px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--muted)}
+.fd-right{display:grid;gap:14px}
+body.pre .fd{grid-template-columns:1fr}
+body.pre .fd-right{display:none}
+.snap{background:var(--navy);color:#fff;border-radius:18px;padding:24px;position:relative;overflow:hidden}
+.snap::after{content:"";position:absolute;left:-20%;right:-20%;bottom:0;height:70px;background:repeating-linear-gradient(90deg,rgba(140,220,200,.28) 0 1px,transparent 1px 44px),repeating-linear-gradient(0deg,rgba(140,220,200,.28) 0 1px,transparent 1px 14px);transform:perspective(200px) rotateX(55deg);transform-origin:bottom;-webkit-mask:linear-gradient(transparent,#000 80%);mask:linear-gradient(transparent,#000 80%);pointer-events:none}
+.snap-head{display:flex;justify-content:space-between;align-items:baseline;gap:10px;margin-bottom:16px;flex-wrap:wrap}
+.snap-head h4{margin:0;font-size:13px;letter-spacing:.14em;text-transform:uppercase}
+.snap-asof{font-size:12px;opacity:.65}
+.snap-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;position:relative;z-index:1;margin-bottom:56px}
+.sv{position:relative;text-align:left;font:inherit;color:inherit;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.1);border-radius:12px;padding:12px 14px;transition:.2s}
+button.sv{cursor:pointer}
+button.sv:hover,button.sv:focus-visible{background:rgba(200,219,176,.12);border-color:rgba(200,219,176,.5);outline:none}
+.sv span{display:block;font-size:11px;letter-spacing:.06em;text-transform:uppercase;opacity:.6}
+.sv strong{display:block;font-size:17px;margin-top:2px;color:var(--sage)}
+.sv strong b{font-weight:700}
+.sv i{position:absolute;right:10px;top:10px;font-style:normal;font-size:10px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--navy);background:var(--sage);padding:2px 7px;border-radius:999px;opacity:0;transform:translateY(-3px);transition:.2s}
+button.sv:hover i,button.sv:focus-visible i{opacity:1;transform:none}
+body.pre button.sv[data-copy=""] i{display:none}
+.snap-toast{position:absolute;left:50%;bottom:16px;transform:translate(-50%,10px);background:#fff;color:var(--navy);font-size:13px;font-weight:600;padding:7px 14px;border-radius:999px;opacity:0;transition:.25s;z-index:2;white-space:nowrap}
+.snap-toast.show{opacity:1;transform:translate(-50%,0)}
+.fd-right .ql{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+
+/* pre-launch: fund details */
+.fd-fine{font-size:12px;color:var(--muted);margin:8px 0 0;font-style:italic}
+.pending{background:var(--navy);color:#fff;border-radius:18px;padding:24px;position:relative;overflow:hidden}
+.pend-head{display:flex;align-items:center;gap:10px;font-size:13px;font-weight:700;letter-spacing:.12em;text-transform:uppercase}
+.pend-dot{width:9px;height:9px;border-radius:50%;background:var(--lime);animation:pulseL 1.6s infinite}
+.pending p{opacity:.8;font-size:15px;margin:10px 0 14px}
+.pending ul{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.pending li{font-size:14px;padding:10px 12px 10px 34px;border-radius:10px;background:rgba(255,255,255,.06);border:1px dashed rgba(255,255,255,.2);position:relative}
+.pending li::before{content:"";position:absolute;left:12px;top:50%;width:12px;height:12px;margin-top:-6px;border:1.6px solid var(--sage);border-radius:3px;opacity:.8}
+
+/* pre-launch: geared 101 */
+.g101{display:grid;grid-template-columns:1fr 1fr;gap:20px}
+@media(max-width:900px){.g101{grid-template-columns:1fr}}
+.gx,.hw{background:#fff;border:1px solid var(--line);border-radius:18px;padding:28px;display:flex;flex-direction:column}
+.gx-tabs{display:inline-flex;align-self:flex-start;background:var(--sky);border-radius:999px;padding:4px}
+.gx-tabs button{font:600 14px Inter;border:0;background:none;padding:9px 20px;border-radius:999px;cursor:pointer;color:var(--muted);transition:.2s}
+.gx-tabs button.on{background:var(--navy);color:#fff}
+.gx-def{font-size:17px;line-height:1.55;color:#2b3c44;margin:18px 0 14px;min-height:54px}
+.gx-mults{display:flex;gap:8px;margin-bottom:18px}
+.gx-mults button{font:800 15px Inter;border:1.5px solid var(--line);background:#fff;border-radius:10px;padding:8px 14px;cursor:pointer;color:var(--navy);transition:.2s}
+.gx-mults button.on{border-color:var(--green);background:var(--green-soft);color:var(--green)}
+.gx-viz{display:grid;gap:10px;padding:16px;background:var(--sky);border-radius:14px}
+.gx-row{display:grid;grid-template-columns:84px 1fr 54px;align-items:center;gap:10px;font-size:13px;font-weight:600}
+.gx-row b{text-align:right;font-variant-numeric:tabular-nums;font-size:15px}
+.gx-track{height:26px;background:#fff;border-radius:7px;position:relative;overflow:hidden}
+.gx-track::after{content:"";position:absolute;left:50%;top:0;bottom:0;width:2px;background:#c4d0d5}
+.gx-track i{position:absolute;top:3px;bottom:3px;border-radius:5px;background:#9aa9b0;transition:left .5s cubic-bezier(.2,.8,.2,1),width .5s cubic-bezier(.2,.8,.2,1),background .3s}
+.gx-day{display:flex;align-items:center;gap:8px;margin-top:14px;font-size:13px;color:var(--muted);flex-wrap:wrap}
+.gx-day button{font:600 13px Inter;border:1px solid var(--line);background:#fff;border-radius:999px;padding:6px 12px;cursor:pointer;color:var(--navy)}
+.gx-day button.on{background:var(--navy);color:#fff;border-color:var(--navy)}
+.gx-cap{font-size:12px;color:var(--muted);margin:10px 0 0}
+.gx-link{margin-top:auto;padding-top:20px;font-weight:700;font-size:15px;color:var(--navy);text-decoration:none;display:inline-flex;gap:8px;align-items:center}
+.gx-link span{display:inline-grid;place-items:center;width:26px;height:26px;border-radius:50%;background:var(--green-soft);color:var(--green);font-size:12px;transition:.2s}
+.gx-link:hover span{background:var(--green);color:#fff;transform:translate(2px,-2px)}
+.hw-head{display:flex;justify-content:space-between;align-items:baseline}
+.hw-head h3{font-size:22px;color:var(--navy)}
+.hw-count{font-size:13px;color:var(--muted);font-variant-numeric:tabular-nums}
+.hw-steps{list-style:none;margin:16px 0 0;padding:0;position:relative}
+.hw-steps::before{content:"";position:absolute;left:17px;top:18px;bottom:18px;width:2px;background:var(--line)}
+.hw-steps li{position:relative}
+.hw-steps button{display:flex;align-items:center;gap:14px;width:100%;background:none;border:0;padding:10px 0;cursor:pointer;font:600 16px Inter;color:var(--muted);text-align:left}
+.hw-steps button i{font-style:normal;flex-shrink:0;width:36px;height:36px;border-radius:50%;background:#fff;border:2px solid var(--line);display:grid;place-items:center;font-size:14px;font-weight:800;color:var(--muted);position:relative;z-index:1;transition:.25s}
+.hw-steps li.on button{color:var(--ink)}
+.hw-steps li.on button i{background:var(--green);border-color:var(--green);color:#fff;box-shadow:0 0 0 5px var(--green-soft)}
+.hw-steps li.done button i{border-color:var(--green);color:var(--green)}
+.hw-body{display:grid;grid-template-rows:0fr;transition:grid-template-rows .4s cubic-bezier(.2,.8,.2,1)}
+.hw-body>p{overflow:hidden;margin:0 0 0 50px;color:#33464e;font-size:15px;line-height:1.55}
+.hw-steps li.on .hw-body{grid-template-rows:1fr}
+.hw-steps li.on .hw-body>p{padding-bottom:8px}
+
+/* pre-launch: about */
+.about{display:grid;grid-template-columns:1.25fr 1fr;background:var(--navy) url("data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAxNzQyIDcxMiIgcHJlc2VydmVBc3BlY3RSYXRpbz0ieE1pZFlNaWQgc2xpY2UiPjxyZWN0IHdpZHRoPSIxNzQyIiBoZWlnaHQ9IjcxMiIgZmlsbD0iIzI2NDA0OCIvPjxnIHRyYW5zZm9ybT0idHJhbnNsYXRlKDEwMTUgMzYwKSByb3RhdGUoLTI2KSI+PHJlY3QgeD0iLTIxMCIgeT0iLTIxMCIgd2lkdGg9IjQyMCIgaGVpZ2h0PSI0MjAiIHJ4PSI3MCIgZmlsbD0iIzNlNmEyZiIgb3BhY2l0eT0iLjU1Ii8+PC9nPjxnIHRyYW5zZm9ybT0idHJhbnNsYXRlKDExNTUgMzYwKSByb3RhdGUoLTI2KSI+PHJlY3QgeD0iLTIxMCIgeT0iLTIxMCIgd2lkdGg9IjQyMCIgaGVpZ2h0PSI0MjAiIHJ4PSI3MCIgZmlsbD0iIzQ3NzIyYiIgb3BhY2l0eT0iLjg1Ii8+PC9nPjxnIHRyYW5zZm9ybT0idHJhbnNsYXRlKDEzMTUgMzYwKSByb3RhdGUoLTI2KSI+PHJlY3QgeD0iLTIxMCIgeT0iLTIxMCIgd2lkdGg9IjQyMCIgaGVpZ2h0PSI0MjAiIHJ4PSI3MCIgZmlsbD0iIzRmN2IyMiIvPjwvZz48L3N2Zz4K") 100% 30%/auto 160% no-repeat;border-radius:18px;overflow:hidden;position:relative}
+.about::before{content:"";position:absolute;inset:0;background:linear-gradient(110deg,rgba(38,64,72,.97) 40%,rgba(38,64,72,.75))}
+.about>*{position:relative}
+.ab-go{display:grid;gap:10px;align-content:center;padding:32px 32px 32px 0}
+.ab-go a{display:flex;align-items:center;gap:14px;padding:16px 18px;border-radius:14px;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.14);color:#fff;text-decoration:none;transition:.2s}
+.ab-go a:hover{background:rgba(255,255,255,.12);border-color:rgba(200,219,176,.6);transform:translateX(4px)}
+.ab-gi{width:40px;height:40px;border-radius:11px;background:var(--green);display:grid;place-items:center;flex-shrink:0}
+.ab-gi svg{width:26px;height:26px}
+.ab-gt{flex:1;display:flex;flex-direction:column}
+.ab-gt b{font-size:16px}
+.ab-gt small{font-size:13px;opacity:.7}
+.ab-arr{opacity:.6;transition:.2s}
+.ab-go a:hover .ab-arr{opacity:1;transform:translate(2px,-2px)}
+@media(max-width:900px){.about{grid-template-columns:1fr}.ab-go{padding:0 24px 28px}}
+.ab-new{color:#fff;padding:32px}
+.ab-tag{display:inline-block;align-self:flex-start;font-size:11px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--lime);border:1px solid rgba(185,224,124,.4);padding:4px 10px;border-radius:999px}
+.ab-tag.dark{color:var(--green);border-color:#cfe0bf;background:var(--green-soft)}
+.about h3{font-size:26px;margin:14px 0 10px}
+.ab-new p{opacity:.85;margin:0 0 24px;max-width:440px}
+.ab-stats{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+.ab-stats div{border-top:1px solid rgba(255,255,255,.22);padding-top:12px}
+.ab-stats strong{display:block;font-size:30px;font-weight:800;letter-spacing:-.02em;color:var(--sage);font-variant-numeric:tabular-nums}
+.ab-stats span{font-size:12px;opacity:.7}
+.ab-src{display:block;font-size:11px;opacity:.6;margin-top:16px}
+.ab-know{background:#fff;border:1px solid var(--line);border-radius:18px;padding:32px;display:flex;flex-direction:column}
+.ab-know h3{color:var(--navy)}
+.ab-links{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:6px}
+@media(max-width:560px){.ab-links{grid-template-columns:1fr}}
+.ab-links a{display:flex;flex-direction:column;gap:2px;padding:14px 16px;border:1px solid var(--line);border-radius:12px;text-decoration:none;transition:.15s}
+.ab-links a:hover{border-color:var(--green);transform:translateY(-2px)}
+.ab-links b{font-size:14px;color:var(--navy)}
+.ab-links span{font-size:12px;color:var(--muted)}
+.ab-follow{margin-top:auto;padding-top:22px;display:flex;flex-direction:column;gap:10px}
+.ab-follow>span{font-size:12px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--muted)}
+.socials{display:flex;gap:8px;flex-wrap:wrap}
+.soc{display:inline-flex;align-items:center;gap:8px;padding:9px 14px 9px 10px;border-radius:999px;border:1px solid var(--line);text-decoration:none;color:var(--navy);font-size:13px;font-weight:600;transition:.2s}
+.soc svg{width:18px;height:18px}
+.soc:hover{background:var(--navy);border-color:var(--navy);color:#fff;transform:translateY(-2px)}
+.socials.dark .soc{border-color:rgba(255,255,255,.2);color:#fff}
+.socials.dark .soc:hover{background:#fff;color:var(--navy)}
+.f-soc{display:flex;align-items:center;gap:16px;flex-wrap:wrap;margin-bottom:28px;padding-bottom:24px;border-bottom:1px solid rgba(255,255,255,.1)}
+.f-soc>span{font-size:12px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:#fff}
+
+/* Why [TICKER] rotator */
+.benefits{background:#fff;border:1px solid var(--line);border-radius:16px;padding:22px 24px;margin-top:16px}
+.b-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:14px}
+.b-head h4{margin:0;font-size:20px;color:var(--ink)}
+.b-pause{width:30px;height:30px;border-radius:50%;border:1px solid var(--line);background:#fff;cursor:pointer;font-size:10px;color:var(--navy)}
+.b-tabs{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
+@media(max-width:620px){.b-tabs{grid-template-columns:1fr}}
+.b-tab{position:relative;overflow:hidden;display:flex;align-items:center;gap:10px;padding:12px 14px;border-radius:12px;border:1px solid var(--line);background:#fff;font:600 14px Inter;color:var(--muted);cursor:pointer;text-align:left;transition:.2s}
+.b-tab .ic-wrap{width:44px;height:44px;flex-shrink:0;border-radius:12px;background:var(--sky);display:grid;place-items:center;transition:.25s}
+.b-tab .ico{width:30px;height:30px;overflow:visible}
+.b-tab.on .ic-wrap{background:#fff;box-shadow:0 4px 12px rgba(75,127,35,.18)}
+.ico .bar{transform-box:fill-box;transform-origin:50% 100%;stroke-width:2.4}
+.ico .lens{transform-box:fill-box;transform-origin:center}
+.ico .hand{transform-box:view-box;transform-origin:24px 21px}
+.ico .spd{stroke-dasharray:6 12}
+.ico .tap{transform-box:fill-box;transform-origin:center}
+.ico .rip{transform-box:fill-box;transform-origin:center;opacity:0;stroke-width:1.4}
+.b-tab:hover .bar,.b-tab.on .bar{animation:barUp 1.2s ease-in-out infinite alternate}
+.b-tab .bar:nth-of-type(2){animation-delay:.15s}.b-tab .bar:nth-of-type(3){animation-delay:.3s}.b-tab .bar:nth-of-type(4){animation-delay:.45s}
+.b-tab.on .lens{animation:bob 2.4s ease-in-out infinite}
+.b-tab:hover .hand,.b-tab.on .hand{animation:spin 1.4s linear infinite}
+.b-tab:hover .spd,.b-tab.on .spd{animation:dash .7s linear infinite}
+.b-tab .spd.s2{animation-delay:.2s}.b-tab .spd.s3{animation-delay:.4s}
+.b-tab:hover .tap,.b-tab.on .tap{animation:tap 1.2s ease-in-out infinite}
+.b-tab:hover .rip,.b-tab.on .rip{animation:rip 1.2s ease-out infinite}
+.b-tab .rip.r2{animation-delay:.35s}
+@keyframes barUp{from{transform:scaleY(.3)}to{transform:scaleY(1.15)}}
+@keyframes bob{50%{transform:translate(1px,-1.5px) scale(1.06)}}
+@keyframes spin{to{transform:rotate(360deg)}}
+@keyframes dash{to{stroke-dashoffset:18}}
+@keyframes tap{0%,100%{transform:translateY(0)}35%{transform:translateY(2.5px)}}
+@keyframes rip{0%{transform:scale(.3);opacity:.9}100%{transform:scale(2.4);opacity:0}}
+.b-tab:hover{border-color:#b9c7cf;color:var(--ink)}
+.b-tab.on{border-color:var(--green);background:var(--green-soft);color:var(--ink)}
+.b-tab.on .ico{color:var(--green)}
+.b-tab .prog{position:absolute;left:0;bottom:0;height:3px;width:0;background:var(--green)}
+.b-tab.on .prog{animation:prog var(--bdur,5s) linear forwards}
+.benefits.paused .b-tab.on .prog{animation-play-state:paused}
+@keyframes prog{to{width:100%}}
+.b-body{position:relative;min-height:56px;margin-top:14px}
+.b-copy{position:absolute;inset:0;margin:0;font-size:17px;line-height:1.5;color:#33464e;opacity:0;transform:translateY(8px);transition:.4s}
+.b-copy.on{opacity:1;transform:none}
+@media(max-width:620px){.b-body{min-height:100px}}
+
+/* stat grid (alt fast facts) */
+.statgrid{display:grid;grid-template-columns:repeat(3,1fr);border:1px solid var(--line);border-radius:22px;background:#fff;overflow:hidden}
+@media(max-width:860px){.statgrid{grid-template-columns:1fr}}
+.stat{padding:34px 34px 38px;border-right:1px solid var(--line)}
+.stat:last-child{border-right:0}
+@media(max-width:860px){.stat{border-right:0;border-bottom:1px solid var(--line)}.stat:last-child{border-bottom:0}}
+.stat .lbl{font-size:13px;letter-spacing:.08em;text-transform:uppercase;color:#7b8590}
+.stat .big{font-size:clamp(28px,2.6vw,36px);font-weight:600;letter-spacing:-.02em;color:var(--green);margin:16px 0 12px;line-height:1.1}
+.stat p{margin:0;color:#5b6570;font-size:16px;line-height:1.6}
+.stat .src{display:block;margin-top:12px;font-size:12px;color:#97a0a8}
+.stat-note{font-size:12px;color:var(--muted);margin-top:12px}
+
+/* how to buy tab slider */
+.htb{position:relative;background:#fff;border:2px solid var(--green);border-radius:20px;overflow:hidden;box-shadow:0 18px 44px rgba(75,127,35,.16)}
+.htb-top{background:linear-gradient(100deg,var(--green-soft),#f6faf1 70%);border-bottom:1px solid #d3e3c3;padding-bottom:22px !important}
+.htb-title{display:flex;align-items:center;gap:14px}
+.htb-ic{width:46px;height:46px;border-radius:12px;background:var(--green);display:grid;place-items:center;flex-shrink:0;box-shadow:0 6px 14px rgba(75,127,35,.3);color:#fff}
+.htb-ic svg{width:24px;height:24px}
+.htb-kick{display:block;font-size:11px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--green);margin-bottom:2px}
+.htb .tabs{background:#fff;box-shadow:inset 0 0 0 1px #d3e3c3}
+.htb .tabs .pill{background:var(--green)}
+.htb.flash{animation:flash 1.4s ease-out}
+@keyframes flash{0%{box-shadow:0 0 0 0 rgba(75,127,35,.55),0 18px 44px rgba(75,127,35,.16)}100%{box-shadow:0 0 0 18px rgba(75,127,35,0),0 18px 44px rgba(75,127,35,.16)}}
+.htb-top{display:flex;justify-content:space-between;align-items:center;gap:16px;padding:24px 28px 0;flex-wrap:wrap}
+.htb-top h3{font-size:26px;color:var(--navy)}
+.tabs{position:relative;display:inline-flex;background:var(--sky);border-radius:999px;padding:4px}
+.tabs button{position:relative;z-index:1;font:600 14px Inter;border:0;background:none;padding:10px 18px;border-radius:999px;cursor:pointer;color:var(--muted);transition:color .25s;white-space:nowrap}
+.tabs button.on{color:#fff}
+.tabs .pill{position:absolute;top:4px;bottom:4px;left:4px;border-radius:999px;background:var(--navy);transition:left .35s cubic-bezier(.2,.8,.2,1),width .35s cubic-bezier(.2,.8,.2,1)}
+.htb-track{display:flex;align-items:flex-start;transition:transform .45s cubic-bezier(.2,.8,.2,1)}
+.htb-view{overflow:hidden;transition:height .45s cubic-bezier(.2,.8,.2,1)}
+.htb-panel{flex:0 0 100%;padding:22px 28px 28px}
+.htb-panel>p{margin:0 0 18px;color:#33464e;max-width:760px}
+.brokers{display:grid;grid-template-columns:repeat(5,1fr);gap:10px}
+@media(max-width:860px){.brokers{grid-template-columns:repeat(2,1fr)}}
+.brokers a{display:flex;align-items:center;justify-content:space-between;gap:8px;padding:16px;border:1px solid var(--line);border-radius:12px;text-decoration:none;font-weight:700;font-size:15px;color:var(--navy);transition:.15s}
+.brokers a:hover{border-color:var(--green);transform:translateY(-2px);box-shadow:0 8px 18px rgba(38,64,72,.08)}
+.brokers a small{font-weight:500;color:var(--muted);font-size:12px}
+.htb-steps{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin:18px 0 0;padding:0;list-style:none;counter-reset:n}
+@media(max-width:760px){.htb-steps{grid-template-columns:1fr}}
+.htb-steps li{counter-increment:n;background:var(--sky);border-radius:12px;padding:14px 16px;font-size:14px;display:flex;gap:10px;align-items:flex-start}
+.htb-steps li::before{content:counter(n);flex-shrink:0;width:24px;height:24px;border-radius:50%;background:var(--green);color:#fff;font-size:12px;font-weight:700;display:grid;place-items:center}
+.htb-note{margin-top:16px;padding:14px 16px;border-left:3px solid var(--green);background:#f7faf3;font-size:14px;color:#33464e;border-radius:0 10px 10px 0}
+.htb-note a{font-weight:600;color:var(--navy)}
+.contacts{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+@media(max-width:860px){.contacts{grid-template-columns:1fr}}
+.contact{border:1px solid var(--line);border-radius:12px;padding:18px}
+.contact h4{margin:0 0 8px;font-size:16px;color:var(--navy)}
+.contact div{font-size:14px;color:#33464e;line-height:1.7}
+.contact a{color:var(--green);font-weight:600;text-decoration:none}
+
+/* fast facts rail */
+.facts-rail{position:sticky;top:calc(var(--navh) + 20px)}
+.ff-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:12px}
+.ff-head h4{margin:0;font-size:13px;letter-spacing:.14em;text-transform:uppercase;color:var(--navy)}
+.ff-nav{display:flex;gap:6px}
+.ff-nav button{width:34px;height:34px;border-radius:50%;border:1px solid var(--line);background:#fff;cursor:pointer;font-size:15px;color:var(--navy);display:grid;place-items:center}
+.ff-nav button:hover{border-color:var(--green);color:var(--green)}
+.ff-viewport{position:relative;border-radius:18px;overflow:hidden;aspect-ratio:4/5;background:var(--navy-2);box-shadow:0 20px 50px rgba(38,64,72,.25)}
+.ff{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block;opacity:0;transform:translateX(24px);transition:opacity .5s,transform .5s cubic-bezier(.2,.8,.2,1);pointer-events:none}
+.ff.on{opacity:1;transform:none;pointer-events:auto}
+.ffph{display:flex!important;flex-direction:column;align-items:center;justify-content:center;gap:6px;color:#fff;background:#264048 url("data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAxNzQyIDcxMiIgcHJlc2VydmVBc3BlY3RSYXRpbz0ieE1pZFlNaWQgc2xpY2UiPjxyZWN0IHdpZHRoPSIxNzQyIiBoZWlnaHQ9IjcxMiIgZmlsbD0iIzI2NDA0OCIvPjxnIHRyYW5zZm9ybT0idHJhbnNsYXRlKDEwMTUgMzYwKSByb3RhdGUoLTI2KSI+PHJlY3QgeD0iLTIxMCIgeT0iLTIxMCIgd2lkdGg9IjQyMCIgaGVpZ2h0PSI0MjAiIHJ4PSI3MCIgZmlsbD0iIzNlNmEyZiIgb3BhY2l0eT0iLjU1Ii8+PC9nPjxnIHRyYW5zZm9ybT0idHJhbnNsYXRlKDExNTUgMzYwKSByb3RhdGUoLTI2KSI+PHJlY3QgeD0iLTIxMCIgeT0iLTIxMCIgd2lkdGg9IjQyMCIgaGVpZ2h0PSI0MjAiIHJ4PSI3MCIgZmlsbD0iIzQ3NzIyYiIgb3BhY2l0eT0iLjg1Ii8+PC9nPjxnIHRyYW5zZm9ybT0idHJhbnNsYXRlKDEzMTUgMzYwKSByb3RhdGUoLTI2KSI+PHJlY3QgeD0iLTIxMCIgeT0iLTIxMCIgd2lkdGg9IjQyMCIgaGVpZ2h0PSI0MjAiIHJ4PSI3MCIgZmlsbD0iIzRmN2IyMiIvPjwvZz48L3N2Zz4K") 70% center/auto 120% no-repeat}
+.ffph::before{content:"";position:absolute;inset:14px;border:2px dashed rgba(255,255,255,.35);border-radius:12px}
+.ffl{font-weight:700;font-size:18px;position:relative}
+.ffs{font-size:13px;opacity:.75;position:relative}
+.ff-dots{display:flex;gap:6px;justify-content:center;margin-top:12px}
+.ff-dots button{width:8px;height:8px;border-radius:999px;border:0;background:#c3cfd6;cursor:pointer;padding:0;transition:.25s}
+.ff-dots button.on{width:22px;background:var(--green)}
+.ff-share{display:flex;justify-content:center;gap:14px;margin-top:10px;font-size:12px;font-weight:600;color:var(--navy)}
+.ff-share a{text-decoration:none}
+.ff-share a:hover{text-decoration:underline}
+.ff-note{font-size:11px;color:var(--muted);text-align:center;margin-top:6px}
+
+/* =========================================================
+   M06 INSIGHTS
+   ========================================================= */
+.insights{display:grid;grid-template-columns:1.3fr 1fr 1fr;gap:20px}
+@media(max-width:900px){.insights{grid-template-columns:1fr}}
+.art{background:#fff;border:1px solid var(--line);border-radius:16px;overflow:hidden;display:flex;flex-direction:column;text-decoration:none;transition:.2s}
+.art:hover{transform:translateY(-4px);box-shadow:0 16px 34px rgba(38,64,72,.12);border-color:#c6d2d9}
+.art .img{aspect-ratio:16/9;background:var(--navy) url("data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAxNzQyIDcxMiIgcHJlc2VydmVBc3BlY3RSYXRpbz0ieE1pZFlNaWQgc2xpY2UiPjxyZWN0IHdpZHRoPSIxNzQyIiBoZWlnaHQ9IjcxMiIgZmlsbD0iIzI2NDA0OCIvPjxnIHRyYW5zZm9ybT0idHJhbnNsYXRlKDEwMTUgMzYwKSByb3RhdGUoLTI2KSI+PHJlY3QgeD0iLTIxMCIgeT0iLTIxMCIgd2lkdGg9IjQyMCIgaGVpZ2h0PSI0MjAiIHJ4PSI3MCIgZmlsbD0iIzNlNmEyZiIgb3BhY2l0eT0iLjU1Ii8+PC9nPjxnIHRyYW5zZm9ybT0idHJhbnNsYXRlKDExNTUgMzYwKSByb3RhdGUoLTI2KSI+PHJlY3QgeD0iLTIxMCIgeT0iLTIxMCIgd2lkdGg9IjQyMCIgaGVpZ2h0PSI0MjAiIHJ4PSI3MCIgZmlsbD0iIzQ3NzIyYiIgb3BhY2l0eT0iLjg1Ii8+PC9nPjxnIHRyYW5zZm9ybT0idHJhbnNsYXRlKDEzMTUgMzYwKSByb3RhdGUoLTI2KSI+PHJlY3QgeD0iLTIxMCIgeT0iLTIxMCIgd2lkdGg9IjQyMCIgaGVpZ2h0PSI0MjAiIHJ4PSI3MCIgZmlsbD0iIzRmN2IyMiIvPjwvZz48L3N2Zz4K") center/cover;position:relative}
+.art .img.b{background-position:82% 40%;background-size:auto 180%}
+.art .img.c{background-position:96% 90%;background-size:auto 220%}
+.art .img::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,transparent 40%,rgba(38,64,72,.6))}
+.art .img .type{position:absolute;left:14px;top:14px;z-index:1;font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;background:#fff;color:var(--navy);padding:4px 9px;border-radius:999px}
+.art .body{padding:22px;display:flex;flex-direction:column;gap:8px;flex:1}
+.art h3{font-size:19px;line-height:1.2}
+.art.lead h3{font-size:24px}
+.art p{margin:0;color:var(--muted);font-size:14px}
+.art .meta{margin-top:auto;padding-top:10px;font-size:12px;color:var(--muted);display:flex;justify-content:space-between}
+.art .meta b{color:var(--green)}
+.more-link{display:inline-flex;margin-top:20px;font-weight:600;font-size:14px;color:var(--navy);text-decoration:none;gap:6px}
+.more-link:hover{text-decoration:underline}
+
+/* =========================================================
+   M07 PATHWAYS
+   ========================================================= */
+.paths{display:grid;grid-template-columns:1.2fr 1fr 1fr;gap:20px}
+.paths{display:block}
+body.live .paths{display:none}
+.path.lead.pre-only{display:grid;grid-template-columns:1fr 1fr;gap:12px 40px;align-items:center;padding:36px}
+.path.lead.pre-only .tag,.path.lead.pre-only h3,.path.lead.pre-only p{grid-column:1}
+.path.lead.pre-only .form{grid-column:2;grid-row:1/4;margin:0}
+.path.lead.pre-only h3{font-size:30px}
+@media(max-width:860px){.path.lead.pre-only{grid-template-columns:1fr}.path.lead.pre-only .form{grid-column:1;grid-row:auto}}
+@media(max-width:900px){.paths{grid-template-columns:1fr}}
+.path{background:#fff;border:1px solid var(--line);border-radius:16px;padding:28px;display:flex;flex-direction:column}
+.path.lead{background:var(--green);color:#fff;border-color:var(--green)}
+.path .tag{font-size:11px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--green)}
+.path.lead .tag{color:#d6efbd}
+.path h3{font-size:22px;margin:8px 0 10px}
+.path p{margin:0 0 18px;color:var(--muted);font-size:15px}
+.path.lead p{color:rgba(255,255,255,.85)}
+.path ol{margin:0 0 20px;padding:0;list-style:none;display:grid;gap:10px;counter-reset:n}
+.path ol li{counter-increment:n;display:grid;grid-template-columns:26px 1fr;gap:10px;font-size:14px;align-items:start}
+.path ol li::before{content:counter(n);width:24px;height:24px;border-radius:50%;background:rgba(255,255,255,.2);display:grid;place-items:center;font-size:12px;font-weight:700}
+.path .links{display:grid;gap:8px;margin-top:auto}
+.path .links a{display:flex;justify-content:space-between;padding:12px 14px;border:1px solid var(--line);border-radius:10px;text-decoration:none;font-size:14px;font-weight:600}
+.path .links a:hover{border-color:var(--green)}
+.path .links a small{color:var(--muted);font-weight:500}
+.path .btn{margin-top:auto;align-self:flex-start}
+.path.lead .btn{background:#fff;color:var(--green)}
+.form{display:grid;gap:10px;margin-top:auto}
+.form input[type=email]{font:500 15px Inter;padding:13px 14px;border-radius:8px;border:0;width:100%}
+.who{display:flex;gap:6px;flex-wrap:wrap}
+.who input{display:none}
+.who label{font-size:12px;font-weight:600;padding:6px 11px;border-radius:999px;border:1px solid rgba(255,255,255,.4);cursor:pointer}
+.who input:checked+label{background:#fff;color:var(--green);border-color:#fff}
+.datapanel{background:#fff;border:1px solid var(--line);border-radius:16px;padding:28px;margin-top:20px}
+.datapanel h3{font-size:16px;margin-bottom:14px;display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap}
+.lock{display:inline-flex;align-items:center;gap:6px;font-size:12px;font-weight:600;color:var(--muted);background:var(--sky);padding:4px 10px;border-radius:999px}
+.perf-ph{height:150px;border-radius:10px;background:repeating-linear-gradient(0deg,transparent 0 29px,#eef2f4 29px 30px);display:grid;place-items:center;color:#9aa9b0;font-size:13px;text-align:center;padding:12px}
+
+.faq{max-width:820px}
+details{background:#fff;border:1px solid var(--line);border-radius:12px;padding:0 22px;margin-bottom:10px}
+summary{cursor:pointer;list-style:none;padding:18px 0;font-weight:600;display:flex;justify-content:space-between;gap:16px}
+summary::-webkit-details-marker{display:none}
+summary::after{content:"+";font-size:22px;line-height:1;color:var(--green)}
+details[open] summary::after{content:"–"}
+details p{margin:0 0 18px;color:var(--muted)}
+
+footer{background:var(--navy-2);color:#c3cdd6;padding:56px 0 100px;font-size:12.5px;line-height:1.75;margin-top:96px}
+footer h4{color:#fff;font-size:13px;letter-spacing:.1em;text-transform:uppercase;margin:0 0 12px}
+footer p{margin:0 0 12px;max-width:980px}
+footer .flogo{height:24px;margin-bottom:22px;display:block}
+@media (prefers-reduced-motion:reduce){*{transition:none !important;animation:none !important}}
+</style>
+</head>
+<body class="live">
+
+<div class="phase-ctl">
+  <b>Mockup state</b>
+  <div class="seg">
+    <button id="bPre" onclick="setPhase('pre')">Pre-launch</button>
+    <button id="bLive" class="on" onclick="setPhase('live')">Launched</button>
+  </div>
+  <label><input type="checkbox" onchange="document.body.classList.toggle('outline',this.checked)"> Outline phase-specific blocks</label>
+  <label><input type="checkbox" onchange="document.body.classList.toggle('modmap',this.checked)"> Show module map</label>
+</div>
+
+<div class="announce">
+  <div class="wrap pre-only"><span><span class="dot"></span>[Announcement text]. Be first to know when [TICKER] trades.</span><button class="btn" type="button" onclick="openNotify()">Notify Me</button></div>
+  <div class="wrap launch-only"><span><span class="dot"></span><strong>[TICKER]</strong>, [Fund Name], is now trading.</span><a class="btn" href="#buy">How to Buy</a></div>
+</div>
+
+<nav class="top" aria-label="Page">
+  <div class="wrap">
+    <a class="home" href="https://www.proshares.com/" target="_blank" rel="noopener" aria-label="ProShares.com (opens in a new tab)">
+      <img src="data:image/png;base64,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" alt="ProShares">
+      <span class="site" aria-hidden="true"><span>ProShares.com</span>
+        <svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M4.5 2.5H2.5v7h7v-2"/><path d="M7 2h3v3M10 2 5.5 6.5"/></svg>
+      </span>
+      <span class="tip" aria-hidden="true">Opens ProShares.com in a new tab</span>
+    </a>
+    <span class="divider" aria-hidden="true"></span>
+    <div class="anchors" id="anchors">
+      <a href="#video" class="launch-only">Watch Overview</a>
+      <a href="#faq">FAQ</a>
+      <a href="#" class="launch-only ext" target="_blank" rel="noopener">Full Fund Page <svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M4.5 2.5H2.5v7h7v-2"/><path d="M7 2h3v3M10 2 5.5 6.5"/></svg></a>
+    </div>
+    <div class="nav-right">
+      <div class="nav-soc"><a class="nsoc" href="https://x.com/ProShares" target="_blank" rel="noopener" aria-label="ProShares on X"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.8 3h3.1l-6.8 7.7L22 21h-6.2l-4.9-6.3L5.3 21H2.2l7.2-8.3L1.9 3h6.4l4.4 5.8L17.8 3Zm-1.1 16.2h1.7L7.4 4.7H5.6l11.1 14.5Z"/></svg></a><a class="nsoc" href="https://www.instagram.com/proshares/" target="_blank" rel="noopener" aria-label="ProShares on Instagram"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/></svg></a><a class="nsoc" href="https://www.youtube.com/@ProSharesETFs" target="_blank" rel="noopener" aria-label="ProShares on YouTube"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M22.5 7.2a2.8 2.8 0 0 0-2-2C18.7 4.7 12 4.7 12 4.7s-6.7 0-8.5.5a2.8 2.8 0 0 0-2 2C1 9 1 12 1 12s0 3 .5 4.8a2.8 2.8 0 0 0 2 2c1.8.5 8.5.5 8.5.5s6.7 0 8.5-.5a2.8 2.8 0 0 0 2-2C23 15 23 12 23 12s0-3-.5-4.8ZM9.8 15.3V8.7l5.7 3.3-5.7 3.3Z"/></svg></a><a class="nsoc" href="https://www.linkedin.com/company/proshare-advisors-llc/" target="_blank" rel="noopener" aria-label="ProShares on LinkedIn"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M4.98 3.5a2.5 2.5 0 1 1 0 5 2.5 2.5 0 0 1 0-5ZM3 9.5h4V21H3V9.5Zm6.5 0h3.8v1.6h.1c.5-1 1.8-2 3.8-2 4 0 4.8 2.6 4.8 6V21h-4v-5.2c0-1.2 0-2.9-1.8-2.9s-2 1.4-2 2.8V21h-4V9.5Z"/></svg></a></div>
+      <a class="btn btn-primary nav-cta launch-only" href="#buy">How to Buy</a>
+      <button class="btn btn-primary nav-cta pre-only" type="button" onclick="openNotify()">Notify Me</button>
+    </div>
+  </div>
+</nav>
+
+<!-- M01 · WHAT IS THIS? -->
+<header class="hero" id="what" style="position:relative" data-mod="M01 · Campaign hero (banner art + fund card)" data-flex="banner art swaps per featured fund; card shows 1 fund">
+  <div class="wrap">
+    <div class="hero-grid">
+      <div>
+        <span class="badge pre-only">● Coming Soon · [ETF Type]</span>
+        <span class="badge live launch-only">● Now Trading · [ETF Type]</span>
+        <h1>Headline<br><em>goes here.</em></h1>
+        <p class="oneliner">Sub-headline goes here. One or two sentences that say what the fund is and what it seeks to do.</p>
+        <div class="ctas">
+          <a class="btn btn-primary launch-only" href="#buy">How to Buy</a>
+          <button class="btn btn-primary pre-only" type="button" onclick="openNotify()">Notify Me at Launch</button>
+          <a class="btn btn-light launch-only" href="#video"><span class="play"></span>Watch Overview</a>
+          <a class="btn btn-light pre-only" href="#learn">Learn the Basics</a>
+        </div>
+      </div>
+      <div class="stage">
+        <div class="glow" aria-hidden="true"></div>
+        <div class="fcard" tabindex="0" aria-label="[TICKER] fund summary">
+          <span class="mult">[Multiple]</span>
+          <div class="tk">[TICKER]</div>
+          <div class="nm">[Fund Name]</div>
+          <div class="rows">
+            <div><span>Underlying</span><strong>[Underlying]</strong></div>
+          </div>
+          <div class="more"><div>
+            <p>Hover text goes here. Use <b>bold</b> for emphasis, <span class="g">light green</span> for key figures, or <b class="g">both together</b>. Keep it to one or two lines.</p>
+          </div></div>
+          <span class="hint">Hover to see more</span>
+        </div>
+      </div>
+    </div>
+    <span class="art-tag" style="top:-60px">Campaign artwork placeholder · 2400×1000</span>
+    <p class="hero-disc pre-only">The registration statement for [TICKER] has been filed with the SEC but is not yet effective and may be changed. Shares may not be sold, nor may offers to buy be accepted, until the registration statement is effective. This ETF seeks daily investment results, before fees and expenses, of [multiple] the daily performance of [benchmark]. For any holding period other than a day, returns may be higher or lower than the Daily Target, and these differences may be significant.</p>
+    <p class="hero-disc launch-only">This ProShares ETF seeks daily investment results that correspond, before fees and expenses, to [multiple] the daily performance of [benchmark] (the "Daily Target"). For any holding period other than a day, your return may be higher or lower than the Daily Target, and these differences may be significant. The ETF and ProShare Advisors LLC are not affiliated with the underlying stock issuer. <span class="ph">[Full approved disclosure]</span></p>
+  </div>
+</header>
+
+<!-- M02 · LAUNCH RAIL -->
+<div class="rail" id="rail" data-mod="M02 · Launch status rail" data-flex="stages + dates are content fields">
+  <div class="wrap">
+    <div class="status">
+      <div class="k">Launch status</div>
+      <div class="pre-only"><div class="v">Pending effectiveness</div><div class="s">Target launch in <b id="cdTxt">--</b></div></div>
+      <div class="launch-only"><div class="v"><span class="live-dot"></span>Now trading</div><div class="s">Day <b id="dayN">--</b> since launch</div></div>
+    </div>
+    <div class="track-wrap">
+      <div class="line"><i id="lineFill"></i></div>
+      <div class="nodes">
+        <div class="node"><div class="pt"></div><div><strong>Filed with SEC</strong><span class="ph">[MM/DD/YYYY]</span></div></div>
+        <div class="node"><div class="pt"></div><div><strong>Effective</strong><span class="pre-only">Pending</span><span class="launch-only ph">[MM/DD/YYYY]</span></div></div>
+        <div class="node"><div class="pt"></div><div><strong>Launch</strong><span class="pre-only ph">[Target date]</span><span class="launch-only ph">[MM/DD/YYYY]</span></div></div>
+        <div class="node"><div class="pt"></div><div><strong>Trading</strong><span class="pre-only">Brokerages</span><span class="launch-only">Now</span></div></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- M01b · DOCUMENTS STRIP (launch only) -->
+<div class="docstrip launch-only" data-mod="M01b · Documents strip (launch only)" data-flex="3–5 links; manual PDFs + main-site fund page">
+  <div class="wrap">
+    <span class="ds-lbl">Resources</span>
+    <div class="ds-links">
+      <a href="#" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M14 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8z"/><path d="M14 3v5h5M9 13h6M9 17h4"/></svg><b>Fact sheet</b><small>PDF</small></a>
+      <a href="#" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 5a2 2 0 0 1 2-2h12v18H6a2 2 0 0 1-2-2z"/><path d="M8 7h6M8 11h6"/></svg><b>Summary prospectus</b><small>PDF</small></a>
+      <a href="#" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 7h18v13H3zM8 7V4h8v3"/><path d="M3 12h18"/></svg><b>Prospectus &amp; reports</b><small>PDF</small></a>
+      <a href="#" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19V5M4 19h16M8 15l4-4 3 3 5-6"/></svg><b>Full fund page</b><small>ProShares.com ↗</small></a>
+    </div>
+  </div>
+</div>
+
+<!-- M03 · WHAT LAUNCHED? (fund details) -->
+<section class="fast" id="launched" data-mod="M03 · Fund details (objective + benefits + snapshot)" data-flex="all values are manual content fields; pre-launch shows TBD">
+  <div class="wrap">
+    <div class="fd">
+      <div class="fd-left">
+        <div class="fd-id">
+          <span class="fd-pill">[TICKER]</span>
+          <span class="fd-mult">[Multiple] daily</span>
+        </div>
+        <h3 class="fd-title">[Fund Name]</h3>
+        <div class="fd-lbl"><span class="pre-only">Proposed </span>Investment objective</div>
+        <p class="fd-obj">[TICKER] seeks daily investment results, before fees and expenses, that correspond to [multiple, e.g. two times (2x)] the daily performance of [Underlying] ([UND]).</p>
+        <p class="fd-fine pre-only">Subject to change until the registration statement is effective.</p>
+        <div class="benefits fd-benefits launch-only" id="benefits">
+          <div class="b-head"><h4>Intended benefits</h4><button class="b-pause" id="bPause" onclick="benToggle()" aria-label="Pause rotation">❚❚</button></div>
+          <div class="b-tabs" role="tablist">
+            <button class="b-tab on" role="tab" onclick="benShow(0,true)">
+              <span class="ic-wrap"><svg class="ico i-zoom" viewBox="0 0 40 40" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><g class="lens"><circle cx="17" cy="17" r="11"/><path d="M25 25l9 9"/></g><path class="bar" d="M12 22v-3"/><path class="bar" d="M15.5 22v-6"/><path class="bar" d="M19 22v-4"/><path class="bar" d="M22.5 22v-8"/></svg></span>
+              <span>Target Magnified Returns</span><i class="prog"></i></button>
+            <button class="b-tab" role="tab" onclick="benShow(1,true)">
+              <span class="ic-wrap"><svg class="ico i-clock" viewBox="0 0 40 40" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path class="spd" d="M2 16h9"/><path class="spd s2" d="M0 21h10"/><path class="spd s3" d="M2 26h9"/><circle cx="24" cy="21" r="11"/><path d="M21 7h6M24 7v3"/><path class="hand" d="M24 21v-7"/><circle cx="24" cy="21" r="1.3" fill="currentColor"/></svg></span>
+              <span>Efficient</span><i class="prog"></i></button>
+            <button class="b-tab" role="tab" onclick="benShow(2,true)">
+              <span class="ic-wrap"><svg class="ico i-tap" viewBox="0 0 40 40" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle class="rip" cx="19" cy="9" r="4"/><circle class="rip r2" cx="19" cy="9" r="4"/><path class="tap" d="M16 36v-6l-4-6c-1-2 1-4 3-2l2 2V12a2 2 0 0 1 4 0v8m0-3a2 2 0 0 1 4 0v3m0-2a2 2 0 0 1 4 0v3m0-1a2 2 0 0 1 4 0v7c0 4-2 7-2 7"/></svg></span>
+              <span>Convenience</span><i class="prog"></i></button>
+          </div>
+          <div class="b-body">
+            <p class="b-copy on">Benefit description goes here. [TICKER] targets [multiple] the daily returns of [Underlying] ([UND]).</p>
+            <p class="b-copy">[TICKER] offers [multiple] exposure with less cash—and without fear of margin calls.</p>
+            <p class="b-copy">Buy and sell leveraged exposure via a single ticker in a brokerage account.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="fd-right">
+        <div class="snap launch-only">
+          <div class="snap-head">
+            <h4>[TICKER] snapshot</h4>
+            <span class="snap-asof launch-only">As of <span class="ph">MM/DD/YYYY</span></span>
+            <span class="snap-asof pre-only">Details finalize at launch</span>
+          </div>
+          <div class="snap-grid">
+            <button class="sv" data-copy="[TICKER]"><span>Ticker</span><strong>[TICKER]</strong><i>Copy</i></button>
+            <button class="sv" data-copy="[TICKER].IV"><span>Intraday ticker</span><strong>[TICKER].IV</strong><i>Copy</i></button>
+            <button class="sv" data-copy=""><span>CUSIP</span><strong><b class="launch-only ph">[CUSIP]</b><b class="pre-only">TBD</b></strong><i>Copy</i></button>
+            <div class="sv"><span>Inception date</span><strong><b class="launch-only ph">[MM/DD/YYYY]</b><b class="pre-only">TBD</b></strong></div>
+            <div class="sv"><span>Gross expense ratio</span><strong><b class="launch-only ph">[0.00%]</b><b class="pre-only">TBD</b></strong></div>
+            <div class="sv"><span>Net expense ratio</span><strong><b class="launch-only ph">[0.00%]</b><b class="pre-only">TBD</b></strong></div>
+            <div class="sv"><span>Net assets</span><strong><b class="launch-only ph">[$0.0M]</b><b class="pre-only">TBD</b></strong></div>
+            <div class="sv"><span>NAV calc. time</span><strong>4:00pm ET</strong></div>
+            <div class="sv"><span>Exchange</span><strong><b class="launch-only ph">[Exchange]</b><b class="pre-only">TBD</b></strong></div>
+            <div class="sv"><span>Underlying</span><strong>[Underlying] ([UND])</strong></div>
+          </div>
+          <div class="snap-toast" id="toast" role="status" aria-live="polite"></div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- M05 · WHY [UNDERLYING] -->
+<section class="block" id="matters" data-mod="M05a · Why [Underlying] (editorial + stat carousel)" data-flex="left: editorial text slots; right: 1–6 social stat cards">
+  <div class="wrap">
+    <div class="why2">
+      <div class="why-copy">
+        <div class="kicker">The underlying</div>
+        <h2>Why [Underlying]</h2>
+        <p class="lede">Headline-style lead sentence goes here. <span class="ph">[Approved editorial]</span></p>
+        <p>Body copy goes here: what the underlying company or theme does, and why it matters to investors today. <span class="ph">[Approved editorial]</span></p>
+        <div class="idx">
+          <div class="idx-item">
+            <div class="idx-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19V5M4 19h16M8 15l3-4 3 2 5-6"/></svg></div>
+            <div><span class="idx-lbl">Underlying index</span><b>[Index Name]</b><p>What the index tracks and how it's constructed: number of holdings, weighting, rebalancing. <span class="ph">[Approved copy]</span></p></div>
+          </div>
+          <div class="idx-item">
+            <div class="idx-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 21V8l8-5 8 5v13"/><path d="M9 21v-6h6v6M4 21h16"/></svg></div>
+            <div><span class="idx-lbl">Index provider</span><b>[Index Company]</b><p>Background on the company behind the index: who they are and what they're known for. <span class="ph">[Approved copy]</span></p></div>
+          </div>
+          <p class="idx-note">For single-stock funds, use the first slot for the company and remove the second.</p>
+        </div>
+        <p>A closing paragraph can bridge to the fund: what this means for investors who want to act on a view. <span class="ph">[Approved editorial]</span></p>
+        <a class="gx-link" href="#insights">Read related insights <span>↓</span></a>
+      </div>
+      <aside class="facts-rail" aria-label="Stat cards" data-mod="M05b · Social stat carousel" data-flex="1–6 social stat cards, reused from campaign social; each needs a source line">
+        <div class="ff-viewport" id="ffv" onmouseenter="ffPause=true" onmouseleave="ffPause=false">
+          <div class="ff on ffph"><span class="ffl">Social stat card 1</span><span class="ffs">1080 × 1350 image</span></div>
+          <div class="ff ffph"><span class="ffl">Social stat card 2</span><span class="ffs">1080 × 1350 image</span></div>
+          <div class="ff ffph"><span class="ffl">Social stat card 3</span><span class="ffs">1080 × 1350 image</span></div>
+        </div>
+        <div class="ff-dots" id="ffd"></div>
+        <div class="ff-share"><a href="#" target="_blank" rel="noopener">Share on X</a><a href="#" target="_blank" rel="noopener">Share on LinkedIn</a></div>
+        <p class="ff-note">Facts about the underlying company, not [TICKER] performance.</p>
+      </aside>
+    </div>
+  </div>
+</section>
+
+<!-- M05d · STAT GRID (alt fast facts) -->
+<section class="block" id="numbers" style="padding-top:40px" data-mod="M05d · Stat grid (alt presentation of fast facts)" data-flex="3 or 6 cells; label + stat + line + source">
+  <div class="wrap">
+    <div class="statgrid">
+      <div class="stat"><div class="lbl">[Stat label]</div><div class="big">[Stat]</div><p>One-sentence description of the stat goes here.</p><span class="src">Source: [Source, Year]</span></div>
+      <div class="stat"><div class="lbl">[Stat label]</div><div class="big">[Stat]</div><p>One-sentence description of the stat goes here.</p><span class="src">Source: [Source, Year]</span></div>
+      <div class="stat"><div class="lbl">[Stat label]</div><div class="big">[Stat]</div><p>One-sentence description of the stat goes here.</p><span class="src">Source: [Source, Year]</span></div>
+    </div>
+    <p class="stat-note">Facts about the underlying company, not [TICKER] performance.</p>
+  </div>
+</section>
+
+<!-- M04 · WHAT DOES IT DO? -->
+<section class="block launch-only" id="video">
+  <div class="wrap">
+    <div class="sec-head">
+      <h2>Watch the<br>overview</h2>
+      <p>Text can be inputted here.</p>
+    </div>
+    <div class="video" data-mod="M04a · Video explainer" data-flex="poster title + subline are content fields; embed is Vimeo">
+      <div class="player" id="player">
+        <button class="poster" onclick="playVideo(0)" aria-label="Play the explainer video">
+          <div class="top"><span class="chip">Video explainer</span><span class="chip ph" style="color:#fff">[0:00]</span></div>
+          <h3>Video title <em>goes here.</em></h3>
+          <div class="bottom">
+            <span class="bigplay" aria-hidden="true"></span>
+            <span class="meta"><b>Video subtitle</b>One line describing the video</span>
+          </div>
+        </button>
+        <div class="embed" aria-live="polite">
+          <div>
+            <div style="font-weight:700;font-size:16px">[Vimeo embed]</div>
+            
+            <div class="bar"><i id="embedBar"></i></div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="vid-links"><a href="#" target="_blank" rel="noopener">Read transcript</a></div>
+
+  </div>
+</section>
+
+
+
+
+
+<!-- M06 · INSIGHTS -->
+<section class="block" id="insights" data-mod="M06 · Insights" data-flex="1 lead + 2 supporting articles; pulls from the CMS insights feed or hand-picked">
+  <div class="wrap">
+    <div class="sec-head">
+      <div><h2>Related insights</h2></div>
+      <p>Text can be inputted here.</p>
+    </div>
+    <div class="insights">
+      <a class="art lead" href="#" target="_blank" rel="noopener">
+        <div class="img"><span class="type">Insight</span></div>
+        <div class="body">
+          <h3>Lead article title goes here</h3>
+          <p>One- or two-sentence summary of the article.</p>
+          <div class="meta"><span>[Date] · [Author]</span><b>Read →</b></div>
+        </div>
+      </a>
+      <a class="art" href="#" target="_blank" rel="noopener">
+        <div class="img b"><span class="type">Insight</span></div>
+        <div class="body">
+          <h3>Article title goes here</h3>
+          <p>One-sentence summary of the article.</p>
+          <div class="meta"><span>[Date] · [Author]</span><b>Read →</b></div>
+        </div>
+      </a>
+      <a class="art" href="#" target="_blank" rel="noopener">
+        <div class="img c"><span class="type">Video / Guide</span></div>
+        <div class="body">
+          <h3>Supporting content title goes here</h3>
+          <p>One-sentence summary.</p>
+          <div class="meta"><span>[Date]</span><b>Open →</b></div>
+        </div>
+      </a>
+    </div>
+    <a class="more-link" href="#" target="_blank" rel="noopener">All related insights →</a>
+  </div>
+</section>
+
+<!-- ABOUT PROSHARES (both phases) -->
+<section class="block" id="about" data-mod="P2 · Meet ProShares" data-flex="evergreen; first-time visitors (left) vs. existing ProShares investors (right) + socials">
+  <div class="wrap">
+    <div class="sec-head">
+      <h2>Meet ProShares</h2>
+      <p>Text can be inputted here.</p>
+    </div>
+    <div class="about">
+      <div class="ab-new">
+        <h3>The pioneer of geared ETFs</h3>
+        <p>ProShares introduced leveraged and inverse ETFs in 2006 and has been at the forefront of the ETF revolution ever since.</p>
+        <div class="ab-stats">
+          <div><strong data-count="2006" data-plain="1">2006</strong><span>Geared ETFs introduced</span></div>
+          <div><strong data-count="110" data-pre="$" data-suf="B+">$110B+</strong><span>In assets</span></div>
+          <div><strong data-count="115" data-suf="+">115+</strong><span>Geared ETFs</span></div>
+        </div>
+        <span class="ab-src">Source: ProShares. <span class="ph">[Confirm figures + as-of date]</span></span>
+      </div>
+      <div class="ab-go">
+        <a href="https://www.proshares.com/our-etfs/find-leveraged-and-inverse-etfs?etftype=&amp;strategy=&amp;benchmark=&amp;product=Product+Overview+&amp;search=" target="_blank" rel="noopener">
+          <span class="ab-gi"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="2.5" y="4.5" width="17" height="12" rx="1.5"/><rect x="4.5" y="6.5" width="13" height="8" rx=".8" stroke-width="1"/><path d="M7 9h5M7 11.5h4"/><circle cx="17.5" cy="14" r="2.6"/><path d="M16.3 16.2l-.6 4 1.8-1 1.8 1-.6-4"/></svg></span>
+          <span class="ab-gt"><b>Geared ETF lineup</b><small>See funds already trading</small></span><span class="ab-arr">↗</span></a>
+        <a href="https://www.proshares.com/strategies/leveraged-and-inverse" target="_blank" rel="noopener">
+          <span class="ab-gi"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M10 2.5 3.5 10.8H17.5L12.6 5.6"/><path d="M14 21.5 20.5 13.2H6.5L11.4 18.4"/></svg></span>
+          <span class="ab-gt"><b>Leveraged &amp; Inverse ETFs</b><small>Magnify a bullish or bearish view</small></span><span class="ab-arr">↗</span></a>
+        <a href="https://www.proshares.com/resources/geared-faqs" target="_blank" rel="noopener">
+          <span class="ab-gi"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M9.5 9.5a2.5 2.5 0 1 1 3.5 2.3c-.6.3-1 .8-1 1.5V14M12 17.2v.1"/></svg></span>
+          <span class="ab-gt"><b>Geared fund FAQs</b><small>Common questions, answered</small></span><span class="ab-arr">↗</span></a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- HOW GEARED ETFs WORK (both phases) -->
+<section class="block" id="learn" data-mod="P1 · How Geared ETFs Work" data-flex="evergreen; reusable across every geared launch; links to the two main-site education pages">
+  <div class="wrap">
+    <div class="sec-head">
+      <h2>How Geared ETFs Work</h2>
+      <p>Text can be inputted here.</p>
+    </div>
+    <div class="g101">
+      <div class="gx">
+        <div class="gx-tabs" role="tablist" id="gxTabs">
+          <button class="on" role="tab" onclick="gx('lev')">Leveraged</button>
+          <button role="tab" onclick="gx('inv')">Inverse</button>
+        </div>
+        <p class="gx-def" id="gxDef">Leveraged ETFs (2x, 3x) are designed to magnify the one-day return of a benchmark, a way to express a bullish view.</p>
+        <div class="gx-mults" id="gxMults"></div>
+        <div class="gx-viz">
+          <div class="gx-row"><span class="gx-l">Benchmark</span><div class="gx-track"><i id="gxB"></i></div><b id="gxBv">+1%</b></div>
+          <div class="gx-row"><span class="gx-l">Fund</span><div class="gx-track"><i id="gxF" class="f"></i></div><b id="gxFv">+2%</b></div>
+        </div>
+        <div class="gx-day"><span>Benchmark day:</span><button class="on" onclick="gxDay(1,this)">Up 1%</button><button onclick="gxDay(-1,this)">Down 1%</button></div>
+        <p class="gx-cap">Hypothetical one-day example, before fees and expenses.</p>
+        <a class="gx-link" href="https://www.proshares.com/strategies/leveraged-and-inverse" target="_blank" rel="noopener">Explore Leveraged &amp; Inverse ETFs <span>↗</span></a>
+      </div>
+
+      <div class="hw">
+        <div class="hw-head"><h3>How they work</h3><span class="hw-count" id="hwCount">1 / 4</span></div>
+        <ol class="hw-steps" id="hwSteps">
+          <li class="on"><button onclick="hw(0)"><i>1</i><span>A daily objective</span></button>
+            <div class="hw-body"><p>Geared funds aim to deliver their multiple, like 2x, from the close of one trading day to the close of the next. Not over weeks or months.</p></div></li>
+          <li><button onclick="hw(1)"><i>2</i><span>They reset every day</span></button>
+            <div class="hw-body"><p>Each day the fund rebalances back to its target. Without it, leverage could drift from 2x to as high as 10x, or down to 1x, making results unpredictable.</p></div></li>
+          <li><button onclick="hw(2)"><i>3</i><span>Longer holds can differ</span></button>
+            <div class="hw-body"><p>Over periods longer than a day, returns can differ significantly from the daily multiple. Higher volatility tends to hurt; lower volatility tends to help. Monitor positions regularly.</p></div></li>
+          <li><button onclick="hw(3)"><i>4</i><span>No margin, no borrowing shares</span></button>
+            <div class="hw-body"><p>Unlike buying on margin or shorting a stock, your loss is limited to what you invest, with no margin calls and no borrowing.</p></div></li>
+        </ol>
+        <a class="gx-link" href="https://www.proshares.com/resources/geared-faqs" target="_blank" rel="noopener">Read How They Work: Geared Fund FAQs <span>↗</span></a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- M07 · WHERE DO I GO NEXT? -->
+<section class="block" id="next" data-mod="M07 · Pathways" data-flex="lead path swaps per phase (notify → buy)">
+  <div class="wrap">
+
+    <div class="htb launch-only" id="buy" data-mod="M07a · How to Buy (tab slider)" data-flex="mirrors the main-site How to Buy page; ticker in steps is a variable">
+      <div class="htb-top">
+        <div class="htb-title">
+          <span class="htb-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 8h13l-3.5-3.5M20 16H7l3.5 3.5"/></svg></span>
+          <h3>How to Buy</h3>
+        </div>
+        <div class="tabs" role="tablist" id="htbTabs">
+          <span class="pill" id="htbPill"></span>
+          <button class="on" role="tab" onclick="htb(0)">Individual Investors</button>
+          <button role="tab" onclick="htb(1)">Financial Professionals</button>
+        </div>
+      </div>
+      <div class="htb-view" id="htbView">
+        <div class="htb-track" id="htbTrack">
+          <div class="htb-panel">
+            <p>You can find ProShares ETFs on most trading platforms, or talk to your financial advisor or brokerage account representative. Please note, your advisor or broker may charge commissions or other transaction fees.</p>
+            <div class="brokers">
+              <a href="https://www.schwab.com" target="_blank" rel="noopener">Charles Schwab <small>↗</small></a>
+              <a href="https://www.fidelity.com" target="_blank" rel="noopener">Fidelity <small>↗</small></a>
+              <a href="https://us.etrade.com" target="_blank" rel="noopener">E*Trade <small>↗</small></a>
+              <a href="https://www.interactivebrokers.com" target="_blank" rel="noopener">Interactive Brokers <small>↗</small></a>
+              <a href="https://robinhood.com" target="_blank" rel="noopener">Robinhood <small>↗</small></a>
+            </div>
+            <ol class="htb-steps">
+              <li>Log in to your brokerage account</li>
+              <li>Search "[TICKER]" and confirm [Fund Name]</li>
+              <li>Place your trade and monitor it regularly</li>
+            </ol>
+            <div class="htb-note">ProShares ETFs cannot be purchased directly from ProShares. They are available for purchase on exchanges, much like stocks, and can be bought and sold throughout the day whenever the exchange is open. <a href="#" target="_blank" rel="noopener">Understanding ETF Liquidity and Trading</a></div>
+          </div>
+          <div class="htb-panel">
+            <p>ProShares ETFs are available through most major brokerage platforms, making it easy to incorporate our strategies into your clients' portfolios. To confirm availability or request support, please contact your branch manager, trading desk, or brokerage platform representative.</p>
+            <div class="contacts">
+              <div class="contact"><h4>Financial Advisors</h4><div>(866) 776-5125, option 2<br>Mon–Fri, 8 a.m. to 6 p.m. ET<br><a href="mailto:info@proshares.com">info@proshares.com</a></div></div>
+              <div class="contact"><h4>Institutional &amp; International</h4><div>(866) 776-5125, option 3<br>Mon–Fri, 8 a.m. to 6 p.m. ET<br><a href="mailto:institutionalgroup@proshares.com">institutionalgroup@proshares.com</a></div></div>
+              <div class="contact"><h4>Capital Markets</h4><div>(866) 776-5125, option 4<br>Mon–Fri, 8 a.m. to 6 p.m. ET<br><a href="mailto:capitalmarkets@proshares.com">capitalmarkets@proshares.com</a></div></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="paths">
+      <div class="path lead pre-only">
+        <div class="tag">Be first to know</div>
+        <h3>Get the alert the day [TICKER] trades</h3>
+        <p>One email at launch, with the prospectus link.</p>
+        <form class="form" onsubmit="event.preventDefault();this.innerHTML='<p style=&quot;font-size:17px;font-weight:600;color:#fff;margin:0&quot;>You\'re on the list.</p>'">
+          <input type="email" placeholder="Email address" required>
+          <div class="who"><input type="radio" name="w" id="w1" checked><label for="w1">Individual investor</label><input type="radio" name="w" id="w2"><label for="w2">Financial professional</label></div>
+          <button class="btn" type="submit" style="background:#fff;color:var(--green)">Notify Me</button>
+        </form>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- M08 · FAQ -->
+<section class="block" id="faq" data-mod="M08 · FAQ" data-flex="phase-tagged questions; shared geared-fund questions reused">
+  <div class="wrap">
+    <div class="sec-head"><h2>FAQs</h2><p>Text can be inputted here.</p></div>
+    <div class="faq">
+      <details class="pre-only"><summary>When will [TICKER] launch?</summary><p>Only after its registration statement becomes effective. Sign up above to be notified.</p></details>
+      <details class="launch-only"><summary>Where can I buy [TICKER]?</summary><p>Through most standard brokerage accounts that offer ETFs. No margin account is required.</p></details>
+      <details><summary>What does [TICKER] track?</summary><p>It seeks [multiple] the daily performance of [Underlying] ([UND]), before fees and expenses.</p></details>
+      <details><summary>What does "daily objective" mean?</summary><p>The [multiple] objective applies to a single day only. Over longer periods, compounding can cause returns to differ significantly from [multiple] the underlying's return.</p></details>
+      <details><summary>Can I lose more than I invest?</summary><p>No. Unlike borrowing on margin, your maximum loss is limited to the amount you invest. Because of the leverage, you could lose your entire investment, even within a single day.</p></details>
+      <details><summary>Is [TICKER] affiliated with [Underlying]?</summary><p>No. The ETF and ProShare Advisors LLC are not affiliated with the underlying stock issuer.</p></details>
+    </div>
+  </div>
+</section>
+
+<footer><div class="wrap">
+  <img class="flogo" src="data:image/png;base64,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" alt="ProShares">
+  <div class="f-soc"><span>Follow ProShares</span><div class="socials dark">
+          <a class="soc" href="https://x.com/ProShares" target="_blank" rel="noopener" aria-label="ProShares on X"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.8 3h3.1l-6.8 7.7L22 21h-6.2l-4.9-6.3L5.3 21H2.2l7.2-8.3L1.9 3h6.4l4.4 5.8L17.8 3Zm-1.1 16.2h1.7L7.4 4.7H5.6l11.1 14.5Z"/></svg><span>X</span></a>
+          <a class="soc" href="https://www.instagram.com/proshares/" target="_blank" rel="noopener" aria-label="ProShares on Instagram"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/></svg><span>Instagram</span></a>
+          <a class="soc" href="https://www.youtube.com/@ProSharesETFs" target="_blank" rel="noopener" aria-label="ProShares on YouTube"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M22.5 7.2a2.8 2.8 0 0 0-2-2C18.7 4.7 12 4.7 12 4.7s-6.7 0-8.5.5a2.8 2.8 0 0 0-2 2C1 9 1 12 1 12s0 3 .5 4.8a2.8 2.8 0 0 0 2 2c1.8.5 8.5.5 8.5.5s6.7 0 8.5-.5a2.8 2.8 0 0 0 2-2C23 15 23 12 23 12s0-3-.5-4.8ZM9.8 15.3V8.7l5.7 3.3-5.7 3.3Z"/></svg><span>YouTube</span></a>
+          <a class="soc" href="https://www.linkedin.com/company/proshare-advisors-llc/" target="_blank" rel="noopener" aria-label="ProShares on LinkedIn"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M4.98 3.5a2.5 2.5 0 1 1 0 5 2.5 2.5 0 0 1 0-5ZM3 9.5h4V21H3V9.5Zm6.5 0h3.8v1.6h.1c.5-1 1.8-2 3.8-2 4 0 4.8 2.6 4.8 6V21h-4v-5.2c0-1.2 0-2.9-1.8-2.9s-2 1.4-2 2.8V21h-4V9.5Z"/></svg><span>LinkedIn</span></a>
+        </div></div>
+  <h4>Important information</h4>
+  <p class="pre-only">The registration statement for [TICKER] has been filed with the SEC but is not yet effective and may be changed. Shares may not be sold, nor may offers to buy be accepted, until the registration statement is effective. <span class="ph">[Full pre-launch legend]</span></p>
+  <p><span class="ph">[Fund-type risk language, e.g. single-stock, index or sector]</span> <span class="ph">[Underlying-specific risks]</span> Leveraged ProShares ETFs are non-diversified. There is no guarantee any ProShares ETF will achieve its investment objective. Shares of any ETF are generally bought and sold at market price (not NAV) and are not individually redeemed from the fund.</p>
+  <p>Fast facts describe the underlying company and are not indicative of [TICKER] performance. Carefully consider the investment objectives, risks, charges and expenses of ProShares before investing. This and other information can be found in the summary and full prospectuses. ProShares are distributed by SEI Investments Distribution Co., which is not affiliated with the funds' advisor or sponsor. <span class="ph">[Remaining approved legal]</span></p>
+</div></footer>
+
+
+<div class="modal" id="notify" role="dialog" aria-modal="true" aria-labelledby="nT">
+  <div class="modal-box notify-box">
+    <button class="m-x" type="button" onclick="closeNotify()" aria-label="Close">✕</button>
+    <div class="n-tag">Be first to know</div>
+    <h3 id="nT">Get the alert the day [TICKER] trades</h3>
+    <p>One email at launch, with the prospectus link.</p>
+    <form class="n-form" onsubmit="event.preventDefault();this.innerHTML='<p class=&quot;n-done&quot;>✓ You\'re on the list. We\'ll email you at launch.</p>'">
+      <input type="email" placeholder="Email address" required aria-label="Email address">
+      <div class="n-who"><input type="radio" name="nw" id="nw1" checked><label for="nw1">Individual investor</label><input type="radio" name="nw" id="nw2"><label for="nw2">Financial professional</label></div>
+      <button class="btn btn-primary" type="submit">Notify Me</button>
+    </form>
+  </div>
+</div>
+
+<script>
+function openNotify(){notify.classList.add('open');setTimeout(()=>notify.querySelector('input[type=email]')?.focus(),50)}
+function closeNotify(){notify.classList.remove('open')}
+notify.addEventListener('click',e=>{if(e.target===notify)closeNotify()});
+addEventListener('keydown',e=>{if(e.key==='Escape')closeNotify()});
+function setPhase(p){
+  document.body.classList.remove('pre','live');document.body.classList.add(p);
+  bPre.classList.toggle('on',p==='pre');bLive.classList.toggle('on',p==='live');
+  rail(p);spy();
+}
+const railEl=document.getElementById('rail');
+function rail(p){
+  const nodes=[...document.querySelectorAll('.node')];
+  const states=p==='pre'?['done','now','','']:['done','done','done','now'];
+  nodes.forEach((n,i)=>{n.className='node '+states[i];n.style.transitionDelay=(i*180)+'ms'});
+  lineFill.style.width='0';railEl.classList.remove('go');
+  railEl.style.setProperty('--glow',p==='pre'?'45%':'92%');
+  requestAnimationFrame(()=>requestAnimationFrame(()=>{lineFill.style.width=p==='pre'?'38%':'100%';railEl.classList.add('go')}));
+}
+new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting)rail(document.body.classList.contains('pre')?'pre':'live')}),{threshold:.6}).observe(railEl);
+dayN.textContent=Math.max(1,Math.floor((Date.now()-new Date('2026-06-15T09:30:00-04:00'))/864e5)+1);
+const target=Date.now()+21*864e5+5*36e5;
+function tick(){let t=Math.max(0,target-Date.now());const d=Math.floor(t/864e5);t-=d*864e5;const h=Math.floor(t/36e5);t-=h*36e5;const m=Math.floor(t/6e4);
+cdTxt.textContent=`${d}d ${String(h).padStart(2,'0')}h ${String(m).padStart(2,'0')}m`}
+tick();setInterval(tick,30000);
+
+
+
+const links=[...document.querySelectorAll('#anchors a')].filter(a=>/^#.+/.test(a.getAttribute('href'))&&!a.classList.contains('ext'));
+function spy(){let cur=null;links.forEach(a=>{const s=document.querySelector(a.getAttribute('href'));if(s&&s.getBoundingClientRect().top<innerHeight*.35)cur=a});links.forEach(a=>a.classList.toggle('active',a===cur))}
+addEventListener('scroll',spy,{passive:true});spy();
+
+/* video placeholder */
+const chapTimes=['0:00','0:20','0:50','1:15'];
+function playVideo(i){
+  player.classList.add('playing');
+  
+  embedBar.style.width='12%';
+}
+
+/* geared 101 */
+const GX={lev:{def:'Leveraged ETFs (2x, 3x) are designed to magnify the one-day return of a benchmark, a way to express a bullish view.',m:[2,3]},
+          inv:{def:'Inverse ETFs (−1x, −2x, −3x) are designed to rise when their benchmark falls over a single day, a way to express a bearish view or hedge.',m:[-1,-2,-3]}};
+let gxK='lev',gxM=2,gxD=1;
+function gx(k){gxK=k;[...gxTabs.children].forEach(b=>b.classList.toggle('on',b.textContent.toLowerCase().startsWith(k==='lev'?'lev':'inv')));
+  gxDef.textContent=GX[k].def;gxM=GX[k].m[k==='lev'?0:1];
+  gxMults.innerHTML=GX[k].m.map(m=>`<button class="${m===gxM?'on':''}" onclick="gxSet(${m})">${m>0?m:'−'+Math.abs(m)}x</button>`).join('');gxDraw()}
+function gxSet(m){gxM=m;[...gxMults.children].forEach(b=>b.classList.toggle('on',b.textContent===(m>0?m:'−'+Math.abs(m))+'x'));gxDraw()}
+function gxDay(d,btn){gxD=d;[...btn.parentNode.querySelectorAll('button')].forEach(b=>b.classList.toggle('on',b===btn));gxDraw()}
+function gxDraw(){const b=gxD,f=gxD*gxM,sc=50/3;
+  const set=(el,v,col)=>{const w=Math.abs(v)*sc;el.style.width=w+'%';el.style.left=(v>=0?50:50-w)+'%';el.style.background=col};
+  set(gxB,b,'#9aa9b0');set(gxF,f,f>=0?'var(--green)':'var(--red)');
+  const p=v=>(v>0?'+':v<0?'−':'')+Math.abs(v)+'%';gxBv.textContent=p(b);gxFv.textContent=p(f)}
+gx('lev');
+
+/* how they work stepper */
+const hwLis=[...document.querySelectorAll('#hwSteps li')];
+function hw(i){hwLis.forEach((l,k)=>{l.classList.toggle('on',k===i);l.classList.toggle('done',k<i)});hwCount.textContent=(i+1)+' / '+hwLis.length}
+
+/* count-up stats */
+new IntersectionObserver((es,o)=>es.forEach(e=>{if(!e.isIntersecting)return;o.unobserve(e.target);
+  e.target.querySelectorAll('[data-count]').forEach(el=>{const t=+el.dataset.count,pre=el.dataset.pre||'',suf=el.dataset.suf||'',st=el.dataset.plain?t-20:0,t0=performance.now();
+    (function step(n){const k=Math.min(1,(n-t0)/1100),e2=1-Math.pow(1-k,3);el.textContent=pre+Math.round(st+(t-st)*e2)+suf;if(k<1)requestAnimationFrame(step)})(t0)})}),{threshold:.4}).observe(document.querySelector('.ab-stats'));
+
+/* snapshot copy-to-clipboard */
+document.querySelectorAll('button.sv').forEach(b=>b.addEventListener('click',()=>{
+  const v=b.dataset.copy||(document.body.classList.contains('live')?b.querySelector('.launch-only')?.textContent:'');
+  if(!v||v==='TBD')return;
+  (navigator.clipboard?navigator.clipboard.writeText(v):Promise.reject()).catch(()=>{}).finally(()=>{toast.textContent='Copied '+v;toast.classList.add('show');clearTimeout(toast._t);toast._t=setTimeout(()=>toast.classList.remove('show'),1400)});
+}));
+
+/* how to buy: pulse when reached via a How to Buy link */
+document.querySelectorAll('a[href="#buy"]').forEach(a=>a.addEventListener('click',()=>{const h=document.getElementById('buy');h.classList.remove('flash');setTimeout(()=>{void h.offsetWidth;h.classList.add('flash')},550)}));
+
+/* how to buy tabs */
+function htb(i){
+  const bs=[...htbTabs.querySelectorAll('button')];bs.forEach((b,k)=>b.classList.toggle('on',k===i));
+  htbPill.style.left=bs[i].offsetLeft+'px';htbPill.style.width=bs[i].offsetWidth+'px';
+  htbTrack.style.transform=`translateX(-${i*100}%)`;htbView.style.height=htbTrack.children[i].offsetHeight+'px';
+}
+addEventListener('load',()=>htb(0));addEventListener('resize',()=>htb([...htbTabs.querySelectorAll('button')].findIndex(b=>b.classList.contains('on'))));
+
+/* why [TICKER] rotator */
+const benTabs=[...document.querySelectorAll('.b-tab')],benCopy=[...document.querySelectorAll('.b-copy')];let benI=0,benTimer=null,benPaused=false;const BEN_MS=5000;
+document.getElementById('benefits').style.setProperty('--bdur',BEN_MS+'ms');
+function benShow(i,user){
+  benI=i;benTabs.forEach((t,k)=>{t.classList.remove('on');void t.offsetWidth;t.classList.toggle('on',k===i)});benCopy.forEach((c,k)=>c.classList.toggle('on',k===i));
+  clearTimeout(benTimer);if(user&&!benPaused){benToggle()}else if(!benPaused){benTimer=setTimeout(()=>benShow((benI+1)%3),BEN_MS)}
+}
+function benToggle(){benPaused=!benPaused;benefits.classList.toggle('paused',benPaused);bPause.textContent=benPaused?'▶':'❚❚';bPause.setAttribute('aria-label',benPaused?'Resume rotation':'Pause rotation');
+  clearTimeout(benTimer);if(!benPaused)benTimer=setTimeout(()=>benShow((benI+1)%3),BEN_MS*.5)}
+benefits.addEventListener('mouseenter',()=>{if(!benPaused){clearTimeout(benTimer);benefits.classList.add('paused')}});
+benefits.addEventListener('mouseleave',()=>{if(!benPaused){benefits.classList.remove('paused');benTimer=setTimeout(()=>benShow((benI+1)%3),BEN_MS*.5)}});
+benShow(0);
+
+/* fast facts carousel */
+const ffs=[...document.querySelectorAll('.ff')];let ffI=0,ffPause=false;
+ffd.innerHTML=ffs.map((_,i)=>`<button aria-label="Fact ${i+1}" onclick="ffShow(${i})"></button>`).join('');
+function ffShow(i){ffI=(i+ffs.length)%ffs.length;ffs.forEach((f,k)=>f.classList.toggle('on',k===ffI));[...ffd.children].forEach((d,k)=>d.classList.toggle('on',k===ffI))}
+function ffGo(d){ffShow(ffI+d)}
+ffShow(0);setInterval(()=>{if(!ffPause)ffGo(1)},6000);
+
+</script>
+</body>
+</html>
