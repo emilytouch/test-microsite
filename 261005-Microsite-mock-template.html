@@ -1,640 +1,805 @@
 <!doctype html>
+<!--
+  FUND LAUNCH MICROSITE TEMPLATE (simplified)
+
+  HOW TO READ THIS FILE
+  • Every section below starts with a banner comment: its module name and which phase it shows in.
+  • PHASE TAGS — the whole pre-launch / launched system is one attribute:
+        data-show="pre"    visible only BEFORE launch
+        data-show="live"   visible only AFTER launch
+        (no attribute)     visible in both phases
+    Tip: search this file for  data-show  to see every phase-specific element at a glance.
+    Tip: tick "Outline phase-specific blocks" in the mockup panel to see them on the page
+         (orange dashed = pre-launch, teal dashed = launched).
+  • [Square brackets] are placeholders for approved copy. Yellow-highlighted ones use class="ph".
+  • data-mod / data-flex are labels for the "Show module map" checkbox. They have no effect on the page.
+  • The mockup panel (#controls) and the matching script at the bottom are for review only — delete for production.
+-->
 <html lang="en">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Fund Launch Template</title>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-<link href="css/microsite-mock.css" rel="stylesheet" type="text/css">
+<link href="css/microsite-mock.css" rel="stylesheet">
 </head>
-<body class="live">
 
-<div class="phase-ctl">
+<body data-phase="live">
+
+
+<!-- ======================================================================
+     MOCKUP PANEL · review only · delete for production
+     ====================================================================== -->
+<aside id="controls">
   <b>Mockup state</b>
-  <div class="seg">
-    <button id="bPre" onclick="setPhase('pre')">Pre-launch</button>
-    <button id="bLive" class="on" onclick="setPhase('live')">Launched</button>
+  <div>
+    <button data-set="pre">Pre-launch</button>
+    <button data-set="live" class="on">Launched</button>
   </div>
-  <label><input type="checkbox" onchange="document.body.classList.toggle('outline',this.checked)"> Outline phase-specific blocks</label>
-  <label><input type="checkbox" onchange="document.body.classList.toggle('modmap',this.checked)"> Show module map</label>
+  <label><input type="checkbox" onchange="document.body.toggleAttribute('data-outline',this.checked)"> Outline phase-specific blocks</label>
+  <label><input type="checkbox" onchange="document.body.toggleAttribute('data-map',this.checked)"> Show module map</label>
+</aside>
+
+
+<!-- ======================================================================
+     ANNOUNCEMENT BAR · both phases, different message
+     ====================================================================== -->
+<div id="announce">
+  <p data-show="pre"><span><i class="dot"></i>[Announcement text]. Be first to know when [TICKER] trades.</span><button class="btn" type="button" data-open="notify">Notify Me</button></p>
+  <p data-show="live"><span><i class="dot"></i><strong>[TICKER]</strong> | [Fund Name] is now trading.</span><a class="btn" href="#buy">How to Buy</a></p>
 </div>
 
-<div class="announce">
-  <div class="wrap pre-only"><span><span class="dot"></span>[Announcement text]. Be first to know when [TICKER] trades.</span><button class="btn" type="button" onclick="openNotify()">Notify Me</button></div>
-  <div class="wrap launch-only"><span><span class="dot"></span><strong>[TICKER]</strong> | [Fund Name] is now trading.</span><a class="btn" href="#buy">How to Buy</a></div>
-</div>
 
-<nav class="top" aria-label="Page">
+<!-- ======================================================================
+     TOP NAV · both phases
+     Pre-launch: shows only the 3 in-page links + Notify Me
+     Launched:   adds Watch Video + Product Details + How to Buy
+     ====================================================================== -->
+<nav>
   <div class="wrap">
     <a class="home" href="https://www.proshares.com/" target="_blank" rel="noopener" aria-label="Back to ProShares.com (opens in a new tab)">
-      <span class="back-arr" aria-hidden="true"> &lbarr; </span><img src="assets/images/Logo_ProShares_Full_Wordmark_White.png" alt="ProShares">
+      <span aria-hidden="true">&lbarr;</span><img src="assets/images/Logo_ProShares_Full_Wordmark_White.png" alt="ProShares">
     </a>
-    <div class="anchors" id="anchors">
+
+    <div class="links">
       <a href="#matters">Why [Company]</a>
       <a href="#insights">Related Insights</a>
       <a href="#faq">FAQs</a>
-      <a href="#" class="launch-only ext vid" onclick="openVideo(event)">Watch Video</a>
-      <a href="#" class="launch-only ext" target="_blank" rel="noopener">[TICKER] Product Details</a>
+      <a href="#" data-show="live" data-open="video">Watch Video</a>
+      <a href="#" data-show="live" target="_blank" rel="noopener">[TICKER] Product Details</a>
     </div>
-    <div class="nav-right">
-      <div class="nav-soc">
-        <a class="nsoc" href="https://x.com/ProShares" target="_blank" rel="noopener" aria-label="ProShares on X"><img src="assets/images/X-logo-white.svg"></a>
-        <a class="nsoc" href="https://www.instagram.com/proshares/" target="_blank" rel="noopener" aria-label="ProShares on Instagram"><img src="assets/images/Instagram_Glyph_White.svg"></a>
-        <a class="nsoc" href="https://www.youtube.com/@ProSharesETFs" target="_blank" rel="noopener" aria-label="ProShares on YouTube"><img src="assets/images/YouTube-logo-white.svg"></a>
-        <a class="nsoc" href="https://www.linkedin.com/company/proshare-advisors-llc/" target="_blank" rel="noopener" aria-label="ProShares on LinkedIn"><img src="assets/images/LinkedIn-logo-white.svg"></a>
+
+    <div class="right">
+      <div class="social">
+        <a href="https://x.com/ProShares" target="_blank" rel="noopener" aria-label="ProShares on X"><img src="assets/images/X-logo-white.svg" alt=""></a>
+        <a href="https://www.instagram.com/proshares/" target="_blank" rel="noopener" aria-label="ProShares on Instagram"><img src="assets/images/Instagram_Glyph_White.svg" alt=""></a>
+        <a href="https://www.youtube.com/@ProSharesETFs" target="_blank" rel="noopener" aria-label="ProShares on YouTube"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="white" class="bi bi-youtube" viewBox="0 0 16 16">
+          <path d="M8.051 1.999h.089c.822.003 4.987.033 6.11.335a2.01 2.01 0 0 1 1.415 1.42c.101.38.172.883.22 1.402l.01.104.022.26.008.104c.065.914.073 1.77.074 1.957v.075c-.001.194-.01 1.108-.082 2.06l-.008.105-.009.104c-.05.572-.124 1.14-.235 1.558a2.01 2.01 0 0 1-1.415 1.42c-1.16.312-5.569.334-6.18.335h-.142c-.309 0-1.587-.006-2.927-.052l-.17-.006-.087-.004-.171-.007-.171-.007c-1.11-.049-2.167-.128-2.654-.26a2.01 2.01 0 0 1-1.415-1.419c-.111-.417-.185-.986-.235-1.558L.09 9.82l-.008-.104A31 31 0 0 1 0 7.68v-.123c.002-.215.01-.958.064-1.778l.007-.103.003-.052.008-.104.022-.26.01-.104c.048-.519.119-1.023.22-1.402a2.01 2.01 0 0 1 1.415-1.42c.487-.13 1.544-.21 2.654-.26l.17-.007.172-.006.086-.003.171-.007A100 100 0 0 1 7.858 2zM6.4 5.209v4.818l4.157-2.408z"/>
+        </svg></a>
+        <a href="https://www.linkedin.com/company/proshare-advisors-llc/" target="_blank" rel="noopener" aria-label="ProShares on LinkedIn"><img src="assets/images/LinkedIn-white.png" alt=""></a>
       </div>
-      <a class="btn btn-primary nav-cta launch-only" href="#buy">How to Buy</a>
-      <button class="btn btn-primary nav-cta pre-only" type="button" onclick="openNotify()">Notify Me</button>
+      <a class="btn" data-show="live" href="#buy">How to Buy</a>
+      <button class="btn" data-show="pre" type="button" data-open="notify">Notify Me</button>
     </div>
   </div>
 </nav>
 
-<!-- M01 · WHAT IS THIS? -->
-<header class="hero" id="what" style="position:relative" data-mod="M01 · Campaign hero (banner art + fund card)" data-flex="banner art swaps per featured fund; card shows 1 fund">
+
+<!-- ======================================================================
+     M01 · HERO · both phases
+     Differences: badge, button set, disclosure text.
+     ====================================================================== -->
+<header id="hero" data-mod="M01 · Campaign hero (banner art + fund card)" data-flex="banner art swaps per featured fund; card shows 1 fund">
   <div class="wrap">
-    <div class="hero-grid">
-      <div>
-        <span class="badge pre-only">Coming Soon · [ETF Type]</span>
-        <span class="badge live launch-only">Now Trading · [ETF Type]</span>
-        <h1 class="h1rev"><span class="ln"><span>Headline</span></span><span class="ln"><em>goes here.</em></span></h1>
-        <p class="oneliner">Sub-headline goes here. One or two sentences that say what the fund is and what it seeks to do.</p>
-        <div class="ctas">
-          <a class="btn btn-primary launch-only" href="#buy">How to Buy</a>
-          <button class="btn btn-primary pre-only" type="button" onclick="openNotify()">Notify Me at Launch</button>
-          <button class="btn btn-light launch-only" type="button" onclick="openVideo(event)"><span class="play"></span>Watch Video</button>
-          <a class="btn btn-light pre-only" href="#learn">Learn the Basics</a>
+    <div class="split">
+
+      <!-- left: badge, headline, sub-headline, buttons -->
+      <div class="copy">
+        <span class="badge" data-show="pre">Coming Soon · [ETF Type]</span>
+        <span class="badge" data-show="live">Now Trading · [ETF Type]</span>
+
+        <h1><span><b>Headline</b></span><span><em>goes here.</em></span></h1>
+        <p>Sub-headline goes here. One or two sentences that say what the fund is and what it seeks to do.</p>
+
+        <div class="buttons">
+          <a class="btn" data-show="live" href="#buy">How to Buy</a>
+          <button class="btn light" data-show="live" type="button" data-open="video"><i></i>Watch Video</button>
+
+          <button class="btn" data-show="pre" type="button" data-open="notify">Notify Me at Launch</button>
+          <a class="btn light" data-show="pre" href="#learn">Learn the Basics</a>
         </div>
       </div>
-      <div class="stage">
-        <div class="glow" aria-hidden="true"></div>
-        <div class="fcard" tabindex="0" aria-label="[TICKER] fund summary">
-          <span class="mult">[Multiple]<span class="mtick" aria-hidden="true">+1% day → <b>+[N]%</b></span></span>
-          <div class="tk">[TICKER]</div>
-          <div class="nm">[Fund Name]</div>
-          <div class="rows">
-            <div><span>Underlying</span><strong>[Underlying]</strong></div>
-          </div>
+
+      <!-- right: floating fund card (same in both phases) -->
+      <div id="stage">
+        <div id="glow" aria-hidden="true"></div>
+        <div id="card" tabindex="0" aria-label="[TICKER] fund summary">
+          <span class="multiple">[Multiple]<i aria-hidden="true">+1% day → <b>+[N]%</b></i></span>
+          <h2>[TICKER]</h2>
+          <p>[Fund Name]</p>
+          <dl><div><dt>Underlying</dt><dd>[Underlying]</dd></div></dl>
           <div class="more"><div>
             <p>Hover text goes here. Use <b>bold</b> for emphasis, <span class="g">light green</span> for key figures, or <b class="g">both together</b>. Keep it to one or two lines.</p>
           </div></div>
-          <span class="hint">Hover to see more</span>
+          <small>Hover to see more</small>
         </div>
       </div>
     </div>
-    <span class="art-tag" style="top:-60px">Campaign artwork placeholder · 2400×1000</span>
-    <p class="hero-disc pre-only">The registration statement for [TICKER] has been filed with the SEC but is not yet effective and may be changed. Shares may not be sold, nor may offers to buy be accepted, until the registration statement is effective. This ETF seeks daily investment results, before fees and expenses, of [multiple] the daily performance of [benchmark]. For any holding period other than a day, returns may be higher or lower than the Daily Target, and these differences may be significant.</p>
-    <p class="hero-disc launch-only">This ProShares ETF seeks daily investment results that correspond, before fees and expenses, to [multiple] the daily performance of [benchmark] (the "Daily Target"). For any holding period other than a day, your return may be higher or lower than the Daily Target, and these differences may be significant. The ETF and ProShare Advisors LLC are not affiliated with the underlying stock issuer. <span class="ph">[Full approved disclosure]</span></p>
+
+    <span id="art-tag">Campaign artwork placeholder · 2400×1000</span>
+
+    <!-- disclosure: different legal text per phase -->
+    <p data-show="pre">The registration statement for [TICKER] has been filed with the SEC but is not yet effective and may be changed. Shares may not be sold, nor may offers to buy be accepted, until the registration statement is effective. This ETF seeks daily investment results, before fees and expenses, of [multiple] the daily performance of [benchmark]. For any holding period other than a day, returns may be higher or lower than the Daily Target, and these differences may be significant.</p>
+    <p data-show="live">This ProShares ETF seeks daily investment results that correspond, before fees and expenses, to [multiple] the daily performance of [benchmark] (the "Daily Target"). For any holding period other than a day, your return may be higher or lower than the Daily Target, and these differences may be significant. The ETF and ProShare Advisors LLC are not affiliated with the underlying stock issuer. <span class="ph">[Full approved disclosure]</span></p>
   </div>
 </header>
 
-<!-- M02 · LAUNCH RAIL -->
-<div class="rail" id="rail" data-mod="M02 · Launch status rail" data-flex="stages + dates are content fields">
+
+<!-- ======================================================================
+     M02 · LAUNCH STATUS RAIL · both phases
+     Left: status text.  Right: 4-step timeline (JS marks each step done / now).
+     ====================================================================== -->
+<div id="rail" data-mod="M02 · Launch status rail" data-flex="stages + dates are content fields">
   <div class="wrap">
+
     <div class="status">
-      <div class="k">Launch status</div>
-      <div class="pre-only"><div class="v">Pending effectiveness</div><div class="s">Target launch in <b id="cdTxt" class="flip"></b></div></div>
-      <div class="launch-only"><div class="v"><span class="live-dot"></span>Now trading</div></div>
+      <span class="label">Launch status</span>
+      <div data-show="pre"><strong>Pending effectiveness</strong><p>Target launch in <span id="cdTxt"></span></p></div>
+      <div data-show="live"><strong><i class="dot"></i>Now trading</strong></div>
     </div>
-    <div class="track-wrap">
+
+    <div class="track">
       <div class="line"><i id="lineFill"></i></div>
-      <div class="nodes">
-        <div class="node"><div class="pt"></div><div><strong>Filed with SEC</strong><span class="ph">[MM/DD/YYYY]</span></div></div>
-        <div class="node"><div class="pt"></div><div><strong>Effective</strong><span class="pre-only">Pending</span><span class="launch-only ph">[MM/DD/YYYY]</span></div></div>
-        <div class="node"><div class="pt"></div><div><strong>Launch</strong><span class="pre-only ph">[Target date]</span><span class="launch-only ph">[MM/DD/YYYY]</span></div></div>
-        <div class="node"><div class="pt"></div><div><strong>Trading</strong><span class="pre-only">Brokerages</span><span class="launch-only">Now</span></div></div>
-      </div>
+      <ol>
+        <li><i></i><div><strong>Filed with SEC</strong><span class="ph">[MM/DD/YYYY]</span></div></li>
+        <li><i></i><div><strong>Effective</strong>
+          <span data-show="pre">Pending</span><span data-show="live" class="ph">[MM/DD/YYYY]</span></div></li>
+        <li><i></i><div><strong>Launch</strong>
+          <span data-show="pre" class="ph">[Target date]</span><span data-show="live" class="ph">[MM/DD/YYYY]</span></div></li>
+        <li><i></i><div><strong>Trading</strong>
+          <span data-show="pre">Brokerages</span><span data-show="live">Now</span></div></li>
+      </ol>
     </div>
+
   </div>
 </div>
 
-<!-- M01b · DOCUMENTS STRIP (launch only) -->
-<div class="docstrip launch-only" data-mod="M01b · Documents strip (launch only)" data-flex="3–5 links; manual PDFs + main-site fund page">
+
+<!-- ======================================================================
+     M01b · DOCUMENTS STRIP · LAUNCHED ONLY
+     ====================================================================== -->
+<section id="docs" data-show="live" data-mod="M01b · Documents strip (launch only)" data-flex="3–5 links; manual PDFs + main-site fund page">
   <div class="wrap">
-    <span class="ds-lbl">Resources</span>
-    <div class="ds-links">
+    <span class="label">Resources</span>
+    <div>
       <a href="#" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M14 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8z"/><path d="M14 3v5h5M9 13h6M9 17h4"/></svg><b>Fact sheet</b><small>PDF</small></a>
       <a href="#" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 5a2 2 0 0 1 2-2h12v18H6a2 2 0 0 1-2-2z"/><path d="M8 7h6M8 11h6"/></svg><b>Summary prospectus</b><small>PDF</small></a>
       <a href="#" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 7h18v13H3zM8 7V4h8v3"/><path d="M3 12h18"/></svg><b>Prospectus &amp; reports</b><small>PDF</small></a>
       <a href="#" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19V5M4 19h16M8 15l4-4 3 3 5-6"/></svg><b>[TICKER] Product Details</b></a>
     </div>
   </div>
-</div>
+</section>
 
-<!-- M03 · WHAT LAUNCHED? (fund details) -->
-<section class="fast" id="launched" data-mod="M03 · Fund details (objective + benefits + snapshot)" data-flex="all values are manual content fields; pre-launch shows TBD">
+
+<!-- ======================================================================
+     M03 · FUND DETAILS · both phases
+     Left card (both): ticker, name, objective. Pre adds a fine-print line; live adds the "Why" tabs.
+     Right card (snapshot): LAUNCHED ONLY.
+     ====================================================================== -->
+<section id="fund" data-mod="M03 · Fund details (objective + benefits + snapshot)" data-flex="all values are manual content fields">
   <div class="wrap">
-    <div class="fd">
-      <div class="fd-left">
-        <div class="fd-id">
-          <span class="fd-pill">[TICKER]</span>
-          <span class="fd-mult">[Multiple] daily</span>
-        </div>
-        <h3 class="fd-title">[Fund Name]</h3>
-        <div class="fd-lbl"><span class="pre-only">Proposed </span>Investment objective</div>
-        <p class="fd-obj">[TICKER] seeks daily investment results, before fees and expenses, that correspond to [multiple, e.g. two times (2x)] the daily performance of [Underlying] ([UND]).</p>
-        <p class="fd-fine pre-only">Subject to change until the registration statement is effective.</p>
-        <div class="benefits fd-benefits launch-only" id="benefits">
-          <div class="b-head"><h4>Why [TICKER]?</h4></div>
-          <div class="b-tabs" role="tablist">
-            <button class="b-tab on" role="tab" onclick="benShow(0,true)">
-              <span class="ic-wrap"><svg class="ico i-zoom" viewBox="0 0 40 40" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><g class="lens"><circle cx="17" cy="17" r="11"/><path d="M25 25l9 9"/></g><path class="bar" d="M12 22v-3"/><path class="bar" d="M15.5 22v-6"/><path class="bar" d="M19 22v-4"/><path class="bar" d="M22.5 22v-8"/></svg></span>
-              <span>Target Magnified Returns</span><i class="prog"></i></button>
-            <button class="b-tab" role="tab" onclick="benShow(1,true)">
-              <span class="ic-wrap"><svg class="ico i-clock" viewBox="0 0 40 40" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path class="spd" d="M2 16h9"/><path class="spd s2" d="M0 21h10"/><path class="spd s3" d="M2 26h9"/><circle cx="24" cy="21" r="11"/><path d="M21 7h6M24 7v3"/><path class="hand" d="M24 21v-7"/><circle cx="24" cy="21" r="1.3" fill="currentColor"/></svg></span>
-              <span>Efficient</span><i class="prog"></i></button>
-            <button class="b-tab" role="tab" onclick="benShow(2,true)">
-              <span class="ic-wrap"><svg class="ico i-tap" viewBox="0 0 40 40" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle class="rip" cx="19" cy="9" r="4"/><circle class="rip r2" cx="19" cy="9" r="4"/><path class="tap" d="M16 36v-6l-4-6c-1-2 1-4 3-2l2 2V12a2 2 0 0 1 4 0v8m0-3a2 2 0 0 1 4 0v3m0-2a2 2 0 0 1 4 0v3m0-1a2 2 0 0 1 4 0v7c0 4-2 7-2 7"/></svg></span>
-              <span>Convenience</span><i class="prog"></i></button>
-          </div>
-          <div class="b-body">
-            <p class="b-copy on">Benefit description goes here. [TICKER] targets [multiple] the daily returns of [Underlying] ([UND]).</p>
-            <p class="b-copy">[TICKER] offers [multiple] exposure with less cash—and without fear of margin calls.</p>
-            <p class="b-copy">Buy and sell leveraged exposure via a single ticker in a brokerage account.</p>
-          </div>
-        </div>
-      </div>
 
-      <div class="fd-right">
-        <div class="snap launch-only">
-          <div class="snap-head">
-            <h4>[TICKER] snapshot</h4>
-            <span class="snap-asof launch-only">As of <span class="ph">MM/DD/YYYY</span></span>
-            <span class="snap-asof pre-only">Details finalize at launch</span>
-          </div>
-          <div class="snap-grid">
-            <button class="sv" data-copy="[TICKER]"><span>Ticker</span><strong>[TICKER]</strong><i>Copy</i></button>
-            <button class="sv" data-copy="[TICKER].IV"><span>Intraday ticker</span><strong>[TICKER].IV</strong><i>Copy</i></button>
-            <button class="sv" data-copy=""><span>CUSIP</span><strong><b class="launch-only ph">[CUSIP]</b><b class="pre-only">TBD</b></strong><i>Copy</i></button>
-            <div class="sv"><span>Inception date</span><strong><b class="launch-only ph">[MM/DD/YYYY]</b><b class="pre-only">TBD</b></strong></div>
-            <div class="sv"><span>Gross expense ratio</span><strong><b class="launch-only ph">[0.00%]</b><b class="pre-only">TBD</b></strong></div>
-            <div class="sv"><span>Net expense ratio</span><strong><b class="launch-only ph">[0.00%]</b><b class="pre-only">TBD</b></strong></div>
-            <div class="sv"><span>Net assets</span><strong><b class="launch-only ph">[$0.0M]</b><b class="pre-only">TBD</b></strong></div>
-            <div class="sv"><span>NAV calc. time</span><strong>4:00pm ET</strong></div>
-            <div class="sv"><span>Exchange</span><strong><b class="launch-only ph">[Exchange]</b><b class="pre-only">TBD</b></strong></div>
-            <div class="sv"><span>Underlying</span><strong>[Underlying] ([UND])</strong></div>
-          </div>
-          <div class="snap-toast" id="toast" role="status" aria-live="polite"></div>
+    <article>
+      <div class="ids"><b>[TICKER]</b><span>[Multiple] daily</span></div>
+      <h3>[Fund Name]</h3>
+      <span class="label"><span data-show="pre">Proposed </span>Investment objective</span>
+      <p class="objective">[TICKER] seeks daily investment results, before fees and expenses, that correspond to [multiple, e.g. two times (2x)] the daily performance of [Underlying] ([UND]).</p>
+      <p class="fine" data-show="pre">Subject to change until the registration statement is effective.</p>
+
+      <!-- "Why [TICKER]?" auto-rotating tabs · LAUNCHED ONLY -->
+      <div id="benefits" data-show="live">
+        <h4>Why [TICKER]?</h4>
+        <div role="tablist">
+          <button role="tab"><span class="icon"><svg viewBox="0 0 40 40" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><g class="lens"><circle cx="17" cy="17" r="11"/><path d="M25 25l9 9"/></g><path class="bar" d="M12 22v-3"/><path class="bar" d="M15.5 22v-6"/><path class="bar" d="M19 22v-4"/><path class="bar" d="M22.5 22v-8"/></svg></span><span>Target Magnified Returns</span><i></i></button>
+          <button role="tab"><span class="icon"><svg viewBox="0 0 40 40" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path class="spd" d="M2 16h9"/><path class="spd s2" d="M0 21h10"/><path class="spd s3" d="M2 26h9"/><circle cx="24" cy="21" r="11"/><path d="M21 7h6M24 7v3"/><path class="hand" d="M24 21v-7"/><circle cx="24" cy="21" r="1.3" fill="currentColor"/></svg></span><span>Efficient</span><i></i></button>
+          <button role="tab"><span class="icon"><svg viewBox="0 0 40 40" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle class="rip" cx="19" cy="9" r="4"/><circle class="rip r2" cx="19" cy="9" r="4"/><path class="tap" d="M16 36v-6l-4-6c-1-2 1-4 3-2l2 2V12a2 2 0 0 1 4 0v8m0-3a2 2 0 0 1 4 0v3m0-2a2 2 0 0 1 4 0v3m0-1a2 2 0 0 1 4 0v7c0 4-2 7-2 7"/></svg></span><span>Convenience</span><i></i></button>
+        </div>
+        <div class="copy">
+          <p>Benefit description goes here. [TICKER] targets [multiple] the daily returns of [Underlying] ([UND]).</p>
+          <p>[TICKER] offers [multiple] exposure with less cash—and without fear of margin calls.</p>
+          <p>Buy and sell leveraged exposure via a single ticker in a brokerage account.</p>
         </div>
       </div>
-    </div>
+    </article>
+
+    <!-- snapshot · LAUNCHED ONLY. <button data-copy="…"> cells copy their value on click; <div> cells are read-only. -->
+    <aside id="snapshot" data-show="live">
+      <header>
+        <h4>[TICKER] snapshot</h4>
+        <span>As of <span class="ph">MM/DD/YYYY</span></span>
+      </header>
+      <div class="cells">
+        <button data-copy="[TICKER]"><small>Ticker</small><strong>[TICKER]</strong></button>
+        <button data-copy="[TICKER].IV"><small>Intraday ticker</small><strong>[TICKER].IV</strong></button>
+        <button data-copy="[CUSIP]"><small>CUSIP</small><strong class="ph">[CUSIP]</strong></button>
+        <div><small>Inception date</small><strong class="ph">[MM/DD/YYYY]</strong></div>
+        <div><small>Gross expense ratio</small><strong class="ph">[0.00%]</strong></div>
+        <div><small>Net expense ratio</small><strong class="ph">[0.00%]</strong></div>
+        <div><small>Net assets</small><strong class="ph">[$0.0M]</strong></div>
+        <div><small>NAV calc. time</small><strong>4:00pm ET</strong></div>
+        <div><small>Exchange</small><strong class="ph">[Exchange]</strong></div>
+        <div><small>Underlying</small><strong>[Underlying] ([UND])</strong></div>
+      </div>
+      <div id="toast" role="status" aria-live="polite"></div>
+    </aside>
 
   </div>
 </section>
 
-<!-- M05 · WHY [UNDERLYING] -->
-<section class="block" id="matters" data-mod="M05a · About [Company] (editorial + stat carousel)" data-flex="left: editorial text slots; right: 1–6 social stat cards">
+
+<!-- ======================================================================
+     M05 · ABOUT THE COMPANY · both phases (identical)
+     Left: editorial copy + index cards.  Right: 1–6 social stat cards.
+     ====================================================================== -->
+<section id="matters" data-mod="M05 · About [Company] (editorial + stat carousel)" data-flex="left: editorial text; right: 1–6 social stat cards, each needs a source line">
   <div class="wrap">
-    <div class="why2">
-      <div class="why-copy">
-        <div class="kicker">Company at a glance</div>
-        <h2>About [Company]</h2>
-        <p class="lede">Headline-style lead sentence goes here. <span class="ph">[Approved editorial]</span></p>
-        <p>Body copy goes here: what the underlying company or theme does, and why it matters to investors today. <span class="ph">[Approved editorial]</span></p>
-        <div class="idx">
-          <div class="idx-item">
-            <div class="idx-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19V5M4 19h16M8 15l3-4 3 2 5-6"/></svg></div>
-            <div><span class="idx-lbl">Underlying index</span><b>[Index Name]</b><p>What the index tracks and how it's constructed: number of holdings, weighting, rebalancing. <span class="ph">[Approved copy]</span></p></div>
-          </div>
-          <div class="idx-item">
-            <div class="idx-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 21V8l8-5 8 5v13"/><path d="M9 21v-6h6v6M4 21h16"/></svg></div>
-            <div><span class="idx-lbl">Index provider</span><b>[Index Company]</b><p>Background on the company behind the index: who they are and what they're known for. <span class="ph">[Approved copy]</span></p></div>
-          </div>
-          <p class="idx-note">For single-stock funds, use the first slot for the company and remove the second.</p>
-        </div>
-        <p>A closing paragraph can bridge to the fund: what this means for investors who want to act on a view. <span class="ph">[Approved editorial]</span></p>
-        <a class="gx-link" href="#insights">Read related insights <span>↓</span></a>
+
+    <article>
+      <span class="label">Company at a glance</span>
+      <h2>About [Company]</h2>
+      <p class="lede">Headline-style lead sentence goes here. <span class="ph">[Approved editorial]</span></p>
+      <p>Body copy goes here: what the underlying company or theme does, and why it matters to investors today. <span class="ph">[Approved editorial]</span></p>
+
+      <ul>
+        <li>
+          <i><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19V5M4 19h16M8 15l3-4 3 2 5-6"/></svg></i>
+          <div><span class="label">Underlying index</span><b>[Index Name]</b><p>What the index tracks and how it's constructed: number of holdings, weighting, rebalancing. <span class="ph">[Approved copy]</span></p></div>
+        </li>
+        <li>
+          <i><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 21V8l8-5 8 5v13"/><path d="M9 21v-6h6v6M4 21h16"/></svg></i>
+          <div><span class="label">Index provider</span><b>[Index Company]</b><p>Background on the company behind the index: who they are and what they're known for. <span class="ph">[Approved copy]</span></p></div>
+        </li>
+      </ul>
+      <p class="note">For single-stock funds, use the first slot for the company and remove the second.</p>
+
+      <p>A closing paragraph can bridge to the fund: what this means for investors who want to act on a view. <span class="ph">[Approved editorial]</span></p>
+      <a class="arrow-link" href="#insights">Read related insights <span>↓</span></a>
+    </article>
+
+    <!-- stat carousel. Swap each <figcaption> placeholder for an <img> or looping muted <video> -->
+    <aside aria-label="Stat cards" data-mod="M05b · Social stat carousel" data-flex="1–6 social stat cards, reused from campaign social; each needs a source line">
+      <div id="slides">
+        <figure><figcaption><b>Social stat card 1</b><small>1080 × 1350 image</small></figcaption></figure>
+        <figure data-video><video muted loop playsinline preload="metadata" src="" poster="" aria-label="Social stat card 2 (looping video)"></video><figcaption><b>Social stat card 2</b><small>MP4 loop · muted · 1080 × 1350</small></figcaption></figure>
+        <figure><figcaption><b>Social stat card 3</b><small>1080 × 1350 image</small></figcaption></figure>
       </div>
-      <aside class="facts-rail" aria-label="Stat cards" data-mod="M05b · Social stat carousel" data-flex="1–6 social stat cards, reused from campaign social; each needs a source line">
-        <div class="ff-viewport" id="ffv" onmouseenter="ffPause=true" onmouseleave="ffPause=false">
-          <div class="ff on ffph"><span class="ffl">Social stat card 1</span><span class="ffs">1080 × 1350 image</span></div>
-          <div class="ff ffph ffvid"><video muted loop playsinline preload="metadata" src="" poster="" aria-label="Social stat card 2 (looping video)"></video><span class="ffl">Social stat card 2</span><span class="ffs">MP4 loop · muted · 1080 × 1350</span><span class="ffplay" aria-hidden="true">▶ LOOP</span></div>
-          <div class="ff ffph"><span class="ffl">Social stat card 3</span><span class="ffs">1080 × 1350 image</span></div>
-        </div>
-        <div class="ff-dots" id="ffd"></div>
-        <div class="ff-share"><a href="#" target="_blank" rel="noopener">Share on X</a><a href="#" target="_blank" rel="noopener">Share on LinkedIn</a></div>
-        <p class="ff-note">Facts about the underlying company, not [TICKER] performance.</p>
-      </aside>
+      <div id="dots"></div>
+      <div id="share"><a href="#" target="_blank" rel="noopener">Share on X</a><a href="#" target="_blank" rel="noopener">Share on LinkedIn</a></div>
+      <small>Facts about the underlying company, not [TICKER] performance.</small>
+    </aside>
+
+  </div>
+</section>
+
+
+<!-- ======================================================================
+     P3 · NOTIFY ME BANNER · PRE-LAUNCH ONLY
+     Same sign-up form as the Notify popup at the bottom of the file.
+     ====================================================================== -->
+<section id="notify-sec" data-show="pre" data-mod="P3 · Notify Me (pre-launch only)" data-flex="sign-up banner; same form as the Notify popup">
+  <div class="wrap">
+    <div>
+      <span class="label">Be first to know</span>
+      <h3>Get the alert the day [TICKER] trades</h3>
+      <p>One email at launch, with the prospectus link.</p>
+      <form data-signup>
+        <input type="email" placeholder="Email address" required aria-label="Email address">
+        <div class="who"><input type="radio" name="w" id="w1" checked><label for="w1">Individual investor</label><input type="radio" name="w" id="w2"><label for="w2">Financial professional</label></div>
+        <button class="btn" type="submit">Notify Me</button>
+      </form>
     </div>
   </div>
 </section>
 
 
-
-
-
-
-
-<!-- PRE-ONLY · NOTIFY (moved above insights) -->
-<section class="block pre-only" id="notify-sec" data-mod="P3 · Notify Me (pre-launch only)" data-flex="sign-up banner; same form as the Notify popup">
+<!-- ======================================================================
+     M06 · RELATED INSIGHTS · both phases (identical)
+     First card is the lead (larger). Cards 2 and 3 are supporting.
+     ====================================================================== -->
+<section id="insights" data-mod="M06 · Insights" data-flex="1 lead + 2 supporting articles; pulls from the CMS insights feed or hand-picked">
   <div class="wrap">
-    <div class="paths">
-      <div class="path lead pre-only">
-        <div class="tag">Be first to know</div>
-        <h3>Get the alert the day [TICKER] trades</h3>
-        <p>One email at launch, with the prospectus link.</p>
-        <form class="form" onsubmit="event.preventDefault();this.innerHTML='<p style=&quot;font-size:17px;font-weight:600;color:#fff;margin:0&quot;>You\'re on the list.</p>'">
-          <input type="email" placeholder="Email address" required>
-          <div class="who"><input type="radio" name="w" id="w1" checked><label for="w1">Individual investor</label><input type="radio" name="w" id="w2"><label for="w2">Financial professional</label></div>
-          <button class="btn" type="submit" style="background:#fff;color:var(--green)">Notify Me</button>
-        </form>
-      </div>
-    </div>
-  </div>
-</section>
+    <div class="head"><h2>Related insights</h2><p>Text can be inputted here.</p></div>
 
-<!-- M06 · INSIGHTS -->
-<section class="block" id="insights" data-mod="M06 · Insights" data-flex="1 lead + 2 supporting articles; pulls from the CMS insights feed or hand-picked">
-  <div class="wrap">
-    <div class="sec-head">
-      <div><h2>Related insights</h2></div>
-      <p>Text can be inputted here.</p>
-    </div>
-    <div class="insights">
-      <a class="art lead" href="#" target="_blank" rel="noopener">
-        <div class="img"><span class="type">Insight</span></div>
-        <div class="body">
+    <div class="cards">
+      <a href="#" target="_blank" rel="noopener">
+        <figure><span>Insight</span></figure>
+        <div>
           <h3>Lead article title goes here</h3>
           <p>One- or two-sentence summary of the article.</p>
-          <div class="meta"><span>[Date] · [Author]</span><b>Read →</b></div>
+          <footer><span>[Date] · [Author]</span><b>Read →</b></footer>
         </div>
       </a>
-      <a class="art" href="#" target="_blank" rel="noopener">
-        <div class="img b"><span class="type">Insight</span></div>
-        <div class="body">
+      <a href="#" target="_blank" rel="noopener">
+        <figure><span>Insight</span></figure>
+        <div>
           <h3>Article title goes here</h3>
           <p>One-sentence summary of the article.</p>
-          <div class="meta"><span>[Date] · [Author]</span><b>Read →</b></div>
+          <footer><span>[Date] · [Author]</span><b>Read →</b></footer>
         </div>
       </a>
-      <a class="art" href="#" target="_blank" rel="noopener">
-        <div class="img c"><span class="type">Video / Guide</span></div>
-        <div class="body">
+      <a href="#" target="_blank" rel="noopener">
+        <figure><span>Video / Guide</span></figure>
+        <div>
           <h3>Supporting content title goes here</h3>
           <p>One-sentence summary.</p>
-          <div class="meta"><span>[Date]</span><b>Open →</b></div>
+          <footer><span>[Date]</span><b>Open →</b></footer>
         </div>
       </a>
     </div>
-    <a class="more-link" href="#" target="_blank" rel="noopener">All related insights →</a>
+
+    <a href="#" target="_blank" rel="noopener">All related insights →</a>
   </div>
 </section>
 
 
-<!-- HOW GEARED ETFs WORK (both phases) -->
-<section class="block" id="learn" data-mod="P1 · How Geared ETFs Work" data-flex="evergreen; reusable across every geared launch; links to the two main-site education pages">
+<!-- ======================================================================
+     P1 · HOW GEARED ETFs WORK · both phases (identical, evergreen)
+     Left: interactive bar demo.  Right: 4-step accordion.
+     ====================================================================== -->
+<section id="learn" data-mod="P1 · How Geared ETFs Work" data-flex="evergreen; reusable across every geared launch">
   <div class="wrap">
-    <div class="sec-head">
-      <h2>How Geared ETFs Work</h2>
-      <p>Text can be inputted here.</p>
-    </div>
-    <div class="g101">
-      <div class="gx">
-        <div class="gx-tabs" role="tablist" id="gxTabs">
+    <div class="head"><h2>How Geared ETFs Work</h2><p>Text can be inputted here.</p></div>
+
+    <div class="pair">
+      <article>
+        <div id="gxTabs" role="tablist">
           <button class="on" role="tab" onclick="gx('lev')">Leveraged</button>
           <button role="tab" onclick="gx('inv')">Inverse</button>
         </div>
-        <p class="gx-def" id="gxDef">Leveraged ETFs (2x, 3x) are designed to magnify the one-day return of a benchmark, a way to express a bullish view.</p>
-        <div class="gx-mults" id="gxMults"></div>
-        <div class="gx-viz">
-          <div class="gx-row"><span class="gx-l">Benchmark</span><div class="gx-track"><i id="gxB"></i></div><b id="gxBv">+1%</b></div>
-          <div class="gx-row"><span class="gx-l">Fund</span><div class="gx-track"><i id="gxF" class="f"></i></div><b id="gxFv">+2%</b></div>
+        <p id="gxDef"></p>
+        <div id="gxMults"></div>
+        <div class="viz">
+          <div><span>Benchmark</span><span class="track"><i id="gxB"></i></span><b id="gxBv">+1%</b></div>
+          <div><span>Fund</span><span class="track"><i id="gxF"></i></span><b id="gxFv">+2%</b></div>
         </div>
-        <div class="gx-day"><span>Benchmark day:</span><button class="on" onclick="gxDay(1,this)">Up 1%</button><button onclick="gxDay(-1,this)">Down 1%</button></div>
-        <p class="gx-cap">Hypothetical one-day example, before fees and expenses.</p>
-        <a class="gx-link" href="https://www.proshares.com/strategies/leveraged-and-inverse" target="_blank" rel="noopener">Explore Leveraged &amp; Inverse ETFs <span>→</span></a>
-      </div>
+        <div id="gxDays"><span>Benchmark day:</span><button class="on" onclick="gxDay(1,this)">Up 1%</button><button onclick="gxDay(-1,this)">Down 1%</button></div>
+        <p class="caption">Hypothetical one-day example, before fees and expenses.</p>
+        <a class="arrow-link" href="https://www.proshares.com/strategies/leveraged-and-inverse" target="_blank" rel="noopener">Explore Leveraged &amp; Inverse ETFs <span>→</span></a>
+      </article>
 
-      <div class="hw">
-        <div class="hw-head"><h3>How they work</h3><span class="hw-count" id="hwCount">1 / 4</span></div>
-        <ol class="hw-steps" id="hwSteps"><span class="hw-fill" id="hwFill" aria-hidden="true"></span>
-          <li class="on"><button onclick="hw(0)"><i>1</i><span>A daily objective</span></button>
-            <div class="hw-body"><p>Geared funds aim to deliver their multiple, like 2x, from the close of one trading day to the close of the next. Not over weeks or months.</p></div></li>
-          <li><button onclick="hw(1)"><i>2</i><span>They reset every day</span></button>
-            <div class="hw-body"><p>Each day the fund rebalances back to its target. Without it, leverage could drift from 2x to as high as 10x, or down to 1x, making results unpredictable.</p></div></li>
-          <li><button onclick="hw(2)"><i>3</i><span>Longer holds can differ</span></button>
-            <div class="hw-body"><p>Over periods longer than a day, returns can differ significantly from the daily multiple. Higher volatility tends to hurt; lower volatility tends to help. Monitor positions regularly.</p></div></li>
-          <li><button onclick="hw(3)"><i>4</i><span>No margin, no borrowing shares</span></button>
-            <div class="hw-body"><p>Unlike buying on margin or shorting a stock, your loss is limited to what you invest, with no margin calls and no borrowing.</p></div></li>
+      <article id="hw">
+        <header><h3>How they work</h3><span id="hwCount">1 / 4</span></header>
+        <ol id="hwSteps">
+          <li class="on"><button><i>1</i><span>A daily objective</span></button>
+            <div><p>Geared funds aim to deliver their multiple, like 2x, from the close of one trading day to the close of the next. Not over weeks or months.</p></div></li>
+          <li><button><i>2</i><span>They reset every day</span></button>
+            <div><p>Each day the fund rebalances back to its target. Without it, leverage could drift from 2x to as high as 10x, or down to 1x, making results unpredictable.</p></div></li>
+          <li><button><i>3</i><span>Longer holds can differ</span></button>
+            <div><p>Over periods longer than a day, returns can differ significantly from the daily multiple. Higher volatility tends to hurt; lower volatility tends to help. Monitor positions regularly.</p></div></li>
+          <li><button><i>4</i><span>No margin, no borrowing shares</span></button>
+            <div><p>Unlike buying on margin or shorting a stock, your loss is limited to what you invest, with no margin calls and no borrowing.</p></div></li>
         </ol>
-        <a class="gx-link" href="https://www.proshares.com/resources/geared-faqs" target="_blank" rel="noopener">Read How They Work: Geared Fund FAQs <span>→</span></a>
-      </div>
+        <a class="arrow-link" href="https://www.proshares.com/resources/geared-faqs" target="_blank" rel="noopener">Read How They Work: Geared Fund FAQs <span>→</span></a>
+      </article>
     </div>
   </div>
 </section>
 
-<!-- M07 · WHERE DO I GO NEXT? -->
-<section class="block launch-only" id="next" data-mod="M07 · Pathways" data-flex="lead path swaps per phase (notify → buy)">
-  <div class="wrap">
 
-    <div class="htb launch-only" id="buy" data-mod="M07a · How to Buy (tab slider)" data-flex="mirrors the main-site How to Buy page; ticker in steps is a variable">
-      <div class="htb-top">
-        <div class="htb-title">
-          <span class="htb-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 8h13l-3.5-3.5M20 16H7l3.5 3.5"/></svg></span>
-          <h3>How to Buy</h3>
+<!-- ======================================================================
+     M07a · HOW TO BUY · LAUNCHED ONLY
+     Two tabs: Individual Investors / Financial Professionals.
+     ====================================================================== -->
+<section id="buy" data-show="live" data-mod="M07a · How to Buy (tab slider)" data-flex="mirrors the main-site How to Buy page; ticker in steps is a variable">
+  <div class="wrap">
+    <div>
+      <header>
+        <h3><i><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 8h13l-3.5-3.5M20 16H7l3.5 3.5"/></svg></i>How to Buy</h3>
+        <div id="htbTabs" role="tablist">
+          <span id="htbPill"></span>
+          <button class="on" role="tab">Individual Investors</button>
+          <button role="tab">Financial Professionals</button>
         </div>
-        <div class="tabs" role="tablist" id="htbTabs">
-          <span class="pill" id="htbPill"></span>
-          <button class="on" role="tab" onclick="htb(0)">Individual Investors</button>
-          <button role="tab" onclick="htb(1)">Financial Professionals</button>
+      </header>
+
+      <div id="htbView"><div id="htbTrack">
+        <div>
+          <p>You can find ProShares ETFs on most trading platforms, or talk to your financial advisor or brokerage account representative. Please note, your advisor or broker may charge commissions or other transaction fees.</p>
+          <ul>
+            <li><a href="https://www.schwab.com" target="_blank" rel="noopener">Charles Schwab</a></li>
+            <li><a href="https://www.fidelity.com" target="_blank" rel="noopener">Fidelity</a></li>
+            <li><a href="https://us.etrade.com" target="_blank" rel="noopener">E*Trade</a></li>
+            <li><a href="https://www.interactivebrokers.com" target="_blank" rel="noopener">Interactive Brokers</a></li>
+            <li><a href="https://robinhood.com" target="_blank" rel="noopener">Robinhood</a></li>
+          </ul>
+          <ol>
+            <li>Log in to your brokerage account</li>
+            <li>Search "[TICKER]" and confirm [Fund Name]</li>
+            <li>Place your trade and monitor it regularly</li>
+          </ol>
+          <aside>ProShares ETFs cannot be purchased directly from ProShares. They are available for purchase on exchanges, much like stocks, and can be bought and sold throughout the day whenever the exchange is open. <a href="#" target="_blank" rel="noopener">Understanding ETF Liquidity and Trading</a></aside>
         </div>
-      </div>
-      <div class="htb-view" id="htbView">
-        <div class="htb-track" id="htbTrack">
-          <div class="htb-panel">
-            <p>You can find ProShares ETFs on most trading platforms, or talk to your financial advisor or brokerage account representative. Please note, your advisor or broker may charge commissions or other transaction fees.</p>
-            <div class="brokers">
-              <a href="https://www.schwab.com" target="_blank" rel="noopener">Charles Schwab</a>
-              <a href="https://www.fidelity.com" target="_blank" rel="noopener">Fidelity</a>
-              <a href="https://us.etrade.com" target="_blank" rel="noopener">E*Trade</a>
-              <a href="https://www.interactivebrokers.com" target="_blank" rel="noopener">Interactive Brokers</a>
-              <a href="https://robinhood.com" target="_blank" rel="noopener">Robinhood</a>
-            </div>
-            <ol class="htb-steps">
-              <li>Log in to your brokerage account</li>
-              <li>Search "[TICKER]" and confirm [Fund Name]</li>
-              <li>Place your trade and monitor it regularly</li>
-            </ol>
-            <div class="htb-note">ProShares ETFs cannot be purchased directly from ProShares. They are available for purchase on exchanges, much like stocks, and can be bought and sold throughout the day whenever the exchange is open. <a href="#" target="_blank" rel="noopener">Understanding ETF Liquidity and Trading</a></div>
+
+        <div>
+          <p>ProShares ETFs are available through most major brokerage platforms, making it easy to incorporate our strategies into your clients' portfolios. To confirm availability or request support, please contact your branch manager, trading desk, or brokerage platform representative.</p>
+          <div class="contacts">
+            <section><h4>Financial Advisors</h4>(866) 776-5125, option 2<br>Mon–Fri, 8 a.m. to 6 p.m. ET<br><a href="mailto:info@proshares.com">info@proshares.com</a></section>
+            <section><h4>Institutional &amp; International</h4>(866) 776-5125, option 3<br>Mon–Fri, 8 a.m. to 6 p.m. ET<br><a href="mailto:institutionalgroup@proshares.com">institutionalgroup@proshares.com</a></section>
+            <section><h4>Capital Markets</h4>(866) 776-5125, option 4<br>Mon–Fri, 8 a.m. to 6 p.m. ET<br><a href="mailto:capitalmarkets@proshares.com">capitalmarkets@proshares.com</a></section>
           </div>
-          <div class="htb-panel">
-            <p>ProShares ETFs are available through most major brokerage platforms, making it easy to incorporate our strategies into your clients' portfolios. To confirm availability or request support, please contact your branch manager, trading desk, or brokerage platform representative.</p>
-            <div class="contacts">
-              <div class="contact"><h4>Financial Advisors</h4><div>(866) 776-5125, option 2<br>Mon–Fri, 8 a.m. to 6 p.m. ET<br><a href="mailto:info@proshares.com">info@proshares.com</a></div></div>
-              <div class="contact"><h4>Institutional &amp; International</h4><div>(866) 776-5125, option 3<br>Mon–Fri, 8 a.m. to 6 p.m. ET<br><a href="mailto:institutionalgroup@proshares.com">institutionalgroup@proshares.com</a></div></div>
-              <div class="contact"><h4>Capital Markets</h4><div>(866) 776-5125, option 4<br>Mon–Fri, 8 a.m. to 6 p.m. ET<br><a href="mailto:capitalmarkets@proshares.com">capitalmarkets@proshares.com</a></div></div>
-            </div>
-          </div>
         </div>
-      </div>
-    </div>
-
-  </div>
-</section>
-
-<!-- M08 · FAQ -->
-<section class="block" id="faq" data-mod="M08 · FAQ" data-flex="phase-tagged questions; shared geared-fund questions reused">
-  <div class="wrap">
-    <div class="sec-head"><h2>FAQs</h2></div>
-    <div class="faq">
-      <details class="pre-only"><summary>When will [TICKER] launch?</summary><p>Only after its registration statement becomes effective. Sign up above to be notified.</p></details>
-      <details class="launch-only"><summary>Where can I buy [TICKER]?</summary><p>Through most standard brokerage accounts that offer ETFs. No margin account is required.</p></details>
-      <details><summary>What does [TICKER] track?</summary><p>It seeks [multiple] the daily performance of [Underlying] ([UND]), before fees and expenses.</p></details>
-      <details><summary>What does "daily objective" mean?</summary><p>The [multiple] objective applies to a single day only. Over longer periods, compounding can cause returns to differ significantly from [multiple] the underlying's return.</p></details>
-      <details><summary>Can I lose more than I invest?</summary><p>No. Unlike borrowing on margin, your maximum loss is limited to the amount you invest. Because of the leverage, you could lose your entire investment, even within a single day.</p></details>
-      <details><summary>Is [TICKER] affiliated with [Underlying]?</summary><p>No. The ETF and ProShare Advisors LLC are not affiliated with the underlying stock issuer.</p></details>
+      </div></div>
     </div>
   </div>
 </section>
 
-<!-- ABOUT PROSHARES (both phases) -->
-<section class="block" id="about" data-mod="P2 · Meet ProShares" data-flex="evergreen; first-time visitors (left) vs. existing ProShares investors (right) + socials">
+
+<!-- ======================================================================
+     M08 · FAQ · both phases
+     Each question is tagged: pre-only, live-only, or shared (no tag).
+     ====================================================================== -->
+<section id="faq" data-mod="M08 · FAQ" data-flex="phase-tagged questions; shared geared-fund questions reused">
   <div class="wrap">
-    <div class="about">
-      <div class="ab-new">
+    <div class="head"><h2>FAQs</h2></div>
+
+    <details data-show="pre"><summary>When will [TICKER] launch?</summary><p>Only after its registration statement becomes effective. Sign up above to be notified.</p></details>
+    <details data-show="live"><summary>Where can I buy [TICKER]?</summary><p>Through most standard brokerage accounts that offer ETFs. No margin account is required.</p></details>
+
+    <details><summary>What does [TICKER] track?</summary><p>It seeks [multiple] the daily performance of [Underlying] ([UND]), before fees and expenses.</p></details>
+    <details><summary>What does "daily objective" mean?</summary><p>The [multiple] objective applies to a single day only. Over longer periods, compounding can cause returns to differ significantly from [multiple] the underlying's return.</p></details>
+    <details><summary>Can I lose more than I invest?</summary><p>No. Unlike borrowing on margin, your maximum loss is limited to the amount you invest. Because of the leverage, you could lose your entire investment, even within a single day.</p></details>
+    <details><summary>Is [TICKER] affiliated with [Underlying]?</summary><p>No. The ETF and ProShare Advisors LLC are not affiliated with the underlying stock issuer.</p></details>
+  </div>
+</section>
+
+
+<!-- ======================================================================
+     P2 · ABOUT PROSHARES · both phases (identical, evergreen)
+     ====================================================================== -->
+<section id="about" data-mod="P2 · Meet ProShares" data-flex="evergreen; stats + three main-site links">
+  <div class="wrap">
+    <div>
+      <article>
         <h3>About ProShares</h3>
         <p>ProShares introduced leveraged and inverse ETFs in 2006 and has been at the forefront of the ETF revolution ever since.</p>
-        <div class="ab-stats">
-          <div><strong data-count="2006" data-plain="1">2006</strong><span>Geared ETFs introduced</span></div>
-          <div><strong data-count="110" data-pre="$" data-suf="B+">$110B+</strong><span>In assets</span></div>
-          <div><strong data-count="115" data-suf="+">115+</strong><span>Geared ETFs</span></div>
-        </div>
-        <span class="ab-src">Source: ProShares. <span class="ph">[Confirm figures + as-of date]</span></span>
-      </div>
-      <div class="ab-go">
-        <a href="https://www.proshares.com/our-etfs/find-leveraged-and-inverse-etfs?etftype=&amp;strategy=&amp;benchmark=&amp;product=Product+Overview+&amp;search=" target="_blank" rel="noopener">
-          <span class="ab-gi"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="2.5" y="4.5" width="17" height="12" rx="1.5"/><rect x="4.5" y="6.5" width="13" height="8" rx=".8" stroke-width="1"/><path d="M7 9h5M7 11.5h4"/><circle cx="17.5" cy="14" r="2.6"/><path d="M16.3 16.2l-.6 4 1.8-1 1.8 1-.6-4"/></svg></span>
-          <span class="ab-gt"><b>Geared ETF lineup</b><small>See funds already trading</small></span><span class="ab-arr">→</span></a>
-        <a href="https://www.proshares.com/strategies/leveraged-and-inverse" target="_blank" rel="noopener">
-          <span class="ab-gi"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M10 2.5 3.5 10.8H17.5L12.6 5.6"/><path d="M14 21.5 20.5 13.2H6.5L11.4 18.4"/></svg></span>
-          <span class="ab-gt"><b>Leveraged &amp; Inverse ETFs</b><small>Magnify a bullish or bearish view</small></span><span class="ab-arr">→</span></a>
-        <a href="https://www.proshares.com/resources/geared-faqs" target="_blank" rel="noopener">
-          <span class="ab-gi"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M9.5 9.5a2.5 2.5 0 1 1 3.5 2.3c-.6.3-1 .8-1 1.5V14M12 17.2v.1"/></svg></span>
-          <span class="ab-gt"><b>Geared fund FAQs</b><small>Common questions, answered</small></span><span class="ab-arr">→</span></a>
-      </div>
+        <ul id="stats">
+          <li><strong data-count="2006" data-plain="1">2006</strong><span>Geared ETFs introduced</span></li>
+          <li><strong data-count="110" data-pre="$" data-suf="B+">$110B+</strong><span>In assets</span></li>
+          <li><strong data-count="115" data-suf="+">115+</strong><span>Geared ETFs</span></li>
+        </ul>
+        <small>Source: ProShares. <span class="ph">[Confirm figures + as-of date]</span></small>
+      </article>
+
+      <ul class="go">
+        <li><a href="https://www.proshares.com/our-etfs/find-leveraged-and-inverse-etfs?etftype=&amp;strategy=&amp;benchmark=&amp;product=Product+Overview+&amp;search=" target="_blank" rel="noopener">
+          <i><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="2.5" y="4.5" width="17" height="12" rx="1.5"/><rect x="4.5" y="6.5" width="13" height="8" rx=".8" stroke-width="1"/><path d="M7 9h5M7 11.5h4"/><circle cx="17.5" cy="14" r="2.6"/><path d="M16.3 16.2l-.6 4 1.8-1 1.8 1-.6-4"/></svg></i>
+          <span><b>Geared ETF lineup</b><small>See funds already trading</small></span><em>→</em></a></li>
+        <li><a href="https://www.proshares.com/strategies/leveraged-and-inverse" target="_blank" rel="noopener">
+          <i><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M10 2.5 3.5 10.8H17.5L12.6 5.6"/><path d="M14 21.5 20.5 13.2H6.5L11.4 18.4"/></svg></i>
+          <span><b>Leveraged &amp; Inverse ETFs</b><small>Magnify a bullish or bearish view</small></span><em>→</em></a></li>
+        <li><a href="https://www.proshares.com/resources/geared-faqs" target="_blank" rel="noopener">
+          <i><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M9.5 9.5a2.5 2.5 0 1 1 3.5 2.3c-.6.3-1 .8-1 1.5V14M12 17.2v.1"/></svg></i>
+          <span><b>Geared fund FAQs</b><small>Common questions, answered</small></span><em>→</em></a></li>
+      </ul>
     </div>
   </div>
 </section>
 
-<!-- FINAL CTA (launch only, full width) -->
-<section class="final launch-only" id="final" data-mod="M09 · Final CTA" data-flex="headline + line + product-details link">
+
+<!-- ======================================================================
+     M09 · FINAL CTA · LAUNCHED ONLY (full-width green band)
+     ====================================================================== -->
+<section id="final" data-show="live" data-mod="M09 · Final CTA" data-flex="headline + line + product-details link">
   <div class="wrap">
-    <div class="final-copy">
-      <div class="final-k">Go deeper on [TICKER]</div>
+    <div>
+      <span class="label">Go deeper on [TICKER]</span>
       <h2>Everything you need, in one place.</h2>
       <p>Performance, holdings, distributions and documents live on the [TICKER] product page.</p>
     </div>
-    <div class="final-btns">
-      <a class="btn btn-light" href="#" target="_blank" rel="noopener">View [TICKER] Product Details</a>
-      <a class="btn btn-ghost" href="#buy">How to Buy</a>
+    <div class="buttons">
+      <a class="btn light" href="#" target="_blank" rel="noopener">View [TICKER] Product Details</a>
+      <a class="btn ghost" href="#buy">How to Buy</a>
     </div>
   </div>
 </section>
 
-<div class="mcta" id="mcta" aria-hidden="true">
-  <span class="mcta-t">[TICKER]</span>
-  <a class="btn btn-primary launch-only" href="#buy">How to Buy</a>
-  <button class="btn btn-primary pre-only" type="button" onclick="openNotify()">Notify Me</button>
+
+<!-- ======================================================================
+     STICKY MOBILE CTA · both phases, button swaps. Phones only; appears after the hero scrolls away.
+     ====================================================================== -->
+<div id="mcta" aria-hidden="true">
+  <b>[TICKER]</b>
+  <a class="btn" data-show="live" href="#buy">How to Buy</a>
+  <button class="btn" data-show="pre" type="button" data-open="notify">Notify Me</button>
 </div>
 
-<footer><div class="wrap">
-  <img class="flogo" src="data:image/png;base64,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" alt="ProShares">
-  <div class="f-soc"><div class="socials dark">
-          <a class="nsoc fsoc" href="https://x.com/ProShares" target="_blank" rel="noopener" aria-label="ProShares on X"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.8 3h3.1l-6.8 7.7L22 21h-6.2l-4.9-6.3L5.3 21H2.2l7.2-8.3L1.9 3h6.4l4.4 5.8L17.8 3Zm-1.1 16.2h1.7L7.4 4.7H5.6l11.1 14.5Z"/></svg></a>
-          <a class="nsoc fsoc" href="https://www.instagram.com/proshares/" target="_blank" rel="noopener" aria-label="ProShares on Instagram"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/></svg></a>
-          <a class="nsoc fsoc" href="https://www.youtube.com/@ProSharesETFs" target="_blank" rel="noopener" aria-label="ProShares on YouTube"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M22.5 7.2a2.8 2.8 0 0 0-2-2C18.7 4.7 12 4.7 12 4.7s-6.7 0-8.5.5a2.8 2.8 0 0 0-2 2C1 9 1 12 1 12s0 3 .5 4.8a2.8 2.8 0 0 0 2 2c1.8.5 8.5.5 8.5.5s6.7 0 8.5-.5a2.8 2.8 0 0 0 2-2C23 15 23 12 23 12s0-3-.5-4.8ZM9.8 15.3V8.7l5.7 3.3-5.7 3.3Z"/></svg></a>
-          <a class="nsoc fsoc" href="https://www.linkedin.com/company/proshare-advisors-llc/" target="_blank" rel="noopener" aria-label="ProShares on LinkedIn"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M4.98 3.5a2.5 2.5 0 1 1 0 5 2.5 2.5 0 0 1 0-5ZM3 9.5h4V21H3V9.5Zm6.5 0h3.8v1.6h.1c.5-1 1.8-2 3.8-2 4 0 4.8 2.6 4.8 6V21h-4v-5.2c0-1.2 0-2.9-1.8-2.9s-2 1.4-2 2.8V21h-4V9.5Z"/></svg></a>
-        </div></div>
-  <h4>Important information</h4>
-  <p class="pre-only">The registration statement for [TICKER] has been filed with the SEC but is not yet effective and may be changed. Shares may not be sold, nor may offers to buy be accepted, until the registration statement is effective. <span class="ph">[Full pre-launch legend]</span></p>
-  <p><span class="ph">[Fund-type risk language, e.g. single-stock, index or sector]</span> <span class="ph">[Underlying-specific risks]</span> Leveraged ProShares ETFs are non-diversified. There is no guarantee any ProShares ETF will achieve its investment objective. Shares of any ETF are generally bought and sold at market price (not NAV) and are not individually redeemed from the fund.</p>
-  <p>Fast facts describe the underlying company and are not indicative of [TICKER] performance. Carefully consider the investment objectives, risks, charges and expenses of ProShares before investing. This and other information can be found in the summary and full prospectuses. ProShares are distributed by SEI Investments Distribution Co., which is not affiliated with the funds' advisor or sponsor. <span class="ph">[Remaining approved legal]</span></p>
-</div></footer>
 
+<!-- ======================================================================
+     FOOTER · both phases. The registration-statement legend is pre-launch only.
+     ====================================================================== -->
+<footer>
+  <div class="wrap">
+    <img src="assets/images/Logo_ProShares_Full_Wordmark_White.png" alt="ProShares">
+    <div class="fsocial"><div class="social">
+      <a href="https://x.com/ProShares" target="_blank" rel="noopener" aria-label="ProShares on X"><img src="assets/images/X-logo-white.svg" alt=""></a>
+      <a href="https://www.instagram.com/proshares/" target="_blank" rel="noopener" aria-label="ProShares on Instagram"><img src="assets/images/Instagram_Glyph_White.svg" alt=""></a>
+      <a href="https://www.youtube.com/@ProSharesETFs" target="_blank" rel="noopener" aria-label="ProShares on YouTube"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="white" class="bi bi-youtube" viewBox="0 0 16 16">
+        <path d="M8.051 1.999h.089c.822.003 4.987.033 6.11.335a2.01 2.01 0 0 1 1.415 1.42c.101.38.172.883.22 1.402l.01.104.022.26.008.104c.065.914.073 1.77.074 1.957v.075c-.001.194-.01 1.108-.082 2.06l-.008.105-.009.104c-.05.572-.124 1.14-.235 1.558a2.01 2.01 0 0 1-1.415 1.42c-1.16.312-5.569.334-6.18.335h-.142c-.309 0-1.587-.006-2.927-.052l-.17-.006-.087-.004-.171-.007-.171-.007c-1.11-.049-2.167-.128-2.654-.26a2.01 2.01 0 0 1-1.415-1.419c-.111-.417-.185-.986-.235-1.558L.09 9.82l-.008-.104A31 31 0 0 1 0 7.68v-.123c.002-.215.01-.958.064-1.778l.007-.103.003-.052.008-.104.022-.26.01-.104c.048-.519.119-1.023.22-1.402a2.01 2.01 0 0 1 1.415-1.42c.487-.13 1.544-.21 2.654-.26l.17-.007.172-.006.086-.003.171-.007A100 100 0 0 1 7.858 2zM6.4 5.209v4.818l4.157-2.408z"/>
+      </svg></a>
+      <a href="https://www.linkedin.com/company/proshare-advisors-llc/" target="_blank" rel="noopener" aria-label="ProShares on LinkedIn"><img src="assets/images/LinkedIn-white.png" alt=""></a>
+    </div></div>
 
-<div class="modal vmodal" id="vmodal" role="dialog" aria-modal="true" aria-label="[TICKER] video">
-  <div class="vbox">
-    <button class="m-x vx" type="button" onclick="closeVideo()" aria-label="Close video">✕</button>
-    <div class="player" id="player">
-      <button class="poster" onclick="playVideo(0)" aria-label="Play the video">
-        <div class="top"><span class="chip">Video</span><span class="chip ph" style="color:#fff">[0:00]</span></div>
-        <h3>Video title <em>goes here.</em></h3>
-        <div class="bottom"><span class="bigplay" aria-hidden="true"></span><span class="meta"><b>Video subtitle</b>One line describing the video</span></div>
-      </button>
-      <div class="embed" aria-live="polite"><div><div style="font-weight:700;font-size:16px">[Vimeo embed]</div><div class="bar"><i id="embedBar"></i></div></div></div>
-    </div>
-    <div class="vid-links"><a href="#" target="_blank" rel="noopener">Read transcript</a></div>
+    <h4>Important information</h4>
+    <p data-show="pre">The registration statement for [TICKER] has been filed with the SEC but is not yet effective and may be changed. Shares may not be sold, nor may offers to buy be accepted, until the registration statement is effective. <span class="ph">[Full pre-launch legend]</span></p>
+    <p><span class="ph">[Fund-type risk language, e.g. single-stock, index or sector]</span> <span class="ph">[Underlying-specific risks]</span> Leveraged ProShares ETFs are non-diversified. There is no guarantee any ProShares ETF will achieve its investment objective. Shares of any ETF are generally bought and sold at market price (not NAV) and are not individually redeemed from the fund.</p>
+    <p>Fast facts describe the underlying company and are not indicative of [TICKER] performance. Carefully consider the investment objectives, risks, charges and expenses of ProShares before investing. This and other information can be found in the summary and full prospectuses. ProShares are distributed by SEI Investments Distribution Co., which is not affiliated with the funds' advisor or sponsor. <span class="ph">[Remaining approved legal]</span></p>
   </div>
-</div>
+</footer>
 
-<div class="modal" id="notify" role="dialog" aria-modal="true" aria-labelledby="nT">
-  <div class="modal-box notify-box">
-    <button class="m-x" type="button" onclick="closeNotify()" aria-label="Close">✕</button>
-    <div class="n-tag">Be first to know</div>
+
+<!-- ======================================================================
+     POPUPS · native <dialog>. Opened by any element with data-open="notify" or data-open="video".
+     ====================================================================== -->
+
+<!-- Notify Me popup · used in PRE-LAUNCH (every Notify button is pre-only) -->
+<dialog id="notify" aria-labelledby="nT">
+  <div>
+    <button class="close" type="button" data-close aria-label="Close">✕</button>
+    <span class="label">Be first to know</span>
     <h3 id="nT">Get the alert the day [TICKER] trades</h3>
     <p>One email at launch, with the prospectus link.</p>
-    <form class="n-form" onsubmit="event.preventDefault();this.innerHTML='<p class=&quot;n-done&quot;>✓ You\'re on the list. We\'ll email you at launch.</p>'">
-      <input type="email" placeholder="Email address" required aria-label="Email address">
-      <div class="n-who"><input type="radio" name="nw" id="nw1" checked><label for="nw1">Individual investor</label><input type="radio" name="nw" id="nw2"><label for="nw2">Financial professional</label></div>
-      <button class="btn btn-primary" type="submit">Notify Me</button>
+    <form data-signup>
+      <input type="email" placeholder="Email address" required aria-label="Email address" autofocus>
+      <div class="who"><input type="radio" name="nw" id="nw1" checked><label for="nw1">Individual investor</label><input type="radio" name="nw" id="nw2"><label for="nw2">Financial professional</label></div>
+      <button class="btn" type="submit">Notify Me</button>
     </form>
   </div>
-</div>
+</dialog>
+
+<!-- Video popup · used in LAUNCHED (every Watch Video button is live-only) -->
+<dialog id="video" aria-label="[TICKER] video">
+  <div>
+    <button class="close" type="button" data-close aria-label="Close video">✕</button>
+    <div id="player">
+      <button id="poster" aria-label="Play the video">
+        <span class="top"><b>Video</b><b class="ph" style="color:#fff">[0:00]</b></span>
+        <h3>Video title <em>goes here.</em></h3>
+        <span class="bottom"><i aria-hidden="true"></i><span><b>Video subtitle</b>One line describing the video</span></span>
+      </button>
+      <div id="embed" aria-live="polite"><div><div style="font-weight:700;font-size:16px">[Vimeo embed]</div><div class="bar"><i id="embedBar"></i></div></div></div>
+    </div>
+    <p><a href="#" target="_blank" rel="noopener">Read transcript</a></p>
+  </div>
+</dialog>
+
 
 <script>
-function openVideo(e){if(e)e.preventDefault();
-  const t=e&&e.currentTarget?e.currentTarget.getBoundingClientRect():null;
-  const x=t?t.left+t.width/2:innerWidth/2, y=t?t.top+t.height/2:innerHeight/2;
-  vmodal.style.setProperty('--ox',x+'px');vmodal.style.setProperty('--oy',y+'px');
-  vmodal.classList.remove('closing');vmodal.classList.add('open');requestAnimationFrame(()=>vmodal.classList.add('revealed'))}
-function closeVideo(){if(!vmodal.classList.contains('open'))return;vmodal.classList.add('closing');vmodal.classList.remove('revealed');setTimeout(()=>{vmodal.classList.remove('open','closing');player.classList.remove('playing')},300)}
-vmodal.addEventListener('click',e=>{if(e.target===vmodal)closeVideo()});
-addEventListener('keydown',e=>{if(e.key==='Escape')closeVideo()});
-function openNotify(){notify.classList.add('open');setTimeout(()=>notify.querySelector('input[type=email]')?.focus(),50)}
-function closeNotify(){notify.classList.remove('open')}
-notify.addEventListener('click',e=>{if(e.target===notify)closeNotify()});
-addEventListener('keydown',e=>{if(e.key==='Escape')closeNotify()});
+const $  = id => document.getElementById(id);
+const $$ = sel => [...document.querySelectorAll(sel)];
+const RM = matchMedia('(prefers-reduced-motion: reduce)').matches;
+const isPre = () => document.body.dataset.phase === 'pre';
+
+
+/* ===== PHASE SWITCH (mockup panel only; in production the phase is set once on <body data-phase>) ===== */
+$('controls').addEventListener('click', e => { const p = e.target.dataset.set; if (p) setPhase(p); });
 function setPhase(p){
-  document.body.classList.remove('pre','live');document.body.classList.add(p);
-  bPre.classList.toggle('on',p==='pre');bLive.classList.toggle('on',p==='live');
-  rail(p);spy();
-}
-const railEl=document.getElementById('rail');
-function rail(p){
-  const nodes=[...document.querySelectorAll('.node')];
-  const states=p==='pre'?['done','now','','']:['done','done','done','now'];
-  nodes.forEach((n,i)=>{n.className='node '+states[i];n.style.transitionDelay=(i*180)+'ms'});
-  lineFill.style.width='0';railEl.classList.remove('go');
-  railEl.style.setProperty('--glow',p==='pre'?'45%':'92%');
-  requestAnimationFrame(()=>requestAnimationFrame(()=>{lineFill.style.width=p==='pre'?'38%':'100%';railEl.classList.add('go')}));
-}
-new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting)rail(document.body.classList.contains('pre')?'pre':'live')}),{threshold:.6}).observe(railEl);
-const target=Date.now()+21*864e5+5*36e5;
-function tick(){let t=Math.max(0,target-Date.now());const d=Math.floor(t/864e5);t-=d*864e5;const h=Math.floor(t/36e5);t-=h*36e5;const m=Math.floor(t/6e4);
-const s=Math.floor((t-m*6e4)/1e3);flipSet([[d,'d'],[String(h).padStart(2,'0'),'h'],[String(m).padStart(2,'0'),'m'],[String(s).padStart(2,'0'),'s']])}
-function flipSet(parts){
-  if(!cdTxt.children.length){cdTxt.innerHTML=parts.map(([v,l])=>`<span class="u">${String(v).split('').map(c=>`<span class="d">${c}</span>`).join('')}<span class="l">${l}</span></span>`).join('');return}
-  parts.forEach(([v,l],i)=>{const u=cdTxt.children[i];const ds=[...u.querySelectorAll('.d')];const cs=String(v).split('');
-    if(ds.length!==cs.length){u.innerHTML=cs.map(c=>`<span class="d">${c}</span>`).join('')+`<span class="l">${l}</span>`;return}
-    ds.forEach((d,k)=>{if(d.textContent!==cs[k]){d.classList.remove('go');void d.offsetWidth;d.classList.add('go');setTimeout(()=>d.textContent=cs[k],200)}})})}
-tick();setInterval(tick,1000);
-
-
-
-const links=[...document.querySelectorAll('#anchors a')].filter(a=>/^#.+/.test(a.getAttribute('href'))&&!a.classList.contains('ext'));
-function spy(){let cur=null;links.forEach(a=>{const s=document.querySelector(a.getAttribute('href'));if(s&&s.getBoundingClientRect().top<innerHeight*.35)cur=a});links.forEach(a=>a.classList.toggle('active',a===cur))}
-addEventListener('scroll',spy,{passive:true});spy();
-
-/* video placeholder */
-const chapTimes=['0:00','0:20','0:50','1:15'];
-function playVideo(i){
-  player.classList.add('playing');
-  
-  embedBar.style.width='12%';
+  document.body.dataset.phase = p;
+  $$('#controls [data-set]').forEach(b => b.classList.toggle('on', b.dataset.set === p));
+  drawRail(); spy();
+  requestAnimationFrame(() => { htb(Math.max(0, htbBtns.findIndex(b => b.classList.contains('on')))); hwFill(); });   /* re-measure sections that were hidden */
 }
 
-/* geared 101 */
-const GX={lev:{def:'Leveraged ETFs (2x, 3x) are designed to magnify the one-day return of a benchmark, a way to express a bullish view.',m:[2,3]},
-          inv:{def:'Inverse ETFs (−1x, −2x, −3x) are designed to rise when their benchmark falls over a single day, a way to express a bearish view or hedge.',m:[-1,-2,-3]}};
-let gxK='lev',gxM=2,gxD=1;
-function gx(k){gxK=k;[...gxTabs.children].forEach(b=>b.classList.toggle('on',b.textContent.toLowerCase().startsWith(k==='lev'?'lev':'inv')));
-  gxDef.textContent=GX[k].def;gxM=GX[k].m[k==='lev'?0:1];
-  gxMults.innerHTML=GX[k].m.map(m=>`<button class="${m===gxM?'on':''}" onclick="gxSet(${m})">${m>0?m:'−'+Math.abs(m)}x</button>`).join('');gxDraw()}
-function gxSet(m){gxM=m;[...gxMults.children].forEach(b=>b.classList.toggle('on',b.textContent===(m>0?m:'−'+Math.abs(m))+'x'));gxDraw()}
-function gxDay(d,btn){gxD=d;[...btn.parentNode.querySelectorAll('button')].forEach(b=>b.classList.toggle('on',b===btn));gxDraw()}
-function gxDraw(){const b=gxD,f=gxD*gxM,sc=50/3;
-  const set=(el,v,col)=>{const w=Math.abs(v)*sc;el.style.width=w+'%';el.style.left=(v>=0?50:50-w)+'%';el.style.background=col};
-  set(gxB,b,'#9aa9b0');set(gxF,f,f>=0?'var(--green)':'var(--red)');
-  const p=v=>(v>0?'+':v<0?'−':'')+Math.abs(v)+'%';gxBv.textContent=p(b);gxFv.textContent=p(f)}
-gx('lev');
 
-/* how they work stepper */
-const hwLis=[...document.querySelectorAll('#hwSteps li')];
-function hw(i){hwLis.forEach((l,k)=>{l.classList.toggle('on',k===i);l.classList.toggle('done',k<i)});hwCount.textContent=(i+1)+' / '+hwLis.length}
+/* ===== POPUPS: data-open="id" opens a dialog, data-close closes it, clicking the backdrop closes it ===== */
+document.addEventListener('click', e => {
+  const open = e.target.closest('[data-open]');
+  if (open){ e.preventDefault(); $(open.dataset.open).showModal(); return; }
+  if (e.target.closest('[data-close]')) e.target.closest('dialog').close();
+  else if (e.target.tagName === 'DIALOG') e.target.close();
+});
+$('video').addEventListener('close', () => $('player').classList.remove('playing'));
+$('poster').addEventListener('click', () => { $('player').classList.add('playing'); $('embedBar').style.width = '12%'; });
 
-/* count-up stats */
-new IntersectionObserver((es,o)=>es.forEach(e=>{if(!e.isIntersecting)return;o.unobserve(e.target);
-  e.target.querySelectorAll('[data-count]').forEach(el=>{const t=+el.dataset.count,pre=el.dataset.pre||'',suf=el.dataset.suf||'',st=el.dataset.plain?t-20:0,t0=performance.now();
-    (function step(n){const k=Math.min(1,(n-t0)/1100),e2=1-Math.pow(1-k,3);el.textContent=pre+Math.round(st+(t-st)*e2)+suf;if(k<1)requestAnimationFrame(step)})(t0)})}),{threshold:.4}).observe(document.querySelector('.ab-stats'));
-
-/* snapshot copy-to-clipboard */
-document.querySelectorAll('button.sv').forEach(b=>b.addEventListener('click',()=>{
-  const v=b.dataset.copy||(document.body.classList.contains('live')?b.querySelector('.launch-only')?.textContent:'');
-  if(!v||v==='TBD')return;
-  (navigator.clipboard?navigator.clipboard.writeText(v):Promise.reject()).catch(()=>{}).finally(()=>{toast.textContent='Copied '+v;toast.classList.add('show');clearTimeout(toast._t);toast._t=setTimeout(()=>toast.classList.remove('show'),1400)});
+/* sign-up forms (page banner + popup): swap for the real submit handler */
+$$('form[data-signup]').forEach(f => f.addEventListener('submit', e => {
+  e.preventDefault(); f.innerHTML = "<p>You're on the list. We'll email you at launch.</p>";
 }));
 
-/* how to buy: pulse when reached via a How to Buy link */
-document.querySelectorAll('a[href="#buy"]').forEach(a=>a.addEventListener('click',()=>{const h=document.getElementById('buy');h.classList.remove('flash');setTimeout(()=>{void h.offsetWidth;h.classList.add('flash')},550)}));
 
-/* how to buy tabs */
+/* ===== LAUNCH RAIL: timeline fills to the right spot for each phase ===== */
+const rail = $('rail');
+function drawRail(){
+  const states = isPre() ? ['done','now','',''] : ['done','done','done','now'];
+  $$('#rail li').forEach((li,i) => { li.dataset.state = states[i]; li.style.transitionDelay = i*180 + 'ms'; });
+  $('lineFill').style.width = '0'; rail.classList.remove('go');
+  rail.style.setProperty('--glow', isPre() ? '45%' : '92%');
+  requestAnimationFrame(() => requestAnimationFrame(() => {
+    $('lineFill').style.width = isPre() ? '38%' : '100%'; rail.classList.add('go');
+  }));
+}
+new IntersectionObserver(es => es.forEach(e => e.isIntersecting && drawRail()), {threshold:.6}).observe(rail);
+
+/* countdown (pre-launch). Demo target = 21 days 5 hours from now; replace launchAt with the real date. */
+const launchAt = Date.now() + 21*864e5 + 5*36e5;
+function tick(){
+  let t = Math.max(0, launchAt - Date.now());
+  const d = Math.floor(t/864e5); t -= d*864e5;
+  const h = Math.floor(t/36e5);  t -= h*36e5;
+  const m = Math.floor(t/6e4);   t -= m*6e4;
+  const s = Math.floor(t/1e3);
+  const parts = [['d',String(d)],['h',String(h).padStart(2,'0')],['m',String(m).padStart(2,'0')],['s',String(s).padStart(2,'0')]];
+  const unit = (l,v) => [...v].map(c => `<b>${c}</b>`).join('') + `<small>${l}</small>`;
+  const box = $('cdTxt');
+  if (!box.children.length){ box.innerHTML = parts.map(([l,v]) => `<span>${unit(l,v)}</span>`).join(''); return; }
+  parts.forEach(([l,v],i) => {
+    const u = box.children[i], digits = [...u.querySelectorAll('b')];
+    if (digits.length !== v.length){ u.innerHTML = unit(l,v); return; }
+    digits.forEach((b,k) => { if (b.textContent !== v[k]){ b.classList.remove('go'); void b.offsetWidth; b.classList.add('go'); setTimeout(() => b.textContent = v[k], 200); } });
+  });
+}
+tick(); setInterval(tick, 1000);
+
+
+/* ===== NAV: highlight the link for the section in view ===== */
+const spyLinks = $$('nav .links a[href^="#"]').filter(a => a.getAttribute('href').length > 1);
+function spy(){
+  let cur = null;
+  spyLinks.forEach(a => { const s = document.querySelector(a.getAttribute('href')); if (s && s.getBoundingClientRect().top < innerHeight*.35) cur = a; });
+  spyLinks.forEach(a => a.classList.toggle('active', a === cur));
+}
+addEventListener('scroll', spy, {passive:true}); spy();
+
+
+/* ===== HOW GEARED ETFs WORK: left card (bar demo) ===== */
+const GX = {
+  lev:{def:'Leveraged ETFs (2x, 3x) are designed to magnify the one-day return of a benchmark, a way to express a bullish view.', m:[2,3]},
+  inv:{def:'Inverse ETFs (−1x, −2x, −3x) are designed to rise when their benchmark falls over a single day, a way to express a bearish view or hedge.', m:[-1,-2,-3]}
+};
+let gxM = 2, gxD = 1;
+const fmtX = m => (m > 0 ? m : '−' + Math.abs(m)) + 'x';
+function gx(k){
+  $$('#gxTabs button').forEach(b => b.classList.toggle('on', b.textContent.toLowerCase().startsWith(k)));
+  $('gxDef').textContent = GX[k].def;
+  gxM = GX[k].m[k === 'lev' ? 0 : 1];
+  $('gxMults').innerHTML = GX[k].m.map(m => `<button class="${m===gxM?'on':''}" onclick="gxSet(${m})">${fmtX(m)}</button>`).join('');
+  gxDraw();
+}
+function gxSet(m){ gxM = m; $$('#gxMults button').forEach(b => b.classList.toggle('on', b.textContent === fmtX(m))); gxDraw(); }
+function gxDay(d,btn){ gxD = d; $$('#gxDays button').forEach(b => b.classList.toggle('on', b === btn)); gxDraw(); }
+function gxDraw(){
+  const bench = gxD, fund = gxD*gxM, scale = 50/3;
+  const bar = (el,v,col) => { const w = Math.abs(v)*scale; el.style.width = w+'%'; el.style.left = (v>=0 ? 50 : 50-w)+'%'; el.style.background = col; };
+  bar($('gxB'), bench, '#9aa9b0');
+  bar($('gxF'), fund, fund >= 0 ? 'var(--green)' : 'var(--red)');
+  const pct = v => (v>0?'+':v<0?'−':'') + Math.abs(v) + '%';
+  $('gxBv').textContent = pct(bench); $('gxFv').textContent = pct(fund);
+}
+gx('lev');
+
+/* right card: step accordion; --fill draws the green connector line down to the open step */
+const hwLis = $$('#hwSteps li');
+function hw(i){
+  hwLis.forEach((l,k) => { l.classList.toggle('on', k===i); l.classList.toggle('done', k<i); });
+  $('hwCount').textContent = (i+1) + ' / ' + hwLis.length;
+  setTimeout(hwFill, 20);
+}
+function hwFill(){
+  const ol = $('hwSteps'), on = ol.querySelector('li.on i');
+  if (!on) return ol.style.setProperty('--fill','0px');
+  const r = ol.getBoundingClientRect(), q = on.getBoundingClientRect();
+  ol.style.setProperty('--fill', Math.max(0, q.top + q.height/2 - r.top - 18) + 'px');
+}
+hwLis.forEach((li,i) => li.querySelector('button').addEventListener('click', () => hw(i)));
+addEventListener('resize', hwFill); hwFill();
+
+
+/* ===== ABOUT PROSHARES: numbers count up when scrolled into view ===== */
+new IntersectionObserver((es,o) => es.forEach(e => {
+  if (!e.isIntersecting) return; o.unobserve(e.target);
+  e.target.querySelectorAll('[data-count]').forEach(el => {
+    const end = +el.dataset.count, pre = el.dataset.pre || '', suf = el.dataset.suf || '', start = el.dataset.plain ? end-20 : 0, t0 = performance.now();
+    (function step(now){ const k = Math.min(1,(now-t0)/1100), ease = 1-Math.pow(1-k,3);
+      el.textContent = pre + Math.round(start+(end-start)*ease) + suf; if (k<1) requestAnimationFrame(step); })(t0);
+  });
+}), {threshold:.4}).observe($('stats'));
+
+
+/* ===== SNAPSHOT: click a <button data-copy> to copy its value ===== */
+$$('#snapshot button[data-copy]').forEach(b => b.addEventListener('click', () => {
+  const v = b.dataset.copy; if (!v) return;
+  b.classList.remove('copied'); void b.offsetWidth; b.classList.add('copied'); setTimeout(() => b.classList.remove('copied'), 1200);
+  (navigator.clipboard ? navigator.clipboard.writeText(v) : Promise.reject()).catch(() => {}).finally(() => {
+    const t = $('toast'); t.textContent = 'Copied ' + v; t.classList.add('show'); clearTimeout(t._t); t._t = setTimeout(() => t.classList.remove('show'), 1400);
+  });
+}));
+
+
+/* ===== HOW TO BUY: tab slider + pulse when reached from a "How to Buy" link ===== */
+const htbBtns = $$('#htbTabs button');
 function htb(i){
-  const bs=[...htbTabs.querySelectorAll('button')];bs.forEach((b,k)=>b.classList.toggle('on',k===i));
-  htbPill.style.left=bs[i].offsetLeft+'px';htbPill.style.width=bs[i].offsetWidth+'px';
-  htbTrack.style.transform=`translateX(-${i*100}%)`;htbView.style.height=htbTrack.children[i].offsetHeight+'px';
+  htbBtns.forEach((b,k) => b.classList.toggle('on', k===i));
+  $('htbPill').style.left = htbBtns[i].offsetLeft + 'px'; $('htbPill').style.width = htbBtns[i].offsetWidth + 'px';
+  $('htbTrack').style.transform = `translateX(-${i*100}%)`;
+  $('htbView').style.height = $('htbTrack').children[i].offsetHeight + 'px';
 }
-addEventListener('load',()=>htb(0));addEventListener('resize',()=>htb([...htbTabs.querySelectorAll('button')].findIndex(b=>b.classList.contains('on'))));
+htbBtns.forEach((b,i) => b.addEventListener('click', () => htb(i)));
+addEventListener('load', () => htb(0));
+addEventListener('resize', () => htb(htbBtns.findIndex(b => b.classList.contains('on'))));
+$$('a[href="#buy"]').forEach(a => a.addEventListener('click', () => {
+  const box = document.querySelector('#buy .wrap>div'); box.classList.remove('flash'); setTimeout(() => { void box.offsetWidth; box.classList.add('flash'); }, 550);
+}));
 
-/* why [TICKER] rotator */
-const benTabs=[...document.querySelectorAll('.b-tab')],benCopy=[...document.querySelectorAll('.b-copy')];let benI=0,benTimer=null,benPaused=false;const BEN_MS=5000;
-document.getElementById('benefits').style.setProperty('--bdur',BEN_MS+'ms');
-function benShow(i,user){
-  benI=i;benTabs.forEach((t,k)=>{t.classList.remove('on');void t.offsetWidth;t.classList.toggle('on',k===i)});benCopy.forEach((c,k)=>c.classList.toggle('on',k===i));
-  clearTimeout(benTimer);if(!benPaused){benTimer=setTimeout(()=>benShow((benI+1)%3),BEN_MS)}
+
+/* ===== "WHY [TICKER]?" tabs auto-rotate every 5s; hover pauses ===== */
+const benBox = $('benefits'), benTabs = $$('#benefits [role="tab"]'), benCopy = $$('#benefits .copy p'), BEN_MS = 5000;
+let benI = 0, benTimer;
+benBox.style.setProperty('--bdur', BEN_MS + 'ms');
+function benShow(i){
+  benI = i;
+  benTabs.forEach((t,k) => { t.classList.remove('on'); void t.offsetWidth; t.classList.toggle('on', k===i); });
+  benCopy.forEach((c,k) => c.classList.toggle('on', k===i));
+  clearTimeout(benTimer); benTimer = setTimeout(() => benShow((i+1) % benTabs.length), BEN_MS);
 }
-function benToggle(){benPaused=!benPaused;benefits.classList.toggle('paused',benPaused);
-  clearTimeout(benTimer);if(!benPaused)benTimer=setTimeout(()=>benShow((benI+1)%3),BEN_MS*.5)}
-benefits.addEventListener('mouseenter',()=>{if(!benPaused){clearTimeout(benTimer);benefits.classList.add('paused')}});
-benefits.addEventListener('mouseleave',()=>{if(!benPaused){benefits.classList.remove('paused');benTimer=setTimeout(()=>benShow((benI+1)%3),BEN_MS*.5)}});
+benTabs.forEach((t,i) => t.addEventListener('click', () => benShow(i)));
+benBox.addEventListener('mouseenter', () => { clearTimeout(benTimer); benBox.classList.add('paused'); });
+benBox.addEventListener('mouseleave', () => { benBox.classList.remove('paused'); benTimer = setTimeout(() => benShow((benI+1) % benTabs.length), BEN_MS/2); });
 benShow(0);
 
-/* fast facts carousel */
-const ffs=[...document.querySelectorAll('.ff')];let ffI=0,ffPause=false;
-ffd.innerHTML=ffs.map((_,i)=>`<button aria-label="Fact ${i+1}" onclick="ffShow(${i})"></button>`).join('');
-function ffShow(i){ffI=(i+ffs.length)%ffs.length;ffs.forEach((f,k)=>{f.classList.toggle('on',k===ffI);const v=f.querySelector('video');if(v&&v.getAttribute('src')){if(k===ffI){v.currentTime=0;v.play().catch(()=>{})}else v.pause()}});[...ffd.children].forEach((d,k)=>d.classList.toggle('on',k===ffI))}
-function ffGo(d){ffShow(ffI+d)}
-ffShow(0);setInterval(()=>{if(!ffPause)ffGo(1)},6000);
+
+/* ===== STAT CAROUSEL: auto-advances every 6s; videos play only while visible ===== */
+const slides = $$('#slides figure'); let slideI = 0, slidesPaused = false;
+$('dots').innerHTML = slides.map((_,i) => `<button aria-label="Stat ${i+1}"></button>`).join('');
+$$('#dots button').forEach((b,i) => b.addEventListener('click', () => slideShow(i)));
+function slideShow(i){
+  slideI = (i + slides.length) % slides.length;
+  slides.forEach((s,k) => {
+    s.classList.toggle('on', k === slideI);
+    const v = s.querySelector('video');
+    if (v && v.getAttribute('src')){ if (k === slideI){ v.currentTime = 0; v.play().catch(() => {}); } else v.pause(); }
+  });
+  $$('#dots button').forEach((d,k) => d.classList.toggle('on', k === slideI));
+}
+$('slides').addEventListener('mouseenter', () => slidesPaused = true);
+$('slides').addEventListener('mouseleave', () => slidesPaused = false);
+slideShow(0); setInterval(() => { if (!slidesPaused) slideShow(slideI + 1); }, 6000);
 
 
-/* ===== Motion & interaction layer ===== */
-(function(){
-const RM=matchMedia('(prefers-reduced-motion: reduce)').matches;
-const nav=document.querySelector('nav.top'),hero=document.querySelector('header.hero'),mcta=document.getElementById('mcta');
+/* ===== MOTION & SCROLL EFFECTS ===== */
+const nav = document.querySelector('nav'), hero = $('hero'), mcta = $('mcta');
 function onScroll(){
-  const y=scrollY;nav.classList.toggle('shrink',y>80);
-  const past=hero.getBoundingClientRect().bottom<0;mcta.classList.toggle('show',past);mcta.setAttribute('aria-hidden',!past);
-  if(!RM){hero.style.backgroundPositionY=`calc(50% + ${Math.min(y,800)*.25}px)`}
+  nav.classList.toggle('shrink', scrollY > 80);
+  const past = hero.getBoundingClientRect().bottom < 0;
+  mcta.classList.toggle('show', past); mcta.setAttribute('aria-hidden', !past);
+  if (!RM) hero.style.backgroundPositionY = `calc(50% + ${Math.min(scrollY,800)*.25}px)`;
 }
-addEventListener('scroll',onScroll,{passive:true});onScroll();
-/* step line fills to the step the visitor opened */
-function hwFillTo(){const ol=document.getElementById('hwSteps'),fill=document.getElementById('hwFill');if(!ol)return;
-  const on=ol.querySelector('li.on i');if(!on){fill.style.height='0';return}
-  const r=ol.getBoundingClientRect(),q=on.getBoundingClientRect();fill.style.height=Math.max(0,q.top+q.height/2-r.top-18)+'px'}
-document.querySelectorAll('#hwSteps button').forEach(b=>b.addEventListener('click',()=>setTimeout(hwFillTo,20)));
-addEventListener('resize',hwFillTo);hwFillTo();
+addEventListener('scroll', onScroll, {passive:true}); onScroll();
 
-/* hero card tilt + float toward cursor */
-const stage=document.querySelector('.stage'),card=document.querySelector('.fcard');
-if(stage&&!RM&&matchMedia('(hover:hover)').matches){
-  stage.addEventListener('mousemove',e=>{const r=stage.getBoundingClientRect();const x=(e.clientX-r.left)/r.width-.5,y=(e.clientY-r.top)/r.height-.5;
-    card.classList.add('tilting');card.style.transform=`translateY(-10px) translate(${x*10}px,${y*8}px) rotateY(${x*10}deg) rotateX(${-y*8}deg)`});
-  stage.addEventListener('mouseleave',()=>{card.classList.remove('tilting');card.style.transform=''});
+/* hero card tilts toward the cursor */
+const stage = $('stage'), card = $('card');
+if (!RM && matchMedia('(hover:hover)').matches){
+  stage.addEventListener('mousemove', e => {
+    const r = stage.getBoundingClientRect(), x = (e.clientX-r.left)/r.width - .5, y = (e.clientY-r.top)/r.height - .5;
+    card.classList.add('tilting');
+    card.style.transform = `translateY(-10px) translate(${x*10}px,${y*8}px) rotateY(${x*10}deg) rotateX(${-y*8}deg)`;
+  });
+  stage.addEventListener('mouseleave', () => { card.classList.remove('tilting'); card.style.transform = ''; });
 }
 
-/* section fade-up */
-const targets=document.querySelectorAll('.sec-head, .fd-left, .snap, .why-copy, .facts-rail, .insights .art, .gx, .hw, .htb, .faq details, .about, .final .wrap>*, .paths, .docstrip .ds-links');
-targets.forEach((el,i)=>{el.classList.add('reveal');el.style.transitionDelay=(el.matches('.insights .art, .faq details')?([...el.parentNode.children].indexOf(el)*80):0)+'ms'});
-const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target)}}),{threshold:.12,rootMargin:'0px 0px -40px 0px'});
-targets.forEach(el=>RM?el.classList.add('in'):io.observe(el));
+/* sections fade up as they scroll in */
+const revealEls = $$('.head, #fund article, #snapshot, #matters article, #matters aside, #insights .cards>a, #learn article, #buy .wrap>div, #faq details, #about .wrap>div, #final .wrap>*, #notify-sec .wrap>div, #docs .wrap>div');
+const revealIO = new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting){ e.target.classList.add('in'); revealIO.unobserve(e.target); } }), {threshold:.12, rootMargin:'0px 0px -40px 0px'});
+revealEls.forEach(el => {
+  el.classList.add('reveal');
+  el.style.transitionDelay = el.matches('#insights .cards>a, #faq details') ? [...el.parentNode.children].indexOf(el)*80 + 'ms' : '0ms';
+  RM ? el.classList.add('in') : revealIO.observe(el);
+});
 
-/* bars draw in */
-const learn=document.getElementById('learn');
-if(learn){new IntersectionObserver((es,o)=>es.forEach(e=>{if(!e.isIntersecting)return;o.disconnect();
-  ['gxB','gxF'].forEach(id=>{const el=document.getElementById(id);el.style.width='0';el.style.left='50%'});
-  setTimeout(()=>gxDraw(),250)}),{threshold:.35}).observe(learn);}
-
-/* copy flash */
-document.querySelectorAll('button.sv').forEach(b=>b.addEventListener('click',()=>{b.classList.remove('copied');void b.offsetWidth;b.classList.add('copied');setTimeout(()=>b.classList.remove('copied'),1200)}));
-})();
+/* bars in the geared demo draw in when the section is reached */
+new IntersectionObserver((es,o) => es.forEach(e => {
+  if (!e.isIntersecting) return; o.disconnect();
+  ['gxB','gxF'].forEach(id => { $(id).style.width = '0'; $(id).style.left = '50%'; });
+  setTimeout(gxDraw, 250);
+}), {threshold:.35}).observe($('learn'));
 </script>
 </body>
 </html>

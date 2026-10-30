@@ -157,6 +157,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
   <!-- End Google Tag Manager (noscript) -->
 <header>
   <div class="wrap">
+    <div class="header-left">
     <button class="menu-toggle" id="menuToggle" onclick="toggleMobileNav()" aria-label="Menu" aria-expanded="false">
       <span></span><span></span><span></span>
     </button>
@@ -170,14 +171,8 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
         </a>
         <span class="logo-divider"></span>
         <a class="header-link" href="https://www.proshares.com/resources/geared-faqs" target="_blank" rel="noopener">How They Work</a>
-        <!--<div class="dropdown-menu" id="etfsDropdownMenu">
-          <a href="https://www.proshares.com/our-etfs/find-leveraged-and-inverse-etfs?etftype=&strategy=Single%20Stock&benchmark=&product=Product%20Overview%20&search=" target="_blank" rel="noopener">Single-Stock</a>
-          <a href="https://www.proshares.com/our-etfs/find-leveraged-and-inverse-etfs?etftype=&strategy=Commodity&benchmark=&product=Product%20Overview%20&search=" target="_blank" rel="noopener">Commodities</a>
-          <a href="https://www.proshares.com/strategies/nasdaq-100-etfs" target="_blank" rel="noopener">Nasdaq-100</a>
-          <a href="https://www.proshares.com/strategies/cryptocurrency-etf-investing-strategies" target="_blank" rel="noopener">Crypto-Linked</a>
-          <a href="https://www.proshares.com/our-etfs/find-leveraged-and-inverse-etfs" target="_blank" rel="noopener">All ETFs</a>
-        </div> -->
     </div>
+  </div>
     <div class="header-right">
       <div class="social-links">
         <a href="https://x.com/ProShares" aria-label="X" target="_blank" rel="noopener"><img src="assets/images/X-logo-white.svg"/></a>
@@ -265,10 +260,10 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
       <p id="heroDisclosure">These ProShares ETFs seek daily investment results that correspond, before fees and expenses, to two times (2x) the daily performance of a single stock for ANTU, or negative two times (-2x) for ANTY (each, the “Daily Target”). While each Fund has a daily investment objective, you may hold Fund shares for longer than one day if you believe it is consistent with your goals and risk tolerance. <strong>For any holding period other than a day, your return may be higher or lower than the Daily Target. These differences may be significant.</strong> Smaller index gains/losses and higher index volatility contribute to returns worse than the Daily Target. Larger index gains/losses and lower index volatility contribute to returns better than the Daily Target. The more extreme these factors are, the more they occur together, and the longer your holding period while these factors apply, the more your return will tend to deviate. Investors should consider periodically monitoring their geared fund investments in light of their goals and risk tolerance.</p>
     </div>
   </div>
-  <div class="ticker-tape">
-    <div class="ticker-track" id="tickerTrack"></div>
-  </div>
 </section>
+<div class="ticker-tape">
+  <div class="ticker-track" id="tickerTrack"></div>
+</div>
 <section id="fundDetails" class="reveal">
   <div class="wrap">
     <div class="sec-eyebrow">Fund Details</div>
@@ -281,17 +276,17 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 
         <div class="fd-block">
           <span class="fd-label">Investment Objective</span>
-          <p>ANTU seeks daily investment results, before fees and expenses, that correspond to two times (2x) the daily performance of the common stock of Anthropic (NASDAQ: ANTH).</p>
+          <p>ANTU seeks daily investment results, before fees and expenses, that correspond to two times (2x) the daily performance of the common stock of Anthropic (NASDAQ: ANT).</p>
         </div>
 
         <div class="fd-pillars">
           <div class="fd-pillar">
             <h4>Targets Magnified Returns</h4>
-            <p>ANTU targets 2x the daily returns of Anthropic (ANTH), a frontier AI lab behind the Claude family of models, widely adopted by enterprise and consumer customers.</p>
+            <p>ANTU targets 2x the daily returns of Anthropic (ANT), a frontier AI lab behind the Claude family of models, widely adopted by enterprise and consumer customers.</p>
           </div>
           <div class="fd-pillar">
             <h4>Efficiency</h4>
-            <p>ANTU offers 2x exposure to Anthropic (ANTH) with less cash &mdash; and without fear of margin calls.</p>
+            <p>ANTU offers 2x exposure to Anthropic (ANT) with less cash &mdash; and without fear of margin calls.</p>
           </div>
           <div class="fd-pillar">
             <h4>Convenience</h4>
@@ -304,11 +299,10 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
           <div class="fd-snap-grid">
             <div class="fd-snap-row"><span class="k">Ticker</span><span class="v">ANTU</span></div>
             <div class="fd-snap-row"><span class="k">Intraday Ticker</span><span class="v">ANTU.IV</span></div>
-            <div class="fd-snap-row"><span class="k">CUSIP</span><span class="v">TBD</span></div>
-            <div class="fd-snap-row"><span class="k">Inception Date</span><span class="v">TBD</span></div>
-            <div class="fd-snap-row"><span class="k">Net Assets</span><span class="v">TBD</span></div>
-            <div class="fd-snap-row"><span class="k">Gross Expense Ratio</span><span class="v">TBD</span></div>
-            <div class="fd-snap-row"><span class="k">Net Expense Ratio</span><span class="v">TBD</span></div>
+            <div class="fd-snap-row"><span class="k">CUSIP</span><span class="v">745350U724</span></div>
+            <div class="fd-snap-row"><span class="k">Inception Date</span><span class="v">TBC</span></div>
+            <div class="fd-snap-row"><span class="k">Gross Expense Ratio</span><span class="v">TBC</span></div>
+            <div class="fd-snap-row"><span class="k">Net Expense Ratio</span><span class="v">TBC</span></div>
             <div class="fd-snap-row"><span class="k">NAV Calc. Time</span><span class="v">4:00pm ET</span></div>
             <div class="fd-snap-row"><span class="k">Distributions</span><span class="v">Quarterly</span></div>
           </div>
@@ -324,7 +318,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 
         <div class="fd-block">
           <span class="fd-label">Investment Objective</span>
-          <p>ANTY seeks daily investment results, before fees and expenses, that correspond to two times the inverse (-2x) of the daily performance of the common stock of Anthropic (NASDAQ: ANTH).</p>
+          <p>ANTY seeks daily investment results, before fees and expenses, that correspond to two times the inverse (-2x) of the daily performance of the common stock of Anthropic (NASDAQ: ANT).</p>
         </div>
         <div class="fd-pillars">
           <div class="fd-pillar">
@@ -345,11 +339,10 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
           <div class="fd-snap-grid">
             <div class="fd-snap-row"><span class="k">Ticker</span><span class="v">ANTY</span></div>
             <div class="fd-snap-row"><span class="k">Intraday Ticker</span><span class="v">ANTY.IV</span></div>
-            <div class="fd-snap-row"><span class="k">CUSIP</span><span class="v">TBD</span></div>
-            <div class="fd-snap-row"><span class="k">Inception Date</span><span class="v">TBD</span></div>
-            <div class="fd-snap-row"><span class="k">Net Assets</span><span class="v">TBD</span></div>
-            <div class="fd-snap-row"><span class="k">Gross Expense Ratio</span><span class="v">TBD</span></div>
-            <div class="fd-snap-row"><span class="k">Net Expense Ratio</span><span class="v">TBD</span></div>
+            <div class="fd-snap-row"><span class="k">CUSIP</span><span class="v">745350U351</span></div>
+            <div class="fd-snap-row"><span class="k">Inception Date</span><span class="v">TBC</span></div>
+            <div class="fd-snap-row"><span class="k">Gross Expense Ratio</span><span class="v">TBC</span></div>
+            <div class="fd-snap-row"><span class="k">Net Expense Ratio</span><span class="v">TBC</span></div>
             <div class="fd-snap-row"><span class="k">NAV Calc. Time</span><span class="v">4:00pm ET</span></div>
             <div class="fd-snap-row"><span class="k">Distributions</span><span class="v">Quarterly</span></div>
           </div>
@@ -359,12 +352,12 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
       </div>
     </div>
     <p class="disclosure">These ProShares ETFs seek daily investment results that correspond, before fees and expenses, to two times (2x) the daily performance of a single stock for ANTU, or negative two times (-2x) for ANTY (each, the &ldquo;Daily Target&rdquo;). While each Fund has a daily investment objective, you may hold Fund shares for longer than one day if you believe it is consistent with your goals and risk tolerance. <strong>For any holding period other than a day, your return may be higher or lower than the Daily Target. These differences may be significant.</strong> Smaller index gains/losses and higher index volatility contribute to returns worse than the Daily Target. Larger index gains/losses and lower index volatility contribute to returns better than the Daily Target. The more extreme these factors are, the more they occur together, and the longer your holding period while these factors apply, the more your return will tend to deviate. Investors should consider periodically monitoring their geared fund investments in light of their goals and risk tolerance.</p>
-    <p class="disclosure">Gross expense ratio reflects expenses before any fee waiver. Net expense ratio reflects expenses with contractual waiver through <strong>[DATE]</strong>, where applicable.</p>
+    <p class="disclosure">Gross expense ratio reflects expenses before any fee waiver. Net expense ratio reflects expenses with contractual waiver through <strong>September 30, 2027</strong>, where applicable.</p>
 
   </div>
 </section>
 
-<section id="why" class="reveal" style="background:var(--surface); border-top:1px solid var(--line); border-bottom:1px solid var(--line);">
+<section id="why" class="reveal" style="background:var(--surface);">
   <div class="wrap">
     <div class="sec-head" style="margin-top:36px;">
       <div class="sec-eyebrow">Anthropic at a Glance</div>

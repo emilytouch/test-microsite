@@ -1,0 +1,314 @@
+/* =========================================================================
+   FUND LAUNCH MICROSITE — custom styles on top of Bootstrap 5.3
+
+   Bootstrap handles layout and every standard component (grid, navbar, buttons,
+   badges, cards, accordion, tabs, carousel, modal, toast, tooltip, forms, progress).
+   This file only holds what Bootstrap has no component for.
+
+   1. Theme            brand colors fed into Bootstrap's own variables
+   2. PHASE SWITCH     the only place pre-launch / launched visibility is decided
+   3. Small helpers    a few shared bits used in several sections
+   4. Mockup tools     module map + outlines (delete for production)
+   5. Custom pieces    in page order, each scoped by its #id
+   6. Motion + responsive
+
+   RESPONSIVE: uses Bootstrap's own breakpoints, no extra ones.
+     mobile   under 576px
+     tablet   576px - 991px
+     desktop  992px and up
+   ========================================================================= */
+
+
+/* 1. THEME =============================================================== */
+:root{
+  /* brand palette */
+  --navy:#264048; --navy-dark:#1b3036; --green:#4b7f23; --green-light:#5f9a2e;
+  --sage:#c8dbb0; --lime:#b9e07c; --red:#b5482f; --ink:#14232b; --muted:#5e717a; --line:#d6e0df;
+
+  /* point Bootstrap at the palette: bg-success, text-success, btn-success, etc. follow automatically */
+  --bs-body-font-family:Inter,system-ui,sans-serif;
+  --bs-heading-color:inherit;      /* headings take the color of the block they sit in */
+  --bs-body-color:#14232b;        --bs-body-color-rgb:20,35,43;
+  --bs-body-bg:#eef3f2;           --bs-body-bg-rgb:238,243,242;
+  --bs-secondary-color:#5e717a;   --bs-secondary-color-rgb:94,113,122;
+  --bs-border-color:#d6e0df;
+  --bs-link-color:#264048;        --bs-link-color-rgb:38,64,72;
+  --bs-link-hover-color-rgb:75,127,35;
+  --bs-success:#4b7f23;           --bs-success-rgb:75,127,35;
+  --bs-success-text-emphasis:#2f5016;
+  --bs-success-bg-subtle:#e6efdc;
+  --bs-success-border-subtle:#c8dbb0;
+
+  /* the three-square campaign art used as a placeholder background everywhere */
+  --art:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1742 712'%3E%3Crect width='1742' height='712' fill='%23264048'/%3E%3Cg transform='translate(1015 360) rotate(-26)'%3E%3Crect x='-210' y='-210' width='420' height='420' rx='70' fill='%233e6a2f' opacity='.55'/%3E%3C/g%3E%3Cg transform='translate(1155 360) rotate(-26)'%3E%3Crect x='-210' y='-210' width='420' height='420' rx='70' fill='%2347722b' opacity='.85'/%3E%3C/g%3E%3Cg transform='translate(1315 360) rotate(-26)'%3E%3Crect x='-210' y='-210' width='420' height='420' rx='70' fill='%234f7b22'/%3E%3C/g%3E%3C/svg%3E");
+}
+
+/* Bootstrap hard-codes a few component colors, so re-point those too */
+.btn-success{--bs-btn-bg:var(--green);--bs-btn-border-color:var(--green);--bs-btn-hover-bg:var(--green-light);--bs-btn-hover-border-color:var(--green-light);--bs-btn-active-bg:#3f6b1d;--bs-btn-active-border-color:#3f6b1d;--bs-btn-disabled-bg:var(--green);--bs-btn-disabled-border-color:var(--green)}
+.btn-outline-success{--bs-btn-color:var(--green);--bs-btn-border-color:var(--green);--bs-btn-hover-bg:var(--green);--bs-btn-hover-border-color:var(--green);--bs-btn-active-bg:var(--green);--bs-btn-active-border-color:var(--green)}
+.btn-light{--bs-btn-color:var(--navy)}
+.btn-light.text-success{--bs-btn-color:var(--green)}
+.nav-pills{--bs-nav-link-color:var(--muted);--bs-nav-link-hover-color:var(--ink);--bs-nav-pills-link-active-bg:var(--green);--bs-nav-pills-link-active-color:#fff}
+.accordion{--bs-accordion-active-bg:var(--bs-success-bg-subtle);--bs-accordion-active-color:var(--ink);--bs-accordion-btn-focus-border-color:var(--green);--bs-accordion-btn-focus-box-shadow:0 0 0 .2rem rgba(75,127,35,.25);--bs-accordion-btn-active-icon:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='%234b7f23'%3E%3Cpath fill-rule='evenodd' d='M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z'/%3E%3C/svg%3E")}
+.form-control:focus{border-color:var(--green);box-shadow:0 0 0 .2rem rgba(75,127,35,.25)}
+
+/* brand-color helpers Bootstrap doesn't ship */
+.bg-navy{background:var(--navy) !important}
+.bg-navy-dark{background:var(--navy-dark) !important}
+.text-sage{color:var(--sage) !important}
+.text-lime{color:var(--lime) !important}
+
+@font-face {
+  font-family:'MazzardH-Bold';
+  src: 
+      local("MazzardH-Bold"),
+      url(assets/fonts/MazzardFont/MazzardH-Bold.otf) format("opentype");
+}
+@font-face {
+      font-family:'MazzardH-Regular';
+      src: 
+          local("MazzardH-Regular"),
+          url(assets/fonts/MazzardFont/MazzardH-Regular.otf) format("opentype");
+}
+  @font-face {
+      font-family:'MazzardH-SemiBold';
+      src: 
+          local("MazzardH-SemiBold"),
+          url(assets/fonts/MazzardFont/MazzardH-SemiBold.otf) format("opentype");
+}
+
+/* 2. PHASE SWITCH ======================================================== */
+body[data-phase="pre"]  [data-show="live"],
+body[data-phase="live"] [data-show="pre"]{display:none !important}
+
+/* mockup helper: "Outline phase-specific blocks" switch (orange = pre, teal = live) */
+body[data-outline] [data-show="pre"]{outline:2px dashed #e0a100;outline-offset:4px}
+body[data-outline] [data-show="live"]{outline:2px dashed #12a3a3;outline-offset:4px}
+
+
+/* 3. SMALL HELPERS ======================================================= */
+html{scroll-behavior:smooth;scroll-padding-top:5rem}
+body:focus{outline:none}
+
+/* small uppercase label */
+.label{display:block;font-size:12px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--muted)}
+
+/* placeholder highlight: anything in [brackets] still needs approved copy */
+.ph{background:rgba(224,161,0,.22);padding:0 4px;border-radius:3px;white-space:nowrap}
+footer .ph{white-space:normal}
+
+/* rounded square that holds an icon */
+.icon-box{display:inline-grid;place-items:center;flex-shrink:0;width:44px;height:44px;border-radius:12px;background:var(--bs-success-bg-subtle);color:var(--green)}
+.icon-box svg{width:24px;height:24px}
+
+/* play triangle inside the "Watch Video" button */
+.play{display:inline-grid;place-items:center;width:22px;height:22px;border-radius:50%;background:var(--green)}
+.play::after{content:"";margin-left:2px;border-left:7px solid #fff;border-top:5px solid transparent;border-bottom:5px solid transparent}
+
+/* social icons (nav + footer) */
+.social img{display:block;width:17px;height:17px;opacity:.75;transition:opacity .2s}
+.social a{display:grid;place-items:center;width:34px;height:34px}
+.social a:hover img{opacity:1}
+
+/* card that lifts on hover */
+.lift{transition:transform .2s,box-shadow .2s}
+.lift:hover{transform:translateY(-4px);box-shadow:var(--bs-box-shadow-lg)}
+
+
+/* 4. MOCKUP TOOLS (delete for production) ================================ */
+#controls{width:240px;z-index:1031}                  /* above the page and nav, below popups */
+[data-mod]{position:relative}
+body[data-map] [data-mod]{outline:2px solid #7b5cff;outline-offset:-2px}
+body[data-map] [data-mod]::after{content:attr(data-mod) "  ·  flexes: " attr(data-flex);position:absolute;left:12px;top:12px;z-index:60;max-width:460px;padding:5px 9px;border-radius:6px;background:#7b5cff;color:#fff;font:700 11px "MazzardH-Regular", system-ui, sans-serif}
+h1,h2,h3,h4{margin:0;line-height:1.05;letter-spacing:-.02em; font-family:"MazzardH-SemiBold", system-ui, sans-serif}
+
+/* 5. CUSTOM PIECES ======================================================= */
+
+/* ---- Nav: scrollspy underline ---------------------------------------- */
+#mainNav .nav-link{font-size:.9rem}
+#mainNav .nav-link.active{box-shadow:inset 0 -3px 0 var(--lime)}
+
+/* ---- M01 Hero --------------------------------------------------------- */
+#hero{overflow:hidden;background:var(--navy) var(--art) 78% center/auto 100% no-repeat}
+#hero::before{content:"";position:absolute;inset:0;pointer-events:none;background:rgba(38,64,72,.7)}
+#art-tag{position:absolute;right:12px;top:-2.5rem;z-index:2}
+#hero .lead{max-width:32rem}
+#hero h1 span{display:block;overflow:hidden}
+#hero h1 b,#hero h1 em{display:inline-block;font-weight:inherit;font-style:normal;font-family:"MazzardH-Bold", system-ui, sans-serif;transform:translateY(105%);animation:rise .7s cubic-bezier(.2,.8,.2,1) forwards}
+#hero h1 em{color:var(--sage);animation-delay:.15s}
+#hero .copy>:not(h1){opacity:0;animation:fadeup .6s ease .3s forwards}
+
+/* floating fund card */
+#stage{position:relative;perspective:900px;padding:10px 0 40px}
+#glow{display:none;position:absolute;right:-6%;top:0;width:60%;height:80%;border-radius:50%;background:radial-gradient(closest-side,rgba(200,240,140,.28),transparent);opacity:.35;transition:opacity .5s;pointer-events:none}
+#stage:hover #glow{opacity:1}
+#card{position:relative;width:100%;max-width:330px;padding:26px;border-radius:24px;color:#fff;background:linear-gradient(150deg,rgba(47,74,85,.82),rgba(38,64,72,.88));border:1px solid rgba(200,219,176,.35);backdrop-filter:blur(10px);box-shadow:0 30px 60px rgba(0,0,0,.4);transform-style:preserve-3d;will-change:transform;transition:transform .55s cubic-bezier(.2,.8,.2,1),box-shadow .55s,border-color .55s}
+#stage:hover #card,#card:focus-within{transform:translateY(-10px);box-shadow:0 40px 80px rgba(0,0,0,.5);border-color:rgba(200,219,176,.7)}
+#card.tilting{transition:transform .08s linear,box-shadow .5s,border-color .5s}
+#card .more{display:grid;grid-template-rows:0fr;opacity:0;transition:grid-template-rows .45s cubic-bezier(.2,.8,.2,1),opacity .35s}
+#card .more>div{overflow:hidden}
+#stage:hover .more,#card:focus-within .more{grid-template-rows:1fr;opacity:1}
+#card .more p{margin-top:1rem;padding:12px 14px;border-radius:12px;background:rgba(255,255,255,.08);font-size:13px;line-height:1.55}
+#card .more .g{color:var(--sage)}
+#card small{position:absolute;left:26px;bottom:-30px;font-size:12px;white-space:nowrap;opacity:.6;transition:opacity .3s}
+#stage:hover small{opacity:0}
+
+/* ---- M02 Launch status rail ------------------------------------------ */
+#rail{overflow:hidden;border-top:1px solid rgba(255,255,255,.06)}
+#rail::before{content:"";position:absolute;inset:0;pointer-events:none;background:radial-gradient(600px 120px at var(--glow,85%) 50%,rgba(185,224,124,.15),transparent 70%)}
+#rail .container{position:relative}
+#cdTxt{display:inline-flex;gap:4px;margin-left:4px;color:#fff}                   /* countdown, built by JS */
+#cdTxt>span{display:inline-flex;align-items:baseline;gap:1px}
+#cdTxt b{display:inline-block;min-width:.62em;padding:0 2px;border-radius:3px;background:rgba(255,255,255,.1);text-align:center;font-weight:600;perspective:200px}
+#cdTxt b.go{animation:flip .45s ease}
+#cdTxt small{margin-right:4px;font-size:.85em;opacity:.7}
+
+/* the timeline reuses Bootstrap's .progress for its line */
+#rail .progress{position:absolute;left:12px;right:12px;top:17px;height:4px;overflow:visible;--bs-progress-bg:rgba(255,255,255,.12);--bs-progress-border-radius:4px}
+#lineFill{width:0;border-radius:4px;background:linear-gradient(90deg,var(--green),var(--lime));box-shadow:0 0 14px rgba(185,224,124,.6);transition:width 1.6s cubic-bezier(.2,.8,.2,1)}
+#rail li{opacity:0;transform:translateY(6px);transition:.5s}
+#rail.go li{opacity:1;transform:none}
+#rail li strong{display:block;font-size:14px}
+#rail li span{font-size:12px;opacity:.6;font-variant-numeric:tabular-nums}
+/* step marker; JS sets data-state="done" | "now" | "" */
+#rail li>i{display:grid;place-items:center;width:26px;height:26px;border:2px solid rgba(255,255,255,.3);border-radius:50%;background:var(--navy-dark);color:var(--lime);font-style:normal;font-size:13px;font-weight:800}
+#rail li[data-state="done"]>i{background:var(--lime);border-color:var(--lime);color:var(--navy-dark)}
+#rail li[data-state="done"]>i::after{content:"✓"}
+#rail li[data-state="now"]>i{border-color:var(--lime);animation:pulse 1.6s infinite}
+#rail li[data-state="now"]>i::after{content:"";width:10px;height:10px;border-radius:50%;background:var(--lime)}
+#rail li[data-state="now"] strong{color:var(--lime)}
+
+/* ---- M03 "Why [TICKER]?" tabs: Bootstrap pills + progress bar + animated icons */
+#benefits .nav-link{position:relative;overflow:hidden;display:flex;align-items:center;gap:.6rem;width:100%;padding:.7rem .8rem;border:1px solid var(--line);border-radius:12px;background:#fff;font-size:.875rem;font-weight:600;text-align:left;transition:.2s}
+#benefits .nav-link:hover{border-color:#b9c7cf}
+#benefits .nav-link.active{background:var(--bs-success-bg-subtle);border-color:var(--green);color:var(--ink)}
+#benefits .icon-box{background:var(--bs-body-bg);color:var(--muted);transition:.25s}
+#benefits .active .icon-box{background:#fff;color:var(--green);box-shadow:0 4px 12px rgba(75,127,35,.18)}
+#benefits svg{width:30px;height:30px;overflow:visible}
+#benefits .nav-link>i{position:absolute;left:0;bottom:0;width:0;height:3px;background:var(--green)}      /* progress bar */
+#benefits .nav-link.active>i{animation:prog var(--bdur,5s) linear forwards}
+#benefits.paused .nav-link.active>i{animation-play-state:paused}
+#benefits .tab-content{min-height:5.5rem;margin-top:.9rem;font-size:1.05rem;color:#33464e}
+/* tab icons: animate on hover / when active (classes live inside the inline SVGs) */
+#benefits .bar{transform-box:fill-box;transform-origin:50% 100%;stroke-width:2.4}
+#benefits .lens,#benefits .tap,#benefits .rip{transform-box:fill-box;transform-origin:center}
+#benefits .hand{transform-box:view-box;transform-origin:24px 21px}
+#benefits .spd{stroke-dasharray:6 12}
+#benefits .rip{opacity:0;stroke-width:1.4}
+#benefits .nav-link:hover .bar,#benefits .active .bar{animation:barUp 1.2s ease-in-out infinite alternate}
+#benefits .bar:nth-of-type(2){animation-delay:.15s}
+#benefits .bar:nth-of-type(3){animation-delay:.3s}
+#benefits .bar:nth-of-type(4){animation-delay:.45s}
+#benefits .active .lens{animation:bob 2.4s ease-in-out infinite}
+#benefits .nav-link:hover .hand,#benefits .active .hand{animation:spin 1.4s linear infinite}
+#benefits .nav-link:hover .spd,#benefits .active .spd{animation:dash .7s linear infinite}
+#benefits .s2{animation-delay:.2s}
+#benefits .s3{animation-delay:.4s}
+#benefits .nav-link:hover .tap,#benefits .active .tap{animation:tap 1.2s ease-in-out infinite}
+#benefits .nav-link:hover .rip,#benefits .active .rip{animation:rip 1.2s ease-out infinite}
+#benefits .r2{animation-delay:.35s}
+
+/* ---- M03 Snapshot (live only): dark card, click-to-copy cells --------- */
+#snapCard::after{content:"";position:absolute;left:-20%;right:-20%;bottom:0;height:70px;pointer-events:none;background:repeating-linear-gradient(90deg,rgba(140,220,200,.28) 0 1px,transparent 1px 44px),repeating-linear-gradient(0deg,rgba(140,220,200,.28) 0 1px,transparent 1px 14px);transform:perspective(200px) rotateX(55deg);transform-origin:bottom;-webkit-mask:linear-gradient(transparent,#000 80%);mask:linear-gradient(transparent,#000 80%)}
+#snapCard .cell{position:relative;display:block;width:100%;height:100%;padding:.75rem .85rem;border:1px solid rgba(255,255,255,.1);border-radius:12px;background:rgba(255,255,255,.05);color:inherit;font:inherit;text-align:left;transition:.2s}
+#snapCard .cell small{display:block;font-size:11px;letter-spacing:.06em;text-transform:uppercase;opacity:.6}
+#snapCard .cell strong{display:block;margin-top:2px;font-size:17px;color:var(--sage)}
+#snapCard button.cell{cursor:pointer}
+#snapCard button.cell:hover,#snapCard button.cell:focus-visible{background:rgba(200,219,176,.12);border-color:rgba(200,219,176,.5);outline:none}
+#snapCard button.cell::after{content:"Copy";position:absolute;right:10px;top:10px;padding:2px 7px;border-radius:999px;background:var(--sage);color:var(--navy);font-size:10px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;opacity:0;transform:translateY(-3px);transition:.2s}
+#snapCard button.cell:hover::after,#snapCard button.cell:focus-visible::after{opacity:1;transform:none}
+#snapCard button.cell.copied{background:rgba(185,224,124,.15);border-color:rgba(185,224,124,.8)}
+#snapCard button.cell.copied strong{color:#d6efbd;animation:glow .9s ease}
+
+/* ---- M05 About the company: stat carousel ----------------------------- */
+#slides .carousel-item{aspect-ratio:4/5}
+#slides .carousel-indicators [data-bs-target]{background-color:var(--green)}
+.slide-ph{position:relative;height:100%;display:flex;align-items:center;justify-content:center;color:#fff;background:var(--navy) var(--art) 70% center/auto 120% no-repeat}
+.slide-ph::before{content:"";position:absolute;inset:14px;border:2px dashed rgba(255,255,255,.35);border-radius:12px}   /* placeholder frame */
+#slides video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+#slides [data-video]::after{content:"▶ LOOP";position:absolute;right:16px;top:16px;z-index:1;padding:4px 8px;border-radius:999px;background:rgba(0,0,0,.35);color:#fff;font-size:10px;font-weight:700;letter-spacing:.1em}
+
+/* ---- M06 Insights: placeholder image ---------------------------------- */
+.insight-img{background:var(--navy) var(--art) center/auto 100% no-repeat}
+.insight-img::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,transparent 40%,rgba(38,64,72,.6))}
+
+/* ---- P1 How geared ETFs work ------------------------------------------ */
+#gxDef{min-height:3.4rem}
+/* bars grow left or right from a center line; the track is Bootstrap's .progress */
+#learn .progress{position:relative;height:26px;--bs-progress-bg:#fff;--bs-progress-border-radius:7px}
+#learn .progress::after{content:"";position:absolute;left:50%;top:0;bottom:0;width:2px;background:#c4d0d5}
+#learn .progress i{position:absolute;top:3px;bottom:3px;border-radius:5px;background:#9aa9b0;transition:left .5s cubic-bezier(.2,.8,.2,1),width .5s cubic-bezier(.2,.8,.2,1),background .3s}
+/* numbered circle inside each accordion button */
+.step{display:inline-grid;place-items:center;flex-shrink:0;width:32px;height:32px;margin-right:.9rem;border:2px solid var(--line);border-radius:50%;background:#fff;font-size:.875rem;font-weight:800;color:var(--muted);transition:.25s}
+.accordion-button:not(.collapsed) .step{background:var(--green);border-color:var(--green);color:#fff}
+
+/* ---- M07a How to buy -------------------------------------------------- */
+#buyCard.flash{animation:flash 1.4s ease-out}
+
+/* ---- P2 About ProShares ----------------------------------------------- */
+#about .link-row{transition:.2s}
+#about .link-row:hover{background:rgba(255,255,255,.12);transform:translateX(4px)}
+
+/* ---- Sticky mobile bar: slides up once the hero scrolls away ---------- */
+#mcta{transform:translateY(140%);transition:transform .35s cubic-bezier(.2,.8,.2,1)}
+#mcta.show{transform:none}
+
+/* ---- Video popup ------------------------------------------------------ */
+#player{background:linear-gradient(90deg,rgba(38,64,72,.9),rgba(38,64,72,.35) 65%,rgba(38,64,72,.1)),var(--art) 92% center/auto 120% no-repeat var(--navy)}
+#poster{display:flex;flex-direction:column;justify-content:space-between;padding:28px;border:0;background:none;color:#fff;font:inherit;text-align:left;cursor:pointer}
+#poster .top{display:flex;gap:8px;align-items:center}
+#poster .top b{padding:4px 10px;border:1px solid rgba(255,255,255,.22);border-radius:999px;background:rgba(255,255,255,.12);font-size:11px;letter-spacing:.1em;text-transform:uppercase}
+#poster h3{max-width:420px;font-size:clamp(26px,3.2vw,40px);font-weight:700}
+#poster h3 em{font-style:normal;color:var(--sage)}
+#poster .bottom{display:flex;align-items:center;gap:14px;font-size:14px}
+#poster .bottom b{display:block;font-size:16px}
+#poster i{display:grid;place-items:center;flex-shrink:0;width:72px;height:72px;border-radius:50%;background:#fff;transition:transform .25s,box-shadow .25s}
+#poster i::after{content:"";margin-left:5px;border-left:20px solid var(--green);border-top:13px solid transparent;border-bottom:13px solid transparent}
+#poster:hover i,#poster:focus-visible i{transform:scale(1.07);box-shadow:0 0 0 12px rgba(255,255,255,.15)}
+#embed{display:none;place-items:center;padding:24px;background:rgba(6,16,28,.92);color:#fff;text-align:center;font-size:14px}
+#embed .progress{width:min(420px,80%);height:4px;margin:16px auto 0;--bs-progress-bg:rgba(255,255,255,.2);--bs-progress-bar-bg:var(--lime)}
+#embedBar{width:0;transition:width .4s}
+#embed:focus{outline:none}
+#player.playing #poster{display:none}
+#player.playing #embed{display:grid}
+
+
+/* 6. MOTION + RESPONSIVE ================================================= */
+.reveal{opacity:0;transform:translateY(14px);transition:opacity .6s ease,transform .6s cubic-bezier(.2,.8,.2,1)}   /* class added by JS */
+.reveal.in{opacity:1;transform:none}
+
+@keyframes pulse{from{box-shadow:0 0 0 0 color-mix(in srgb,currentColor 55%,transparent)}to{box-shadow:0 0 0 12px transparent}}
+@keyframes rise{to{transform:none}}
+@keyframes fadeup{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:none}}
+@keyframes flip{0%{transform:rotateX(0)}50%{transform:rotateX(90deg);opacity:.3}100%{transform:rotateX(0)}}
+@keyframes prog{to{width:100%}}
+@keyframes barUp{from{transform:scaleY(.3)}to{transform:scaleY(1.15)}}
+@keyframes bob{50%{transform:translate(1px,-1.5px) scale(1.06)}}
+@keyframes spin{to{transform:rotate(360deg)}}
+@keyframes dash{to{stroke-dashoffset:18}}
+@keyframes tap{0%,100%{transform:translateY(0)}35%{transform:translateY(2.5px)}}
+@keyframes rip{0%{transform:scale(.3);opacity:.9}100%{transform:scale(2.4);opacity:0}}
+@keyframes glow{0%{text-shadow:0 0 0 rgba(185,224,124,0)}30%{text-shadow:0 0 12px rgba(185,224,124,.9)}100%{text-shadow:none}}
+@keyframes flash{0%{box-shadow:0 0 0 0 rgba(75,127,35,.55),0 18px 44px rgba(75,127,35,.16)}100%{box-shadow:0 0 0 18px rgba(75,127,35,0),0 18px 44px rgba(75,127,35,.16)}}
+
+/* DESKTOP (992px and up): hero fund card floats over the banner art */
+@media (min-width:992px){
+  #hero{background-position:right center}
+  #hero::before{background:linear-gradient(90deg,#264048 0%,#264048 35%,rgba(38,64,72,0) 60%)}
+  #stage{height:420px;padding:0}
+  #glow{display:block}
+  #card{position:absolute;left:-56px;bottom:4%;width:300px}
+}
+
+/* MOBILE (under 576px) */
+@media (max-width:575.98px){
+  #controls{margin-bottom:5.5rem !important}       /* keep the mockup panel above the sticky bar */
+  #player{--bs-aspect-ratio:75%}
+  #rail li strong{font-size:12px}
+  #rail li span{font-size:11px}
+}
+
+@media (prefers-reduced-motion:reduce){
+  .reveal,#hero h1 b,#hero h1 em,#hero .copy>*{opacity:1 !important;transform:none !important}
+  *{transition:none !important;animation:none !important}
+}
