@@ -250,8 +250,10 @@ function setMode(mode){
 const tickerItems = [
   "Claude is reportedly named after <b>Claude Shannon</b>, the father of information theory",
   'Anthropic was co-founded in 2021 by siblings <b>Dario and Daniela Amodei</b>',
-  'Anthropic employs more than <b>2,500 people</b> company-wide',
-  "Anthropic's valuation more than <b>doubled</b> in just 3 months, Feb–May 2026"
+  'Anthropic employs more than <b>5,300 people</b> company-wide',
+  "Public S-1 filed 10/26/26",
+  'Expected to IPO this Fall',
+  'Nasdaq listing planned under the ticker symbol ANT'
 ];
 const track = document.getElementById('tickerTrack');
 const loopContent = tickerItems.concat(tickerItems).map(t => `<span>${t}</span>`).join('');
