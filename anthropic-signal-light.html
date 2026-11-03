@@ -247,21 +247,21 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 
     <div class="choose-label">Choose your conviction</div>
     <div class="ticker-toggle" role="group" aria-label="Choose ANTU (long) or ANTY (short)" id="tickerToggle">
-      <div class="ticker-seg-wrap long active">
+      <div id="antu" class="ticker-seg-wrap long active">
         <button class="ticker-seg" onclick="setMode('long')">
           <span class="seg-ticker">ANTU</span>
           <span class="seg-tag" id="segTagLong">Long &middot; 2x daily</span>
           <span class="seg-name">ProShares Ultra Anthropic</span>
+          <a class="seg-link" href="https://www.proshares.com/our-etfs/leveraged-and-inverse/antu" onclick="event.stopPropagation()" target="_blank" rel="noopener">View Product Page &rarr;</a>
         </button>
-        <a class="seg-link" href="https://www.proshares.com/our-etfs/leveraged-and-inverse/antu" onclick="event.stopPropagation()" target="_blank" rel="noopener">View Product Page &rarr;</a>
       </div>
-      <div class="ticker-seg-wrap short">
+      <div id="anty" class="ticker-seg-wrap short">
         <button class="ticker-seg" onclick="setMode('short')">
           <span class="seg-ticker">ANTY</span>
           <span class="seg-tag" id="segTagShort">Short &middot; &minus;2x daily</span>
           <span class="seg-name">ProShares UltraShort Anthropic</span>
+          <a class="seg-link" href="https://www.proshares.com/our-etfs/leveraged-and-inverse/anty" onclick="event.stopPropagation()" target="_blank" rel="noopener">View Product Page &rarr;</a>
         </button>
-        <a class="seg-link" href="https://www.proshares.com/our-etfs/leveraged-and-inverse/anty" onclick="event.stopPropagation()" target="_blank" rel="noopener">View Product Page &rarr;</a>
       </div>
     </div>
     <div class="reg-caption">

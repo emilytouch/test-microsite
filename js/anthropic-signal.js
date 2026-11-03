@@ -13,21 +13,6 @@ function closeMobileNav(){
   document.getElementById('menuToggle').setAttribute('aria-expanded', 'false');
 }
 
-// ---- header "ETFs" dropdown ----
-/*function toggleEtfsDropdown(){
-  const menu = document.getElementById('etfsDropdownMenu');
-  const trigger = document.querySelector('#etfsDropdown .dropdown-trigger');
-  const isOpen = menu.classList.toggle('open');
-  trigger.classList.toggle('open', isOpen);
-  trigger.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
-  if(isOpen) trackEvent('etfs_dropdown_open', {});
-}
-document.addEventListener('click', (e) => {
-  if(!e.target.closest('#etfsDropdown')){
-    document.getElementById('etfsDropdownMenu').classList.remove('open');
-    document.querySelector('#etfsDropdown .dropdown-trigger').classList.remove('open');
-  }
-});*/
 
 // ---- mode toggle (signature interaction) ----
 const heroTicker = document.getElementById('heroTicker');
@@ -62,8 +47,8 @@ const heroTicker = document.getElementById('heroTicker');
 // Independent of both flags entirely (its own two controls, see below):
 //   - the status badge ("Pending Anthropic IPO Listing")
 // ============================================================
-const FUND_EFFECTIVE = false;
-const FUND_LISTED = false;
+const FUND_EFFECTIVE = true;
+const FUND_LISTED = true;
 
 // ---- Status badge: two independent controls, not tied to a fixed pair
 // of preset states —
@@ -129,10 +114,6 @@ document.getElementById('statusBadge').style.cssText = FUND_LISTED ? `
 ` : ``;
 
 // ---- Toggle button subtitle ("Long · 2x daily" / "Short · -2x daily"):
-// this states the fund's daily multiple/objective, which can't be said
-// publicly before the fund is effective — so this now defaults to
-// hidden pre-effective and appears automatically once FUND_EFFECTIVE
-// is true. Same override pattern as the status badge above —
 //   SEG_TAG_VISIBLE: hardcode to true or false here if you want to
 //     force it independent of FUND_EFFECTIVE for any reason.
 //   SEG_TAG_TEXT_LONG / SEG_TAG_TEXT_SHORT: edit these strings to say
@@ -221,10 +202,17 @@ if(!FAQ_LIVE){
   if(faqSchema) faqSchema.remove();
 }
 
-function setMode(mode){
+function setMode(mode, { updateUrl = true, track = true } = {}){
   document.body.dataset.mode = mode;
   document.querySelectorAll('.ticker-seg-wrap').forEach(w => w.classList.toggle('active', w.classList.contains(mode)));
-  trackEvent('mode_toggle', {mode: mode});
+  if(track) trackEvent('mode_toggle', {mode: mode});
+
+  if(updateUrl){
+    const ticker = mode === 'long' ? 'antu' : 'anty';
+    if(window.location.hash !== `#${ticker}`){
+      window.history.replaceState(null, '', `#${ticker}`);
+    }
+  }
 
   if(mode === 'long'){
     heroTicker.textContent = 'MAGNIFIED';
@@ -236,6 +224,12 @@ function setMode(mode){
     heroTicker.classList.add('mode-short');
   }
 }
+
+const modeFromHash = {
+  '#antu': 'long',
+  '#anty': 'short'
+}[window.location.hash.toLowerCase()];
+if(modeFromHash) setMode(modeFromHash, { updateUrl: false, track: false });
 
 // ---- ticker tape content ----
 // Kept deliberately distinct from the "Anthropic at a Glance" stat grid below —
