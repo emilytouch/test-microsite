@@ -62,7 +62,7 @@ const heroTicker = document.getElementById('heroTicker');
 // Independent of both flags entirely (its own two controls, see below):
 //   - the status badge ("Pending Anthropic IPO Listing")
 // ============================================================
-const FUND_EFFECTIVE = true;
+const FUND_EFFECTIVE = false;
 const FUND_LISTED = false;
 
 // ---- Status badge: two independent controls, not tied to a fixed pair
