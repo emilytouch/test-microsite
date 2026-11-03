@@ -47,8 +47,8 @@ const heroTicker = document.getElementById('heroTicker');
 // Independent of both flags entirely (its own two controls, see below):
 //   - the status badge ("Pending Anthropic IPO Listing")
 // ============================================================
-const FUND_EFFECTIVE = true;
-const FUND_LISTED = true;
+const FUND_EFFECTIVE = false;
+const FUND_LISTED = false;
 
 // ---- Status badge: two independent controls, not tied to a fixed pair
 // of preset states —
@@ -119,8 +119,8 @@ document.getElementById('statusBadge').style.cssText = FUND_LISTED ? `
 //   SEG_TAG_TEXT_LONG / SEG_TAG_TEXT_SHORT: edit these strings to say
 //     anything you want, or leave blank ('') to show an empty line. ----
 const SEG_TAG_VISIBLE = true;
-const SEG_TAG_TEXT_LONG = 'Long \u00b7 2x daily';
-const SEG_TAG_TEXT_SHORT = 'Short \u00b7 \u22122x daily';
+const SEG_TAG_TEXT_LONG = 'Long 2x daily';
+const SEG_TAG_TEXT_SHORT = 'Short \u22122x daily';
 
 const segTagLong = document.getElementById('segTagLong');
 const segTagShort = document.getElementById('segTagShort');
