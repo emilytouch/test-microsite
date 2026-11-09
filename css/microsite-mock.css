@@ -353,8 +353,10 @@ body[data-phase="pre"] #fund .wrap{grid-template-columns:1fr}                  /
 #notify-sec p{color:rgba(255,255,255,.85)}
 #notify-sec input[type=email]{border:0}
 #notify-sec .who label{border-color:rgba(255,255,255,.4);color:#fff}
+#notify-sec .who label:hover{border-color:rgba(255,255,255,.4);color:var(--green-light);background:var(--green-soft)}
 #notify-sec .who input:checked+label{background:#fff;border-color:#fff;color:var(--green)}
 #notify-sec .btn{background:#fff;color:var(--green)}
+#notify-sec .btn:hover{background:var(--green-soft);color:var(--green)}
 #notify-sec form>p{color:#fff}
 
 /* ---- M06 Related insights --------------------------------------------- */
