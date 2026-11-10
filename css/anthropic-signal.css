@@ -713,6 +713,7 @@
   .insights-grid > .insight-card:only-child .insight-body{flex:1 1 48%; padding:32px 36px; justify-content:center;}
   .insights-grid > .insight-card:only-child .insight-title{font-size:26px;}
   .insights-grid > .insight-card:only-child .insight-desc{font-size:14.5px;}
+  
   .disclosure{
     font-size: 11pt; 
     color:var(--dim-2); 

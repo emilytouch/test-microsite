@@ -353,23 +353,6 @@ if(SIGNUP_STYLE === 'popup' && !FUND_LISTED){
   }, SIGNUP_POPUP_DELAY_MS);
 }
 
-// ---- signup confirmation popup ----
-/*function openConfirmPopup(){
-  document.getElementById('confirmOverlay').classList.add('open');
-  // tags (Google Ads, Meta, LinkedIn, etc.) to this event name if a
-  // platform needs its own specific trigger rather than reusing
-  // 'signup_submitted' above.
-  trackEvent('signup_conversion', {});
-}
-function closeConfirmPopup(){
-  document.getElementById('confirmOverlay').classList.remove('open');
-}
-document.getElementById('confirmOverlay').addEventListener('click', (e) => {
-  if(e.target.id === 'confirmOverlay') closeConfirmPopup();
-});
-document.addEventListener('keydown', (e) => {
-  if(e.key === 'Escape') closeConfirmPopup();
-});*/
 
 // ---- scroll reveal ----
 const io = new IntersectionObserver((entries) => {
