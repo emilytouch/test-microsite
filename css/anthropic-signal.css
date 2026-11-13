@@ -660,7 +660,9 @@
   .fd-pillar{background:var(--surface); border-radius:10px;padding:12px 14px;}
   .fd-pillar h4{font-size:12.5px; font-weight:800; color: var(--text); margin-bottom:3px;}
   .fd-pillar p{font-size:11.5px; color:var(--text); line-height:1.4;}
-
+  .fd-documents{background:var(--surface); padding:14px 16px; border-radius:14px; margin-bottom:16px;}
+  .fd-documents a{color:var(--warn); text-decoration:none;font-size: 12px; font-weight: 700;}
+  .fd-documents a:hover{color:#CC785C;}
   .fd-snapshot{background:var(--surface); border:1px solid var(--line); padding:14px 16px; border-radius:14px;}
   .fd-snapshot-title{font-size:10.5px; font-weight:800; letter-spacing:.3px; text-transform:uppercase; color:var(--text); margin-bottom:6px; font-family:var(--font-body);}
   .fd-snap-grid{display:grid; grid-template-columns:repeat(2,1fr); gap:0;}
@@ -668,13 +670,6 @@
   .fd-snap-row .k{display:block; font-size:10px; color:var(--text); margin-bottom:1px;}
   .fd-snap-row .v{display:block; font-size:12px; font-weight:700; color:var(--text); font-family:var(--font-body);}
 
-  /* ---- Active / inactive split-screen treatment ----
-     Purely CSS, keyed off the same body[data-mode] the rest of the page
-     already uses — no extra JS. The selected side gets its fund's color
-     treatment (solid orange for ANTU, orange-outlined white for ANTY,
-     matching the hero toggle buttons) and the "Selected" tag; the other
-     side fades and desaturates rather than disappearing, so it's always
-     obvious both funds exist and exactly which one is currently active. */
   body[data-mode="long"] .fd-column.long,
   body[data-mode="short"] .fd-column.short{
     background:#fff;

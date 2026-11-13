@@ -61,7 +61,7 @@ const FUND_LISTED = false;
 //     so "Now Trading" shouldn't show until it's actually listed),
 //     but you can override it directly any time. ----
 const STATUS_BADGE_VISIBLE = true;
-const STATUS_BADGE_TEXT = FUND_LISTED ? 'Now Trading' : 'Pending Anthropic IPO Listing';
+const STATUS_BADGE_TEXT = FUND_LISTED ? 'Now Trading' : 'Trading Expected to Begin Monday, Nov. 23';
 
 // ---- Signup: Once FUND_LISTED is true:
 //   - the thin banner's button is replaced with a small inline
@@ -246,7 +246,7 @@ const tickerItems = [
   'Anthropic was co-founded in 2021 by siblings <b>Dario and Daniela Amodei</b>',
   'Anthropic employs more than <b>5,300 people</b> company-wide',
   "Public S-1 filed 10/26/26",
-  'Expected to IPO this Fall',
+  'Expected to IPO on 11/19/26',
   'Nasdaq listing planned under the ticker symbol ANT'
 ];
 const track = document.getElementById('tickerTrack');
