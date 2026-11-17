@@ -380,8 +380,8 @@
 
   .choose-label{
     text-align:left;
-    font-family:var(--font-body);
-    font-size:14pt;
+    font-family:var(--font-heading);
+    font-size:16pt;
     letter-spacing:1.4px;
     text-transform:uppercase;
     color:var(--dim);
