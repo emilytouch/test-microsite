@@ -363,6 +363,8 @@
     letter-spacing:-.02em;
     margin-bottom:36px;
     color:var(--text);
+    text-shadow:0 0 8px #fff, 0 0 8px #fff, 0 0 12px #fff;
+
   }
   h1.headline .tick{
     font-family:'MazzardH-Bold', 'Century Gothic', sans-serif;
@@ -381,7 +383,7 @@
   .choose-label{
     text-align:left;
     font-family:var(--font-heading);
-    font-size:16pt;
+    font-size:20pt;
     letter-spacing:1.4px;
     text-transform:uppercase;
     color:var(--dim);
@@ -794,6 +796,7 @@
     cursor:pointer;
     transition:transform .15s, box-shadow .15s;
     box-shadow:0 2px 8px rgba(0,0,0,.15);
+    text-decoration:none;
   }
   .signup-thin-inline-form{display:flex; align-items:center; gap:8px;}
   .signup-thin-inline-form input[type="email"]{background:rgba(255,255,255,.18); border:1.5px solid rgba(255,255,255,.5); color:#fff; padding:6px 12px; border-radius:14px; font-size:14pt; width:170px; font-family:var(--font-body);}

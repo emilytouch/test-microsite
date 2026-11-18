@@ -48,7 +48,7 @@ const heroTicker = document.getElementById('heroTicker');
 //   - the status badge ("Pending Anthropic IPO Listing")
 // ============================================================
 const FUND_EFFECTIVE = true;
-const FUND_LISTED = false;
+const FUND_LISTED = true;
 
 // ---- Status badge: two independent controls, not tied to a fixed pair
 // of preset states —
@@ -73,7 +73,7 @@ const STATUS_BADGE_TEXT = FUND_LISTED ? 'Now Trading' : 'Trading Expected to Beg
 // Edit any of these strings freely — plain text, not limited to
 // these two presets. ----
 const SIGNUP_HEADING_PRE_LISTING = '<strong>ANTU</strong> and <strong>ANTY</strong> are expected to begin trading on Nasdaq <strong>Monday, Nov. 23</strong>.';
-const SIGNUP_HEADING_LISTED = 'Stay updated on market insights and ProShares products.';
+const SIGNUP_HEADING_LISTED = 'Available to trade: <strong>ANTU</strong> and <strong>ANTY</strong>.';
 const SIGNUP_POPUP_SUBTITLE_PRE_LISTING = 'Get an email alert as soon as the funds list.';
 //const CONFIRM_MESSAGE_PRE_LISTING = 'ProShares will notify you when ANTU and ANTY are available to trade.';
 //const CONFIRM_MESSAGE_LISTED = "You'll get market insights and ProShares updates in your inbox.";
@@ -82,10 +82,9 @@ document.getElementById('signupThinHeading').innerHTML = FUND_LISTED ? SIGNUP_HE
 
 if(FUND_LISTED){
   document.getElementById('signupThinAction').innerHTML = `
-    <form class="signup-thin-inline-form" id="signupInlineForm" onsubmit="return doSignup(event)">
-      <input type="email" name="email" placeholder="you@email.com" required>
-      <button type="submit" class="signup-thin-btn">Subscribe</button>
-    </form>`;
+    <div class="signup-thin-inline-form" id="signupInlineForm">
+      <a href="https://www.proshares.com/resources/how-to-buy-geared-funds" target="_blank" rel="noopener noreferrer" class="signup-thin-btn">How to Buy</a>
+    </div>`;
 } else {
   //document.getElementById('signupPopupSubtitle').textContent = SIGNUP_POPUP_SUBTITLE_PRE_LISTING;
 }
@@ -213,16 +212,6 @@ function setMode(mode, { updateUrl = true, track = true } = {}){
       window.history.replaceState(null, '', `#${ticker}`);
     }
   }
-
-  if(mode === 'long'){
-    heroTicker.textContent = 'MAGNIFIED';
-    heroTicker.classList.remove('mode-short');
-    heroTicker.classList.add('mode-long');
-  } else {
-    heroTicker.textContent = 'INVERSE';
-    heroTicker.classList.remove('mode-long');
-    heroTicker.classList.add('mode-short');
-  }
 }
 
 const modeFromHash = {
@@ -246,8 +235,8 @@ const tickerItems = [
   'Anthropic was co-founded in 2021 by siblings <b>Dario and Daniela Amodei</b>',
   'Anthropic employs more than <b>5,300 people</b> company-wide',
   "Public S-1 filed 10/26/26",
-  'Expected to IPO on 11/19/26',
-  'Nasdaq listing planned under the ticker symbol ANT'
+  'Anthropic went public on 11/19/26',
+  "Anthropic's ticker symbol: $ANT"
 ];
 const track = document.getElementById('tickerTrack');
 const loopContent = tickerItems.concat(tickerItems).map(t => `<span>${t}</span>`).join('');

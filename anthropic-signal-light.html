@@ -27,22 +27,13 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     "@graph": [{
       "@type": "FAQPage",
       "mainEntity": [
-      {
-        "@type":"Question",
-        "name":"When will Anthropic IPO?",
-        "acceptedAnswer":
-        {
-          "@type":"Answer",
-          "text":"Anthropic is expected to IPO on November 19th, 2026."
-        }
-      },
         {
           "@type":"Question",
           "name":"What is the best Anthropic ETF?",
           "acceptedAnswer":
           {
             "@type":"Answer",
-            "text":"The right Anthropic ETF depends on an investor’s objectives. ANTU is designed to target 2x the daily returns of Anthropic (ANT) common stock, while ANTY is designed to target -2x the daily returns. Neither fund has launched yet; ProShares does not provide investment advice or recommend which fund may be appropriate for a particular investor."
+            "text":"The right Anthropic ETF depends on an investor’s objectives. ANTU is designed to target 2x the daily returns of Anthropic (ANT) common stock, while ANTY is designed to target -2x the daily returns. ProShares does not provide investment advice or recommend which fund may be appropriate for a particular investor."
           }
         },
         {
@@ -87,7 +78,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
           "acceptedAnswer":
           {
             "@type":"Answer",
-            "text":"Anthropic intends to list on Nasdaq under the ticker symbol ANT."
+            "text":"Anthropic is listed on Nasdaq under the ticker symbol ANT."
           }
         },
         {
@@ -119,15 +110,6 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
         },
         {
           "@type":"Question",
-          "name":"Can I trade options on ANTU or ANTY?",
-          "acceptedAnswer":
-          {
-            "@type":"Answer",
-            "text":"Options availability for ANTU and ANTY will depend on exchange listing standards once each fund launches and is not yet confirmed. Check back once trading begins."
-          }
-        },
-        {
-          "@type":"Question",
           "name":"What does Anthropic do?",
           "acceptedAnswer":
           {
@@ -150,7 +132,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
           "acceptedAnswer":
           {
             "@type":"Answer",
-            "text":"Not yet, the funds are expected to begin trading on November 23rd, 2026. Sign up on this page to be notified the moment trading begins."
+            "text":"Yes, ANTU and ANTY began trading on November 23, 2026. To start investing, check out our How to Buy page."
           }
         }
       ]
@@ -243,18 +225,17 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     <img id="heroDecoration" class="hero-blob" src="assets/images/claude-logo.png">
     <div class="status-badge" id="statusBadge">
       <span class="status-dot pulse" id="statusDot"></span>
-      <span id="statusText">Pending Anthropic IPO Listing</span>
+      <span id="statusText"></span>
     </div>
-    <h1 class="headline">ANTHROP<span>\</span>C<br /><span class="tick mode-long" id="heroTicker">MAGNIFIED</span></h1>
-
-    <div class="choose-label">2x Long and 2x Short Anthropic ETFs</div>
+    <h1 class="headline">2x Anthropic ETFs</h1>
+    <div class="choose-label">Target 2x and -2x daily Anthropic returns</div>
     <div class="ticker-toggle" role="group" aria-label="Choose ANTU (long) or ANTY (short)" id="tickerToggle">
       <div id="antu" class="ticker-seg-wrap long active">
         <button class="ticker-seg" onclick="setMode('long')">
           <span class="seg-ticker">ANTU</span>
           <span class="seg-tag" id="segTagLong">Long 2x daily</span>
           <span class="seg-name">ProShares Ultra Anthropic</span>
-          <a class="seg-link" href="https://www.proshares.com/our-etfs/leveraged-and-inverse/antu" onclick="event.stopPropagation()" target="_blank" rel="noopener">View Product Page &rarr;</a>
+          <a class="seg-link" href="https://www.proshares.com/our-etfs/leveraged-and-inverse/antu" onclick="event.stopPropagation()" target="_blank" rel="noopener">See fund details &rarr;</a>
         </button>
       </div>
       <div id="anty" class="ticker-seg-wrap short">
@@ -262,7 +243,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
           <span class="seg-ticker">ANTY</span>
           <span class="seg-tag" id="segTagShort">Short &minus;2x daily</span>
           <span class="seg-name">ProShares UltraShort Anthropic</span>
-          <a class="seg-link" href="https://www.proshares.com/our-etfs/leveraged-and-inverse/anty" onclick="event.stopPropagation()" target="_blank" rel="noopener">View Product Page &rarr;</a>
+          <a class="seg-link" href="https://www.proshares.com/our-etfs/leveraged-and-inverse/anty" onclick="event.stopPropagation()" target="_blank" rel="noopener">See fund details &rarr;</a>
         </button>
       </div>
     </div>
@@ -282,7 +263,9 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 
       <!-- ============ ANTU (long) content ============ -->
       <div class="fd-column long" onclick="setMode('long')">
-        <div class="fd-selected-tag">ANTU</div>
+        <a href="https://www.proshares.com/our-etfs/leveraged-and-inverse/antu" target="_blank" rel="noopener noreferrer">
+          <div class="fd-selected-tag">ANTU</div>
+        </a>
         <h3 class="fd-heading">Potential Benefit of ANTU</h3>
 
         <div class="fd-block">
@@ -293,7 +276,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
         <div class="fd-pillars">
           <div class="fd-pillar">
             <h4>Targets Magnified Returns</h4>
-            <p>ANTU targets 2x the daily returns of Anthropic (ANT), a frontier AI lab behind the Claude family of models, widely adopted by enterprise and consumer customers.</p>
+            <p>ANTU targets 2x the daily returns of Anthropic (ANT), a frontier AI company behind the Claude family of models, which are widely adopted by enterprises and consumers.</p>
           </div>
           <div class="fd-pillar">
             <h4>Efficient</h4>
@@ -316,10 +299,10 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
           <div class="fd-snap-grid">
             <div class="fd-snap-row"><span class="k">Ticker</span><span class="v">ANTU</span></div>
             <div class="fd-snap-row"><span class="k">Intraday Ticker</span><span class="v">ANTU.IV</span></div>
-            <!--<div class="fd-snap-row"><span class="k">Inception Date</span><span class="v">TBC</span></div>-->
+            <div class="fd-snap-row"><span class="k">CUSIP</span><span class="v">745350U724</span></div>
+            <div class="fd-snap-row"><span class="k">Inception Date</span><span class="v">11/20/26</span></div>
             <div class="fd-snap-row"><span class="k">Net Expense Ratio</span><span class="v">0.95%</span></div>
             <div class="fd-snap-row"><span class="k">Gross Expense Ratio</span><span class="v">1.04%</span></div>
-            <div class="fd-snap-row"><span class="k">CUSIP</span><span class="v">745350U724</span></div>
             <div class="fd-snap-row"><span class="k">NAV Calc. Time</span><span class="v">4:00pm ET</span></div>
             <div class="fd-snap-row"><span class="k">Distributions</span><span class="v">Quarterly</span></div>
             <div class="fd-snap-row"><span class="k">Exchange</span><span class="v">NASDAQ</span></div>
@@ -330,7 +313,9 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 
       <!-- ============ ANTY (short) content ============ -->
       <div class="fd-column short" onclick="setMode('short')">
-        <div class="fd-selected-tag">ANTY</div>
+        <a href="https://www.proshares.com/our-etfs/leveraged-and-inverse/anty" target="_blank" rel="noopener noreferrer">
+          <div class="fd-selected-tag">ANTY</div>
+        </a>
         <h3 class="fd-heading">Potential Benefit of ANTY</h3>
 
         <div class="fd-block">
@@ -340,7 +325,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
         <div class="fd-pillars">
           <div class="fd-pillar">
             <h4>Seeks to Profit from Declines</h4>
-            <p>ANTY is designed to profit when the daily price of Anthropic stock drops.<br/><br/></p>
+            <p>ANTY is designed to profit when the daily price of Anthropic (ANT) stock drops.<br/><br/></p>
           </div>
           <div class="fd-pillar">
             <h4>Precise Hedging</h4>
@@ -348,7 +333,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
           </div>
           <div class="fd-pillar">
             <h4>Efficient</h4>
-            <p>Access inverse exposure to Anthropic without borrowing shares, margin requirements or the potentially significant costs of short selling.</p>
+            <p>Access inverse exposure to Anthropic (ANT) without borrowing shares, margin requirements or the potentially significant costs of short selling.</p>
           </div>
         </div>
         <div class="fd-documents">
@@ -363,10 +348,10 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
           <div class="fd-snap-grid">
             <div class="fd-snap-row"><span class="k">Ticker</span><span class="v">ANTY</span></div>
             <div class="fd-snap-row"><span class="k">Intraday Ticker</span><span class="v">ANTY.IV</span></div>
-            <!--<div class="fd-snap-row"><span class="k">Inception Date</span><span class="v">TBC</span></div>-->
+            <div class="fd-snap-row"><span class="k">CUSIP</span><span class="v">745350U351</span></div>
+            <div class="fd-snap-row"><span class="k">Inception Date</span><span class="v">11/20/26</span></div>
             <div class="fd-snap-row"><span class="k">Net Expense Ratio</span><span class="v">0.95%</span></div>
             <div class="fd-snap-row"><span class="k">Gross Expense Ratio</span><span class="v">1.04%</span></div>
-            <div class="fd-snap-row"><span class="k">CUSIP</span><span class="v">745350U351</span></div>
             <div class="fd-snap-row"><span class="k">NAV Calc. Time</span><span class="v">4:00pm ET</span></div>
             <div class="fd-snap-row"><span class="k">Distributions</span><span class="v">Quarterly</span></div>
             <div class="fd-snap-row"><span class="k">Exchange</span><span class="v">NASDAQ</span></div>
@@ -401,17 +386,6 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
             <span class="insight-cta">Read the article &rarr;</span>
           </div>
         </a>
-        <a class="insight-card" href="https://www.proshares.com/browse-all-insights/insights/anthropic-ipo-investor-questions" target="_blank" rel="noopener">
-          <div class="insight-media">
-            <img src="assets/images/260911-TL-Quick-Take_What Investor Should Watch.png" alt="Quick Take: Anthropic IPO: What Investors Should Watch" width="100%" />
-          </div>
-          <div class="insight-body">
-            <span class="insight-tag">Quick Take</span>
-            <div class="insight-title">Anthropic IPO: What Investors Should Watch</div>
-            <p class="insight-desc">Explore key elements influencing Anthropic’s potential IPO, its valuation and revenue forecasts, and what it all means for investors.</p>
-            <span class="insight-cta">Read the article &rarr;</span>
-          </div>
-        </a>
         <a class="insight-card" href="https://www.proshares.com/browse-all-insights/insights/anthropics-ipo-how-it-compares-with-openai" target="_blank" rel="noopener">
           <div class="insight-media">
             <img src="assets/images/TL_How It Compares with OpenAI.png" alt="Anthropic IPO: How It Compares with OpenAI" width="100%" />
@@ -421,6 +395,17 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
             <div class="insight-title">How Anthropic's IPO Compares with OpenAI's</div>
             <p class="insight-desc">Anthropic and OpenAI may dominate the same AI conversation, but their businesses differ. Executive Director of Tactical Products Inkoo Kang breaks down what investors should know ahead of Anthropic's IPO.</p>
             <span class="insight-cta">View the video &rarr;</span>
+          </div>
+        </a>
+        <a class="insight-card" href="https://www.proshares.com/browse-all-insights/insights/anthropic-ipo-investor-questions" target="_blank" rel="noopener">
+          <div class="insight-media">
+            <img src="assets/images/260911-TL-Quick-Take_What Investor Should Watch.png" alt="Quick Take: Anthropic IPO: What Investors Should Watch" width="100%" />
+          </div>
+          <div class="insight-body">
+            <span class="insight-tag">Press Release</span>
+            <div class="insight-title">ProShares Launches ANTU and ANTY</div>
+            <p class="insight-desc">Explore key elements influencing Anthropic’s IPO, its valuation and revenue forecasts, and what it all means for investors.</p>
+            <span class="insight-cta">Read the article &rarr;</span>
           </div>
         </a>
       </div>
@@ -434,7 +419,8 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
         <div class="vpoint"><div class="vline"></div><div class="vdot"></div><div class="vdate">MAR 2025</div><div class="vamt">$61.5B</div></div>
         <div class="vpoint"><div class="vline"></div><div class="vdot"></div><div class="vdate">SEP 2025</div><div class="vamt">$183B</div></div>
         <div class="vpoint"><div class="vline"></div><div class="vdot"></div><div class="vdate">FEB 2026</div><div class="vamt">$380B</div></div>
-        <div class="vpoint dashed-next"><div class="vline"></div><div class="vdot"></div><div class="vdate">MAY 2026</div><div class="vamt">$965B</div></div>
+        <div class="vpoint"><div class="vline"></div><div class="vdot"></div><div class="vdate">MAY 2026</div><div class="vamt">$965B</div></div>
+        <div class="vpoint dashed-next"><div class="vline"></div><div class="vdot"></div><div class="vdate">NOV 2026</div><div class="vamt">$1.4T</div></div>
         <div class="vpoint vpoint-future"><div class="vline"></div><div class="vdot"></div><div class="vdate">WHAT'S NEXT?</div><div class="vamt">?</div></div>
       </div>
     </div>
@@ -455,7 +441,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
         <p>Reported share of revenue from business customers.</p>
       </div>
       <div class="stat-cell">
-        <div class="lbl">Reported IPO valuation target</div>
+        <div class="lbl">Reported IPO valuation</div>
         <div class="big">$1.4T</div>
         <p>At $1.4T, Anthropic would rank among the world's most valuable public companies.</p>
       </div>
@@ -489,22 +475,12 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     <div class="accordion accordion-flush" id="faq-Accordion">
       <div class="accordion-item">
         <h2 class="accordion-header">
-          <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapse14" aria-expanded="false" aria-controls="flush-collapse14">
-            When will Anthropic IPO?
-          </button>
-        </h2>
-        <div id="flush-collapse14" class="accordion-collapse collapse">
-          <div class="accordion-body">Anthropic is expected to IPO on November 19th, 2026.</div>
-        </div>
-      </div>
-      <div class="accordion-item">
-        <h2 class="accordion-header">
           <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseOne" aria-expanded="false" aria-controls="flush-collapseOne">
             What is the best Anthropic ETF?
           </button>
         </h2>
         <div id="flush-collapseOne" class="accordion-collapse collapse">
-          <div class="accordion-body">The right Anthropic ETF depends on an investor’s objectives. ANTU is designed to target 2x the daily returns of Anthropic (ANT) common stock, while ANTY is designed to target -2x the daily returns. Neither fund has launched yet; ProShares does not provide investment advice or recommend which fund may be appropriate for a particular investor.</div>
+          <div class="accordion-body">The right Anthropic ETF depends on an investor’s objectives. ANTU is designed to target 2x the daily returns of Anthropic (ANT) common stock, while ANTY is designed to target -2x the daily returns. ProShares does not provide investment advice or recommend which fund may be appropriate for a particular investor.</div>
         </div>
       </div>
       <div class="accordion-item">
@@ -554,7 +530,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
           </button>
         </h2>
         <div id="flush-collapse6" class="accordion-collapse collapse">
-          <div class="accordion-body">Anthropic intends to list on Nasdaq under the ticker symbol ANT.</div>
+          <div class="accordion-body">Anthropic is listed on Nasdaq under the ticker symbol ANT.</div>
         </div>
       </div>
       <div class="accordion-item">
@@ -588,7 +564,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
           <div class="accordion-body">ANTU and ANTY are ETFs that target 2x and -2x, respectively, the daily return of Anthropic stock, before fees and expenses. Each offers convenient access through a single ticker without requiring investors to borrow money or shares directly. The maximum loss is generally limited to the amount invested in the fund.</div>
         </div>
       </div>
-      <div class="accordion-item">
+      <!--<div class="accordion-item">
         <h2 class="accordion-header">
           <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapse10" aria-expanded="false" aria-controls="flush-collapse10">
             Can I trade options on ANTU or ANTY?
@@ -597,7 +573,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
         <div id="flush-collapse10" class="accordion-collapse collapse">
           <div class="accordion-body">Options availability for ANTU and ANTY will depend on exchange listing standards once each fund launches and is not yet confirmed. Check back once trading begins.</div>
         </div>
-      </div>
+      </div>-->
       <div class="accordion-item">
         <h2 class="accordion-header">
           <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapse11" aria-expanded="false" aria-controls="flush-collapse11">
@@ -626,7 +602,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
           </button>
         </h2>
         <div id="flush-collapse13" class="accordion-collapse collapse">
-          <div class="accordion-body">Not yet, ANTU and ANTY are expected to begin trading on November 23rd, 2026. Sign up on this page to be notified the moment trading begins.</div>
+          <div class="accordion-body">Yes, ANTU and ANTY began trading on November 23, 2026. To start investing, check out our <a href="https://www.proshares.com/resources/how-to-buy-geared-funds">How to Buy</a> page.</div>
         </div>
       </div>
     </div>
@@ -645,7 +621,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     </div>
     <div class="legal">
       <p id="footerRegNotice"><strong>Registration statement notice:</strong> The registration statements for ANTU and ANTY have been filed with the SEC but are not yet effective. Shares may not be sold, nor may offers to buy be accepted, until effective. This page is not an offer to sell or a solicitation of an offer to buy these securities in any state or jurisdiction where such offer would be unlawful.</p>
-      <p><strong>These leveraged and inverse single-stock ETFs’ performance depends almost entirely on the performance of their underlying single stock, which involves significant risk and eliminates the benefits of diversification. The underlying stock may experience significant price volatility at any time. Before investing, you should carefully consider that high volatility may have a significant negative impact on the Fund’s performance.</strong> It may also experience abnormal returns, which should not be expected to persist. The ETF’s performance should be measured from one NAV calculation time to the next and does not represent the returns you would receive if you traded shares at other times. Market volatility or disruptions in the trading of the underlying stock may impair the ETF’s ability to obtain or maintain its desired exposure and could result in losses or wider bid-ask spreads. IPO investments generally carry higher risks, including limited trading history, market risk, and liquidity concerns. The underlying stock may experience periods of low liquidity, making it difficult to buy or sell at desired prices. Large ETF positions may increase this risk and impact the underlying stock’s market price. During such times, the ETF may face losses, wider bid-ask spreads, and challenges in managing its exposure. Anthropic faces risks related to intense competition among frontier AI developers, substantial and ongoing compute and infrastructure costs, reliance on third-party cloud and hardware providers, evolving AI safety and regulatory obligations, cybersecurity threats, litigation, and reputational events that may affect its business and operations. You should refer to the prospectuses for <a href="https://www.sec.gov/Archives/edgar/data/1174610/000117461026001214/f46575d1.htm">ANTU</a> and <a href="https://www.sec.gov/Archives/edgar/data/1174610/000117461026001215/f46576d1.htm">ANTY</a> for a more complete description of issuer risks.</p>
+      <p><strong>These leveraged and inverse single-stock ETFs’ performance depends almost entirely on the performance of their underlying single stock, which involves significant risk and eliminates the benefits of diversification. The underlying stock may experience significant price volatility at any time. Before investing, you should carefully consider that high volatility may have a significant negative impact on the Fund’s performance.</strong> It may also experience abnormal returns, which should not be expected to persist. The ETF’s performance should be measured from one NAV calculation time to the next and does not represent the returns you would receive if you traded shares at other times. Market volatility or disruptions in the trading of the underlying stock may impair the ETF’s ability to obtain or maintain its desired exposure and could result in losses or wider bid-ask spreads. IPO investments generally carry higher risks, including limited trading history, market risk, and liquidity concerns. The underlying stock may experience periods of low liquidity, making it difficult to buy or sell at desired prices. Large ETF positions may increase this risk and impact the underlying stock’s market price. During such times, the ETF may face losses, wider bid-ask spreads, and challenges in managing its exposure. Anthropic faces risks related to intense competition among frontier AI developers, substantial and ongoing compute and infrastructure costs, reliance on third-party cloud and hardware providers, evolving AI safety and regulatory obligations, cybersecurity threats, litigation, and reputational events that may affect its business and operations. You should refer to the <a>prospectuses</a> for ANTU and ANTY for a more complete description of issuer risks.</p>
       <p>ProShares has derived all disclosures herein regarding the issuer from publicly available sources it deems to be reliable and makes no representation as to their accuracy or completeness. ProShares cannot give any assurance that all relevant events that would affect the trading price of the issuer have been publicly disclosed. Any future developments, whether disclosed or not, could affect the value of the issuer and, in turn, the value of the ETF. The ETF and ProShare Advisors LLC are not affiliated with the underlying stock issuer.</p>
       <p><strong>Investing involves risk, including the possible loss of principal.</strong> Leveraged and inverse ProShares ETFs are non-diversified and entail certain risks, including risk associated with the use of derivatives (swap agreements, futures contracts and similar instruments), imperfect benchmark correlation, leverage and market price variance, all of which can increase volatility and decrease performance. The ETF's investment exposure is concentrated in the industry in which the underlying stock operates. Narrowly focused investments typically exhibit higher volatility. Investors could potentially lose the full value of their investment within a single day. Please see the summary and full prospectuses</a> at ProShares.com for a more complete description of risks. <strong>There is no guarantee any ProShares ETF will achieve its investment objective.</strong></p>
       <p>Shares of any ETF are generally bought and sold at market price (not NAV) and are not individually redeemed from the fund. Your brokerage commissions will reduce returns.</p>
