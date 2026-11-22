@@ -50,18 +50,8 @@ const heroTicker = document.getElementById('heroTicker');
 const FUND_EFFECTIVE = true;
 const FUND_LISTED = true;
 
-// ---- Status badge: two independent controls, not tied to a fixed pair
-// of preset states —
-//   STATUS_BADGE_VISIBLE: set to false to remove the badge completely.
-//   STATUS_BADGE_TEXT: edit this string to say anything you want, at
-//     any stage (e.g. "Available Soon", "Listing This Fall", etc.) —
-//     it's a normal string, not limited to two presets. The line below
-//     just picks a sensible default depending on FUND_LISTED (not
-//     FUND_EFFECTIVE — a fund can be effective without trading yet,
-//     so "Now Trading" shouldn't show until it's actually listed),
-//     but you can override it directly any time. ----
 const STATUS_BADGE_VISIBLE = true;
-const STATUS_BADGE_TEXT = FUND_LISTED ? 'Now Trading' : 'Trading Expected to Begin Monday, Nov. 23';
+const STATUS_BADGE_TEXT = FUND_LISTED ? 'Now Trading' : 'Trading Begins Monday, Nov. 23';
 
 // ---- Signup: Once FUND_LISTED is true:
 //   - the thin banner's button is replaced with a small inline
@@ -72,11 +62,9 @@ const STATUS_BADGE_TEXT = FUND_LISTED ? 'Now Trading' : 'Trading Expected to Beg
 //     a direct response to their own action, not an interruption)
 // Edit any of these strings freely — plain text, not limited to
 // these two presets. ----
-const SIGNUP_HEADING_PRE_LISTING = '<strong>ANTU</strong> and <strong>ANTY</strong> are expected to begin trading on Nasdaq <strong>Monday, Nov. 23</strong>.';
+const SIGNUP_HEADING_PRE_LISTING = '<strong>ANTU</strong> and <strong>ANTY</strong> begin trading on Nasdaq <strong>Monday, Nov. 23</strong>.';
 const SIGNUP_HEADING_LISTED = 'Available to trade: <strong>ANTU</strong> and <strong>ANTY</strong>.';
 const SIGNUP_POPUP_SUBTITLE_PRE_LISTING = 'Get an email alert as soon as the funds list.';
-//const CONFIRM_MESSAGE_PRE_LISTING = 'ProShares will notify you when ANTU and ANTY are available to trade.';
-//const CONFIRM_MESSAGE_LISTED = "You'll get market insights and ProShares updates in your inbox.";
 
 document.getElementById('signupThinHeading').innerHTML = FUND_LISTED ? SIGNUP_HEADING_LISTED : SIGNUP_HEADING_PRE_LISTING;
 
@@ -234,7 +222,6 @@ const tickerItems = [
   "Claude is reportedly named after <b>Claude Shannon</b>, the father of information theory",
   'Anthropic was co-founded in 2021 by siblings <b>Dario and Daniela Amodei</b>',
   'Anthropic employs more than <b>5,300 people</b> company-wide',
-  "Public S-1 filed 10/26/26",
   'Anthropic went public on 11/19/26',
   "Anthropic's ticker symbol: $ANT"
 ];
