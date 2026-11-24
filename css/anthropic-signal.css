@@ -807,8 +807,8 @@
     .signup-thin-btn:hover{transform:translateY(-1px); box-shadow:0 4px 12px rgba(0,0,0,.2);color:#fff; background:#1A3302;}
   /* ---- shared form pieces (used inside the signup popup) ---- */
   .signup-text{flex-shrink:0;}
-  .signup-text .big{font-size:24pt; color:#fff; white-space:nowrap;}
-  .signup-text .med{font-size:16pt; color:#fff; margin: 1rem 0;}
+  .signup-text .big{font-size:40pt; color:#fff; white-space:nowrap;}
+  .signup-text .med{font-size:18pt; color:#fff; margin: 1rem 0;}
   .signup-text .small{font-size:12pt; color:#E5CBC1; margin-top:6px;}
   .signup-tick{display:inline-block; font-family:var(--font-body);}
   .signup-form{display:flex; gap:10px; flex-wrap:wrap; align-items:center; justify-content:center;}
@@ -914,7 +914,7 @@
     background:var(--long);
     border-radius:18px;
     padding:40px 36px;
-    max-width:400px;
+    max-width:600px;
     width:100%;
     position:relative;
     box-shadow:0 30px 70px rgba(0,0,0,.35);
