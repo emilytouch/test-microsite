@@ -223,7 +223,7 @@ const tickerItems = [
   'Anthropic was co-founded in 2021 by siblings <b>Dario and Daniela Amodei</b>',
   'Anthropic employs more than <b>5,300 people</b> company-wide',
   'Anthropic went public on 11/19/26',
-  "Anthropic's ticker symbol: $ANT"
+  "Anthropic's ticker symbol: ANT"
 ];
 const track = document.getElementById('tickerTrack');
 const loopContent = tickerItems.concat(tickerItems).map(t => `<span>${t}</span>`).join('');
@@ -305,7 +305,7 @@ function doSignup(e){
 //   'banner' — never auto-opens; only opens when someone clicks the
 //              thin banner's button
 const SIGNUP_STYLE = 'popup'; // 'banner' or 'popup'
-const SIGNUP_POPUP_DELAY_MS = 5000;
+const SIGNUP_POPUP_DELAY_MS = 1000;
 
 function closeSignupPopup(){
   document.getElementById('signupPopupOverlay').classList.remove('open');
@@ -322,7 +322,7 @@ document.addEventListener('keydown', (e) => {
   if(e.key === 'Escape') closeSignupPopup();
 });
 
-if(SIGNUP_STYLE === 'popup' && !FUND_LISTED){
+if(SIGNUP_STYLE === 'popup'){
   setTimeout(() => {
     document.getElementById('signupPopupOverlay').classList.add('open');
     trackEvent('signup_popup_shown', {trigger: 'timer'});

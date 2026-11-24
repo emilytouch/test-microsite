@@ -191,7 +191,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
   <div class="signup-inner-thin">
     <div class="signup-text-thin" id="signupThinHeading"></span></div>
     <div id="signupThinAction">
-      <button class="signup-thin-btn" id="signupThinBtn" onclick="openSignupPopupNow()">Remind Me</button>
+      <button class="signup-thin-btn" id="signupThinBtn" onclick="openSignupPopupNow()"></button>
     </div>
   </div>
 </div>
@@ -202,9 +202,12 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 <div class="signup-popup-overlay" id="signupPopupOverlay">
   <div class="signup-popup-card">
     <button class="signup-popup-close" onclick="closeSignupPopup()" aria-label="Close">&times;</button>
-    <form class="signup-form" id="signupFormPopup" onsubmit="return doSignup(event)">
-      <script src="https://js.hsforms.net/forms/embed/developer/47065601.js" defer></script>
-      <div class="hs-form-html" data-region="na1" data-form-id="0e38dfff-0f3d-4874-978b-f04598e34024" data-portal-id="47065601"></div>
+    <form class="signup-text" id="signupFormPopup">
+      <!--<script src="https://js.hsforms.net/forms/embed/developer/47065601.js" defer></script>
+      <div class="hs-form-html" data-region="na1" data-form-id="0e38dfff-0f3d-4874-978b-f04598e34024" data-portal-id="47065601"></div>-->
+      <div class="big"><strong>ANTU</strong></div>
+      <div class="med">The Most Traded 2x Long Anthropic ETF.</div>
+      <div class="small">Source: Bloomberg, as of 11/23/26. Based on first-day dollar trading volume.</div>
     </form>
   </div>
 </div>

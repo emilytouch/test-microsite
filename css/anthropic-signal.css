@@ -807,7 +807,8 @@
     .signup-thin-btn:hover{transform:translateY(-1px); box-shadow:0 4px 12px rgba(0,0,0,.2);color:#fff; background:#1A3302;}
   /* ---- shared form pieces (used inside the signup popup) ---- */
   .signup-text{flex-shrink:0;}
-  .signup-text .big{font-size:18pt; color:#fff; white-space:nowrap;}
+  .signup-text .big{font-size:24pt; color:#fff; white-space:nowrap;}
+  .signup-text .med{font-size:16pt; color:#fff; margin: 1rem 0;}
   .signup-text .small{font-size:12pt; color:#E5CBC1; margin-top:6px;}
   .signup-tick{display:inline-block; font-family:var(--font-body);}
   .signup-form{display:flex; gap:10px; flex-wrap:wrap; align-items:center; justify-content:center;}
@@ -874,7 +875,6 @@
 .hsfc-NavigationRow {
   margin-top: 0 !important;
 }
-  /* ---- signup confirmation popup — this is the conversion moment ---- */
   .confirm-overlay{
     display:none; position:fixed; inset:0; z-index:200; background:rgba(20,21,26,.55);
     align-items:center; justify-content:center; padding:20px;
@@ -914,13 +914,12 @@
     background:var(--long);
     border-radius:18px;
     padding:40px 36px;
-    max-width:500px;
+    max-width:350px;
     width:100%;
     position:relative;
     box-shadow:0 30px 70px rgba(0,0,0,.35);
     animation:confirm-in .25s ease;
   }
-  .signup-popup-card .signup-text{margin-bottom:24px;}
   .signup-popup-card .signup-text .big{white-space:normal;}
   .signup-popup-card .signup-form{flex-direction:column; align-items:stretch; gap:16px;}
   .signup-popup-card .seg{justify-content:center; margin:0 auto;}
